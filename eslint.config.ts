@@ -3,7 +3,7 @@ import { defineConfig } from 'eslint/config';
 
 export default defineConfig(
   ...totvibe({
-    ignores: ['**/.tsbuild/**'],
+    ignores: ['**/.tsbuild/**', 'reference_clones/**'],
     react: true,
     tsconfigRootDir: import.meta.dirname,
   }),

@@ -1,6 +1,11 @@
+import { Lock, MousePointerClick, Plug, ScrollText, Server } from 'lucide-react';
+
 import { SECURITY } from '../../content';
+import { Pictogram } from '../ui/pictogram';
 import { Reveal } from '../ui/reveal';
 import { SpotlightCard } from '../ui/spotlight-card';
+
+const POINT_ICONS = [Plug, MousePointerClick, ScrollText, Lock, Server];
 
 export const Security = () => (
   <section className='relative py-32' id='security'>
@@ -16,14 +21,18 @@ export const Security = () => (
       </Reveal>
 
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mx-auto max-w-5xl'>
-        {SECURITY.points.map((point, index) => (
-          <Reveal delay={index * 0.08} key={point.title}>
-            <SpotlightCard>
-              <h3 className='text-xl font-semibold text-heading mb-2'>{point.title}</h3>
-              {point.detail !== undefined && <p className='text-muted'>{point.detail}</p>}
-            </SpotlightCard>
-          </Reveal>
-        ))}
+        {SECURITY.points.map((point, index) => {
+          const Icon = POINT_ICONS[index];
+          return (
+            <Reveal delay={index * 0.08} key={point.title}>
+              <SpotlightCard>
+                {Icon !== undefined && <Pictogram delay={index * 0.08} icon={Icon} />}
+                <h3 className='text-xl font-semibold text-heading mb-2'>{point.title}</h3>
+                {point.detail !== undefined && <p className='text-muted'>{point.detail}</p>}
+              </SpotlightCard>
+            </Reveal>
+          );
+        })}
       </div>
     </div>
   </section>

@@ -37,6 +37,7 @@ typecheck:
 
 # Lint and format every workspace package: eslint --fix + prettier --write.
 lint:
+    uv run --group lint rumdl check --fix
     bun run lint:fix
     bun run format
 
@@ -63,3 +64,6 @@ upgrade *args='':
 upgrade-interactive:
     bun run upgrade -- -i
     bun install
+
+clone repo ref="":
+    scripts/clone_reference.py {{ repo }} {{ ref }}

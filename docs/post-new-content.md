@@ -14,9 +14,9 @@ user-visible string lives there; page titles/meta are duplicated in `apps/web/*.
       `audit` · `agent-updates` · `insights-updates`. A honeypot field (`website`) is
       stripped client-side; the service's spam filtering does the rest (Cloudflare
       Turnstile is optional post-launch hardening).
-- [ ] **hello@zyplux.ai mailbox** — being set up (Sergiy). Published in the footer and on
+- [ ] **<hello@zyplux.ai> mailbox** — being set up (Sergiy). Published in the footer and on
       the privacy page; must receive mail before launch. Interim personal contact is
-      sergiy.yeskov@gmail.com — never publish the personal address.
+      <sergiy.yeskov@gmail.com> — never publish the personal address.
 
 ## Verify before launch
 
