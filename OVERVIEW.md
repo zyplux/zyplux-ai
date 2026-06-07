@@ -14,7 +14,7 @@ Modern React frontpage with a dark GitHub-inspired aesthetic (parallax grid back
 
 ### Workspace Structure
 
-- `apps/web/` - Main Vite app with 3D scenes, components, sections
+- `apps/web/` - Marketing site: one-pager (`/`) plus static `/agent`, `/insights`, `/privacy` pages (multi-input Vite build, no router)
 - `packages/ui/` - Shared utilities (`cn`)
 - `packages/tsconfig/` - Shared TypeScript presets (`base.json`, `bun.json`, `web.json`)
 - `packages/tests/` - Smoke tests hitting public package interfaces only: `fixtures/` (expected copy), `stories/` (scenario registrars), `web/` (happy-dom preload + harness)
@@ -103,10 +103,14 @@ Workspace packages use `workspace:*` protocol.
 
 ### Web App (`apps/web/src/`)
 
-- `components/layout/` - GridBackground (parallax grid), Navigation (scroll progress bar)
-- `components/sections/` - Hero, Features, Footer
-- `App.tsx` - Main app composition
-- `main.tsx` - Entry point
+- `content.ts` - Every user-visible string (single source of truth, also imported by tests via `@zyplux/web/content`) plus the `FORM_ENDPOINT` placeholder for the hosted form service
+- `components/layout/` - GridBackground (parallax grid), Navigation (scroll progress bar), SubpageLayout
+- `components/sections/` - Hero, VignetteTimeline, NotChatbot, ProcessLadder, FounderNote, Security, Faq, FinalCta, Footer
+- `components/forms/` - hosted-form hook + honeypot, AuditForm, EmailCapture
+- `components/ui/` - Reveal (scroll reveal, reduced-motion aware), SpotlightCard
+- `pages/` - AgentPage, InsightsPage, PrivacyPage
+- `App.tsx` - One-pager composition
+- `main.tsx` / `agent.tsx` / `insights.tsx` / `privacy.tsx` - Entry points (one per `*.html` Vite input), shared `mount.tsx`
 
 ## Build Targets
 

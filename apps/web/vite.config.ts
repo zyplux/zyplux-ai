@@ -8,6 +8,14 @@ const __dirname = fileURLToPath(new URL('.', import.meta.url));
 
 export default defineConfig({
   build: {
+    rollupOptions: {
+      input: {
+        agent: path.resolve(__dirname, 'agent.html'),
+        index: path.resolve(__dirname, 'index.html'),
+        insights: path.resolve(__dirname, 'insights.html'),
+        privacy: path.resolve(__dirname, 'privacy.html'),
+      },
+    },
     target: ['chrome107', 'edge107', 'firefox104', 'safari16'],
   },
   plugins: [react(), cloudflare()],
