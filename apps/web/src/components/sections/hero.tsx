@@ -2,10 +2,7 @@ import { ArrowRight, Sparkles } from 'lucide-react';
 import { motion } from 'motion/react';
 
 export const Hero = () => (
-  <section
-    className='relative min-h-screen flex items-center justify-center overflow-hidden'
-    style={{ willChange: 'auto' }}
-  >
+  <section className='relative min-h-screen flex items-center justify-center overflow-hidden'>
     <div className='container mx-auto px-4 py-32 relative z-10'>
       <motion.div
         animate={{ opacity: 1, y: 0 }}
@@ -15,28 +12,26 @@ export const Hero = () => (
       >
         <motion.div
           animate={{ opacity: 1, scale: 1 }}
-          className='inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-8'
+          className='inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/30 mb-8'
           initial={{ opacity: 0, scale: 0.8 }}
           transition={{ duration: 0.6 }}
         >
-          <Sparkles className='h-4 w-4 text-primary' />
-          <span className='text-sm font-medium text-primary'>Neural Intelligence Systems</span>
+          <Sparkles className='h-4 w-4 text-accent' />
+          <span className='text-sm font-medium text-accent'>Neural Intelligence Systems</span>
         </motion.div>
 
         <motion.h1
           animate={{ opacity: 1, y: 0 }}
-          className='text-6xl md:text-8xl font-bold mb-6 leading-tight'
+          className='text-6xl md:text-8xl font-bold mb-6 leading-tight tracking-tight'
           initial={{ opacity: 0, y: 20 }}
           transition={{ delay: 0.3, duration: 0.8 }}
         >
-          <span className='bg-gradient-to-r from-primary via-purple-500 to-pink-500 bg-clip-text text-transparent animate-shimmer bg-[length:200%_auto] animate-pulse-glow'>
-            Totvibe
-          </span>
+          <span className='text-gradient animate-shimmer bg-[length:200%_auto]'>Zyplux</span>
         </motion.h1>
 
         <motion.p
           animate={{ opacity: 1, y: 0 }}
-          className='text-xl md:text-2xl text-muted-foreground mb-12 max-w-2xl mx-auto'
+          className='text-xl md:text-2xl text-muted mb-12 max-w-2xl mx-auto'
           initial={{ opacity: 0, y: 20 }}
           transition={{ delay: 0.4, duration: 0.8 }}
         >
@@ -51,9 +46,9 @@ export const Hero = () => (
         >
           <motion.button
             aria-label='Deploy AI Agents (Coming Soon)'
-            className='px-8 py-4 rounded-full bg-primary text-primary-foreground font-semibold flex items-center gap-2 shadow-lg shadow-primary/50 hover:shadow-xl hover:shadow-primary/60 transition-shadow'
-            whileHover={{ scale: 1.05, willChange: 'transform' }}
-            whileTap={{ scale: 0.95 }}
+            className='px-7 py-3.5 rounded-lg bg-accent text-background font-semibold flex items-center gap-2 shadow-lg shadow-accent/30 hover:shadow-xl hover:shadow-accent/45 transition-shadow'
+            whileHover={{ y: -2 }}
+            whileTap={{ scale: 0.97 }}
           >
             Deploy Agents
             <ArrowRight className='h-5 w-5' />
@@ -61,9 +56,9 @@ export const Hero = () => (
 
           <motion.button
             aria-label='Explore AI Framework (Coming Soon)'
-            className='px-8 py-4 rounded-full border-2 border-primary text-foreground font-semibold hover:bg-primary/10 transition-colors'
-            whileHover={{ scale: 1.05, willChange: 'transform' }}
-            whileTap={{ scale: 0.95 }}
+            className='px-7 py-3.5 rounded-lg border border-border bg-surface/60 text-heading font-semibold hover:border-accent/55 hover:bg-surface transition-colors'
+            whileHover={{ y: -2 }}
+            whileTap={{ scale: 0.97 }}
           >
             Explore Framework
           </motion.button>
@@ -78,14 +73,14 @@ export const Hero = () => (
       >
         <motion.div
           animate={{ y: [0, 10, 0] }}
-          className='text-muted-foreground'
+          className='text-muted'
           initial={{ y: 0 }}
           transition={{ delay: 1.1, duration: 2, repeat: Infinity }}
         >
-          <div className='w-6 h-10 border-2 border-primary/50 rounded-full flex items-start justify-center p-2'>
+          <div className='w-6 h-10 border-2 border-border rounded-full flex items-start justify-center p-2'>
             <motion.div
               animate={{ y: [0, 12, 0] }}
-              className='w-1.5 h-1.5 bg-primary rounded-full'
+              className='w-1.5 h-1.5 bg-accent rounded-full'
               initial={{ y: 0 }}
               transition={{ delay: 1.1, duration: 1.5, repeat: Infinity }}
             />

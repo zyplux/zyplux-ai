@@ -1,32 +1,25 @@
-import { useAtom } from 'jotai';
-import { Waves } from 'lucide-react';
-import { motion } from 'motion/react';
-import { useEffect } from 'react';
+import { Zap } from 'lucide-react';
+import { motion, useMotionValueEvent, useScroll, useSpring } from 'motion/react';
+import { useState } from 'react';
 
-import { ThemeToggle } from '@/components/theme/theme-toggle';
-import { scrolledAtom } from '@/store/atoms';
+const sectionLinks = ['Capabilities', 'Connect'];
 
 export const Navigation = () => {
-  const [scrolled, setScrolled] = useAtom(scrolledAtom);
+  const [scrolled, setScrolled] = useState(false);
+  const { scrollY, scrollYProgress } = useScroll();
+  const scrollProgress = useSpring(scrollYProgress, { damping: 40, stiffness: 200 });
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, [setScrolled]);
+  useMotionValueEvent(scrollY, 'change', latest => {
+    setScrolled(latest > 50);
+  });
 
   return (
     <motion.nav
       animate={{ y: 0 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? 'bg-background/80 backdrop-blur-lg border-b border-border' : 'bg-transparent'
+      className={`fixed top-0 left-0 right-0 z-50 border-b transition-colors duration-300 ${
+        scrolled ? 'bg-background/80 backdrop-blur-lg border-border' : 'bg-transparent border-transparent'
       }`}
-      initial={{ y: -100 }}
+      initial={{ y: -80 }}
       style={{ willChange: 'transform' }}
       transition={{ damping: 30, stiffness: 100, type: 'spring' }}
     >
@@ -35,38 +28,35 @@ export const Navigation = () => {
           aria-label='Scroll to top'
           className='flex items-center gap-2 cursor-pointer'
           href='/'
-          onClick={e => {
-            e.preventDefault();
+          onClick={event => {
+            event.preventDefault();
             window.scrollTo({ behavior: 'smooth', top: 0 });
             globalThis.history.pushState({}, '', '/');
           }}
           transition={{ stiffness: 300, type: 'spring' }}
           whileHover={{ scale: 1.05 }}
         >
-          <Waves className='h-8 w-8 text-primary' />
-          <span className='text-2xl font-bold bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent'>
-            Totvibe
-          </span>
+          <Zap className='h-6 w-6 text-accent' />
+          <span className='text-xl font-bold tracking-tight text-heading'>Zyplux</span>
         </motion.a>
 
-        <div className='flex items-center gap-8'>
-          <div className='hidden md:flex items-center gap-6'>
-            {['Capabilities', 'Architecture', 'Connect'].map(item => (
-              <motion.a
-                className='text-sm font-medium text-muted-foreground hover:text-foreground transition-colors'
-                href={`#${item.toLowerCase()}`}
-                key={item}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                {item}
-              </motion.a>
-            ))}
-          </div>
-
-          <ThemeToggle />
+        <div className='hidden md:flex items-center gap-6'>
+          {sectionLinks.map(item => (
+            <a
+              className='text-sm font-medium text-muted hover:text-heading transition-colors'
+              href={`#${item.toLowerCase()}`}
+              key={item}
+            >
+              {item}
+            </a>
+          ))}
         </div>
       </div>
+
+      <motion.div
+        className='absolute bottom-0 left-0 right-0 h-0.5 origin-left bg-gradient-to-r from-accent to-violet'
+        style={{ scaleX: scrollProgress }}
+      />
     </motion.nav>
   );
 };

@@ -4,9 +4,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Modern React frontpage with 3D graphics, built as a strict TypeScript monorepo using Bun workspaces. Local packages are scoped `@zyplux/*`; shared lint rules come from the published `@totvibe/eslint-config`.
+Modern React frontpage with a dark GitHub-inspired aesthetic (parallax grid background, glow-on-hover, scroll reveals), built as a strict TypeScript monorepo using Bun workspaces. Local packages are scoped `@zyplux/*`; shared lint rules come from the published `@totvibe/eslint-config`.
 
-**Stack:** React 19.2, Vite 7, TypeScript 6, Three.js/R3F, Motion v12, Tailwind CSS 4
+**Stack:** React 19.2, Vite 8, TypeScript 6, Motion v12, Tailwind CSS 4
 
 **Target:** Cloudflare deployment (wrangler, assets-only) with local dev via Vite
 
@@ -89,37 +89,23 @@ Workspace packages use `workspace:*` protocol.
 ### React
 
 - Functional components with arrow functions
-- Custom hooks for reusable logic
-- Jotai for global state (`shouldLoadSceneAtom`, `themeAtom`)
-- Lazy load 3D scene for performance
-- Motion v12 for animations
-- `prefers-reduced-motion` support
-
-### 3D Graphics
-
-- React Three Fiber for Three.js integration
-- `@react-three/drei` for helpers (OrbitControls, Float, etc.)
-- `@react-three/postprocessing` for effects (Bloom, Vignette)
-- Particle systems use Float32Array for performance
-- `willChange: 'transform'` on animated elements
+- Motion v12 for animations (`useScroll`/`useTransform` parallax, `useInView` scroll reveals)
+- `prefers-reduced-motion` support (motion's `useReducedMotion`)
 
 ### Styling
 
 - Tailwind CSS 4 with `@tailwindcss/postcss`
-- CSS variables for theming
-- Dark/light/system modes via `use-theme.ts` + `themeAtom`
+- Dark-only GitHub-dark palette as `@theme` tokens in `index.css` (`background #0d1117`, `surface`, `accent #58a6ff`, `violet #bc8cff`)
+- `text-gradient` utility for headline gradients; `shadow-glow` for card hover
 - `cn()` utility for className merging (`clsx` + `tailwind-merge`)
 
 ## File Structure
 
 ### Web App (`apps/web/src/`)
 
-- `components/three/` - 3D scenes (Scene, ParticleField, FloatingShapes)
-- `components/theme/` - ThemeToggle
-- `components/layout/` - Navigation
+- `components/layout/` - GridBackground (parallax grid), Navigation (scroll progress bar)
 - `components/sections/` - Hero, Features, Footer
-- `store/atoms.ts` - Jotai atoms for global state
-- `App.tsx` - Main app with lazy-loaded Scene
+- `App.tsx` - Main app composition
 - `main.tsx` - Entry point
 
 ## Build Targets

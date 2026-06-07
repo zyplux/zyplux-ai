@@ -1,3 +1,5 @@
+import type { MouseEvent } from 'react';
+
 import { Brain, Cpu, Network, Sparkles, Workflow, Zap } from 'lucide-react';
 import { motion, useInView } from 'motion/react';
 import { useRef } from 'react';
@@ -37,6 +39,12 @@ const features = [
   },
 ];
 
+const trackSpotlight = (event: MouseEvent<HTMLDivElement>) => {
+  const bounds = event.currentTarget.getBoundingClientRect();
+  event.currentTarget.style.setProperty('--spot-x', `${String(event.clientX - bounds.left)}px`);
+  event.currentTarget.style.setProperty('--spot-y', `${String(event.clientY - bounds.top)}px`);
+};
+
 const FeatureCard = ({
   feature,
   index,
@@ -52,47 +60,44 @@ const FeatureCard = ({
 
   return (
     <motion.div
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 32 }}
       className={`group relative ${isFeatured ? 'md:col-span-2' : ''}`}
-      initial={{ opacity: 0, y: 50 }}
+      initial={{ opacity: 0, y: 32 }}
       ref={ref}
-      style={{ perspective: '1000px', transformStyle: 'preserve-3d', willChange: 'transform, opacity' }}
-      transition={{ delay: index * 0.1, duration: 0.6 }}
-      whileHover={{
-        rotateX: 5,
-        rotateY: 5,
-        y: -8,
-      }}
+      style={{ willChange: 'transform, opacity' }}
+      transition={{ delay: index * 0.08, duration: 0.5 }}
+      whileHover={{ y: -3 }}
     >
       <div
-        className={`h-full rounded-2xl bg-card/50 backdrop-blur-lg border ${isFeatured ? 'border-primary/30' : 'border-border/50'} ${isFeatured ? 'p-12' : 'p-8'} hover:border-primary/50 transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-primary/10`}
+        className={`relative h-full overflow-hidden rounded-xl border bg-surface ${
+          isFeatured ? 'border-accent/30 p-10 md:p-12' : 'border-border p-8'
+        } transition-[border-color,box-shadow] duration-300 group-hover:border-accent/55 group-hover:shadow-glow`}
+        onMouseMove={trackSpotlight}
+        style={{ backgroundImage: 'linear-gradient(180deg, rgb(110 118 129 / 0.07), transparent 40%)' }}
       >
-        <div className='absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300' />
-        {isFeatured && (
-          <div className='absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-purple-500/10 rounded-2xl' />
-        )}
+        <div
+          className='absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none'
+          style={{
+            background:
+              'radial-gradient(420px circle at var(--spot-x, 50%) var(--spot-y, 0%), rgb(88 166 255 / 0.08), transparent 65%)',
+          }}
+        />
 
         <motion.div
-          animate={isInView ? { rotate: 0, scale: 1 } : { rotate: -180, scale: 0 }}
-          className={`${isFeatured ? 'w-20 h-20' : 'w-14 h-14'} rounded-xl bg-primary/10 flex items-center justify-center mb-6 relative z-10`}
-          initial={{ rotate: -180, scale: 0 }}
-          style={{ willChange: 'transform' }}
-          transition={{ delay: index * 0.1 + 0.2, duration: 0.5, stiffness: 200, type: 'spring' }}
-          whileHover={{ rotate: 360, scale: 1.1 }}
+          animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+          className={`${isFeatured ? 'w-16 h-16' : 'w-12 h-12'} rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center mb-6 relative z-10 transition-colors duration-300 group-hover:bg-accent/15`}
+          initial={{ opacity: 0, scale: 0.8 }}
+          transition={{ delay: index * 0.08 + 0.15, duration: 0.4 }}
         >
-          <motion.div
-            animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-            initial={{ opacity: 0 }}
-            transition={{ delay: index * 0.1 + 0.4, duration: 0.3 }}
-          >
-            <Icon className={`${isFeatured ? 'h-10 w-10' : 'h-7 w-7'} text-primary`} />
-          </motion.div>
+          <Icon className={`${isFeatured ? 'h-8 w-8' : 'h-6 w-6'} text-accent`} />
         </motion.div>
 
-        <h3 className={`${isFeatured ? 'text-2xl md:text-3xl' : 'text-xl'} font-bold mb-3 relative z-10`}>
+        <h3
+          className={`${isFeatured ? 'text-2xl md:text-3xl' : 'text-xl'} font-semibold text-heading mb-3 relative z-10`}
+        >
           {feature.title}
         </h3>
-        <p className={`text-muted-foreground relative z-10 ${isFeatured ? 'text-lg' : ''}`}>{feature.description}</p>
+        <p className={`text-muted relative z-10 ${isFeatured ? 'text-lg' : ''}`}>{feature.description}</p>
       </div>
     </motion.div>
   );
@@ -112,19 +117,17 @@ export const Features = () => {
           ref={ref}
           transition={{ duration: 0.8 }}
         >
-          <h2 className='text-5xl md:text-6xl font-bold mb-6'>
-            <span className='bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent'>
-              Core Capabilities
-            </span>
+          <h2 className='text-4xl md:text-5xl font-bold tracking-tight mb-6'>
+            <span className='text-gradient'>Core Capabilities</span>
           </h2>
-          <p className='text-xl text-muted-foreground max-w-2xl mx-auto'>
+          <p className='text-xl text-muted max-w-2xl mx-auto'>
             Build intelligent applications powered by autonomous AI agents that think, learn, and execute
           </p>
         </motion.div>
 
-        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
+        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
           {features.map((feature, index) => (
-            <FeatureCard feature={feature} index={index} isFeatured={index === 0} key={index} />
+            <FeatureCard feature={feature} index={index} isFeatured={index === 0} key={feature.title} />
           ))}
         </div>
       </div>

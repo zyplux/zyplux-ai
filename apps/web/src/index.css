@@ -1,70 +1,18 @@
 @import 'tailwindcss';
 
 @theme {
-  --color-background: oklch(1 0 0);
-  --color-foreground: oklch(0.2 0.01 240);
-  --color-card: oklch(1 0 0);
-  --color-card-foreground: oklch(0.2 0.01 240);
-  --color-popover: oklch(1 0 0);
-  --color-popover-foreground: oklch(0.2 0.01 240);
-  --color-primary: oklch(0.6 0.2 285);
-  --color-primary-foreground: oklch(0.98 0.01 240);
-  --color-secondary: oklch(0.96 0.01 240);
-  --color-secondary-foreground: oklch(0.2 0.01 240);
-  --color-muted: oklch(0.96 0.01 240);
-  --color-muted-foreground: oklch(0.5 0.02 240);
-  --color-accent: oklch(0.96 0.01 240);
-  --color-accent-foreground: oklch(0.2 0.01 240);
-  --color-destructive: oklch(0.6 0.2 20);
-  --color-destructive-foreground: oklch(0.98 0.01 240);
-  --color-border: oklch(0.92 0.01 240);
-  --color-input: oklch(0.92 0.01 240);
-  --color-ring: oklch(0.6 0.2 285);
-  --color-chart-1: oklch(0.65 0.15 30);
-  --color-chart-2: oklch(0.5 0.1 180);
-  --color-chart-3: oklch(0.4 0.05 200);
-  --color-chart-4: oklch(0.7 0.15 50);
-  --color-chart-5: oklch(0.7 0.15 10);
+  --color-background: #0d1117;
+  --color-surface: #161b22;
+  --color-border: #30363d;
+  --color-foreground: #c9d1d9;
+  --color-heading: #f0f6fc;
+  --color-muted: #8b949e;
+  --color-accent: #58a6ff;
+  --color-violet: #bc8cff;
 
-  --radius: 0.5rem;
-  --radius-lg: var(--radius);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-sm: calc(var(--radius) - 4px);
+  --shadow-glow: 0 12px 32px rgb(0 0 0 / 0.45), 0 0 24px rgb(88 166 255 / 0.14);
 
-  --animate-float: float 6s ease-in-out infinite;
-  --animate-glow: glow 2s ease-in-out infinite alternate;
-  --animate-gradient: gradient 8s linear infinite;
-  --animate-shimmer: shimmer 3s ease-in-out infinite;
-  --animate-pulse-glow: pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
-
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-20px);
-  }
-}
-
-@keyframes glow {
-  0% {
-    opacity: 0.5;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-@keyframes gradient {
-  0%,
-  100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
+  --animate-shimmer: shimmer 8s ease-in-out infinite;
 }
 
 @keyframes shimmer {
@@ -79,46 +27,10 @@
   }
 }
 
-@keyframes pulse-glow {
-  0%,
-  100% {
-    text-shadow:
-      0 0 20px rgb(168 85 247 / 0.5),
-      0 0 40px rgb(168 85 247 / 0.3);
-  }
-  50% {
-    text-shadow:
-      0 0 30px rgb(168 85 247 / 0.8),
-      0 0 60px rgb(168 85 247 / 0.5),
-      0 0 80px rgb(168 85 247 / 0.3);
-  }
-}
-
-.dark {
-  --color-background: oklch(0.15 0.02 240);
-  --color-foreground: oklch(0.98 0.01 240);
-  --color-card: oklch(0.15 0.02 240);
-  --color-card-foreground: oklch(0.98 0.01 240);
-  --color-popover: oklch(0.15 0.02 240);
-  --color-popover-foreground: oklch(0.98 0.01 240);
-  --color-primary: oklch(0.65 0.25 285);
-  --color-primary-foreground: oklch(0.98 0.01 240);
-  --color-secondary: oklch(0.25 0.03 240);
-  --color-secondary-foreground: oklch(0.98 0.01 240);
-  --color-muted: oklch(0.25 0.03 240);
-  --color-muted-foreground: oklch(0.65 0.02 240);
-  --color-accent: oklch(0.25 0.03 240);
-  --color-accent-foreground: oklch(0.98 0.01 240);
-  --color-destructive: oklch(0.5 0.2 25);
-  --color-destructive-foreground: oklch(0.98 0.01 240);
-  --color-border: oklch(0.25 0.03 240);
-  --color-input: oklch(0.25 0.03 240);
-  --color-ring: oklch(0.65 0.25 285);
-  --color-chart-1: oklch(0.6 0.15 240);
-  --color-chart-2: oklch(0.55 0.12 180);
-  --color-chart-3: oklch(0.65 0.15 50);
-  --color-chart-4: oklch(0.65 0.15 285);
-  --color-chart-5: oklch(0.6 0.15 350);
+@utility text-gradient {
+  background-image: linear-gradient(120deg, var(--color-heading) 25%, var(--color-accent) 65%, var(--color-violet) 95%);
+  background-clip: text;
+  color: transparent;
 }
 
 @layer base {
@@ -127,6 +39,7 @@
   }
 
   html {
+    color-scheme: dark;
     scroll-behavior: smooth;
   }
 
@@ -137,17 +50,19 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    background:
+      radial-gradient(ellipse 90% 40% at 50% -5%, rgb(88 166 255 / 0.14), transparent 70%),
+      radial-gradient(ellipse 60% 30% at 85% 5%, rgb(188 140 255 / 0.1), transparent 70%), var(--color-background);
+    background-attachment: fixed;
+    @apply text-foreground;
   }
 
-  /* Focus styles for accessibility */
   *:focus-visible {
-    @apply outline-none ring-2 ring-primary ring-offset-2 ring-offset-background;
+    @apply outline-none ring-2 ring-accent ring-offset-2 ring-offset-background;
   }
 
-  /* Skip link */
   .skip-link {
-    @apply absolute left-0 top-0 -translate-y-full bg-primary text-primary-foreground px-4 py-2 z-50 transition-transform;
+    @apply absolute left-0 top-0 -translate-y-full bg-accent text-background px-4 py-2 z-50 transition-transform;
   }
 
   .skip-link:focus {

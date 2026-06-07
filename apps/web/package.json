@@ -14,15 +14,10 @@
     "cf:dev": "wrangler dev"
   },
   "dependencies": {
-    "@react-three/drei": "catalog:",
-    "@react-three/fiber": "catalog:",
-    "@react-three/postprocessing": "catalog:",
-    "jotai": "catalog:",
     "lucide-react": "catalog:",
     "motion": "catalog:",
     "react": "catalog:",
-    "react-dom": "catalog:",
-    "three": "catalog:"
+    "react-dom": "catalog:"
   },
   "devDependencies": {
     "@cloudflare/vite-plugin": "catalog:",
@@ -30,7 +25,6 @@
     "@types/bun": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
-    "@types/three": "catalog:",
     "@vitejs/plugin-react": "catalog:",
     "@zyplux/tsconfig": "workspace:*",
     "autoprefixer": "catalog:",
