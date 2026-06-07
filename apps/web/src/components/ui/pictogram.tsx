@@ -5,7 +5,7 @@ import { useRef } from 'react';
 
 export const Pictogram = ({ delay = 0, icon: Icon }: { delay?: number; icon: LucideIcon }) => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { margin: '-100px', once: false });
+  const isInView = useInView(ref, { margin: '-100px 0px', once: false });
   const prefersReducedMotion = useReducedMotion();
 
   const hidden = prefersReducedMotion ? { opacity: 0 } : { opacity: 0, rotate: -180, scale: 0 };
