@@ -57,11 +57,11 @@ export const NAV = {
 
 export const HERO = {
   badge: 'Bespoke AI agents for smart businesses',
-  microcopy: 'No call required. Yours to keep.',
+  microcopy: 'No call required. Real findings in days.',
   primaryCta: 'Get your free workflow audit',
   secondaryCta: 'See how it works ↓',
   subhead:
-    'We integrate a private AI agent to the systems your business already runs on — email, spreadsheets, databases — and give it real jobs: the repetitive, multi-step work that eats your team’s week. It works around the clock. Nothing goes out without your approval.',
+    'We connect a private AI agent to the systems your business already runs on — email, spreadsheets, databases — and give it real jobs: the repetitive, multi-step work that eats your team’s week. It works around the clock. Nothing goes out without your approval.',
 };
 
 export const TIMELINE = {
@@ -116,11 +116,11 @@ export const PROCESS = {
   heading: 'How this becomes real',
   steps: [
     {
-      body: 'Tell us how your business runs — or let us take a look. You get back a plain-English read of your workflows, the top three automation opportunities ranked by the hours they’d return, and the exact fixed price to build the first one. No call required. Yours to keep — hire us or not.',
+      body: 'Tell us how your business runs — or let us take a look. You get back a plain-English read of your workflows, the top three automation opportunities ranked by the hours they’d return, and a plan to build the first one. No call required.',
       title: 'Free workflow audit.',
     },
     {
-      body: 'Pick one job from the audit. We connect Zyplux to the systems involved, build the workflow, and run it live — at the fixed price you already saw. You measure the result before any talk of more.',
+      body: 'Pick one job from the audit. We connect Zyplux to the systems involved, build the workflow, and run it live. You measure the result before any talk of more.',
       title: 'One workflow, live in weeks.',
     },
     {
@@ -133,7 +133,7 @@ export const PROCESS = {
 export const FOUNDER = {
   heading: 'Who’s behind Zyplux',
   paragraphs: [
-    'I’m Sergiy Yeskov, an engineer in Sydney. I’ve spent nearly twenty years building the software businesses run on — thirteen of them on a global logistics platform companies around the world use for their freight, invoicing, and pricing, where I built the pricing engine and led a team of ten-plus engineers. The last few years I’ve worked purely on AI: systems that read a company’s documents, answer from its own data, and — the hard part — act safely inside it.',
+    'I’m Sergiy Yeskov, an engineer in Sydney. I’ve spent nearly twenty years building the software businesses run on — thirteen of them on a global logistics platform that companies around the world use for their freight, invoicing, and pricing, where I built the pricing engine and led a team of ten-plus engineers. The last few years I’ve worked purely on AI: systems that read a company’s documents, answer from its own data, and — the hard part — act safely inside it.',
     'I built Zyplux because nothing on the shelf could do that hard part. Plenty of tools can chat about your business; none could be trusted to work inside it. So I built a platform where approvals, hard limits, and a full log of every action aren’t features bolted on — they’re the foundation it started from.',
     'When you work with Zyplux, you work with me: the engineer who built the platform designs your workflows, connects your systems, and answers your email. No account managers, no hand-offs, no juniors learning on your business.',
   ],
@@ -186,11 +186,6 @@ export const FAQ = {
     },
     {
       answer:
-        'Every project is a fixed price, scoped in the audit before you commit to anything. No day rates, no open-ended consulting bills, no surprises.',
-      question: 'What does it cost?',
-    },
-    {
-      answer:
         'It replaces the worst hour of their day, not their jobs. The point is to stop your best people retyping data so they can do the work you actually hired them for.',
       question: 'Will this replace my employees?',
     },
@@ -214,7 +209,7 @@ export const FAQ = {
 
 export const FINAL_CTA = {
   heading: 'Find out what’s hiding in your week.',
-  sub: 'The audit is free, takes one short form, and is yours to keep — whether you hire us or not.',
+  sub: 'The audit is free, takes one short form, and shows you exactly where to start.',
 };
 
 export const AUDIT_FORM = {

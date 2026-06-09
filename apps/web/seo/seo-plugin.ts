@@ -2,8 +2,8 @@ import type { HtmlTagDescriptor, Plugin } from 'vite';
 
 import path from 'node:path';
 
-import { PAGES } from '@/content';
-import { pageHead } from '@/seo';
+import { PAGES } from '@zyplux/web/content';
+import { pageHead } from '@zyplux/web/seo';
 
 const injectTo: HtmlTagDescriptor['injectTo'] = 'head';
 
