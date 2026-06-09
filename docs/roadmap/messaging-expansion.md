@@ -1,9 +1,15 @@
 # Messaging & service expansion proposal
 
-Status: proposal (2026-06-10). No code changed yet. Scope: how to expand the home-page
-content from "a private AI agent that does back-office work" to a systems-thinking
-practice that deploys agents, dashboards, and customer-facing software — without diluting
-the sharp positioning the site has today.
+Status: implemented (2026-06-10). Direction B (systems-thinking practice) chosen and built:
+the Method and What-we-build sections, the System Map and Ask→Dashboard animations, the
+animated timeline and hero ambient, the copy and FAQ additions, the audit reframe, and the
+edge security note all shipped. Deferred (documented below): the standalone Approval Gate
+animation (the System Map and the copy already carry the approval message) and the `/agent`
+live showcase (a separate, larger track that depends on the totvibe-agent embed).
+
+Scope: how to expand the home-page content from "a private AI agent that does back-office
+work" to a systems-thinking practice that deploys agents, dashboards, and customer-facing
+software — without diluting the sharp positioning the site has today.
 
 Honors the copy rules in `docs/old/post-new-content.md`: brand is **Zyplux** (never
 "Zyplux.ai"); banned words _agentic, LLM, orchestration, model, prompt, leverage,

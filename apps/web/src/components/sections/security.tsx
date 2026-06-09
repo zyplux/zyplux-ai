@@ -1,11 +1,11 @@
-import { Lock, MousePointerClick, Plug, ScrollText, Server } from 'lucide-react';
+import { Lock, MousePointerClick, Plug, ScrollText, Server, UserCheck } from 'lucide-react';
 
 import { Pictogram } from '@/components/ui/pictogram';
 import { Reveal } from '@/components/ui/reveal';
 import { SpotlightCard } from '@/components/ui/spotlight-card';
 import { SECURITY } from '@/content';
 
-const POINT_ICONS = [Plug, MousePointerClick, ScrollText, Lock, Server];
+const POINT_ICONS = [Plug, MousePointerClick, ScrollText, Lock, Server, UserCheck];
 
 export const Security = () => (
   <section className='relative py-32' id='security'>
