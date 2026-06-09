@@ -17,7 +17,7 @@ Modern React frontpage with a dark GitHub-inspired aesthetic (parallax grid back
 - `apps/web/` - Marketing site: one-pager (`/`) plus static `/agent`, `/insights`, `/privacy` pages (multi-input Vite build, no router)
 - `packages/ui/` - Shared utilities (`cn`)
 - `packages/tsconfig/` - Shared TypeScript presets (`base.json`, `bun.json`, `web.json`)
-- `packages/tests/` - Smoke tests hitting public package interfaces only: `fixtures/` (expected copy), `stories/` (scenario registrars), `web/` (happy-dom preload + harness)
+- `tests/` - Smoke tests hitting public package interfaces only: `fixtures/` (expected copy), `stories/` (scenario registrars), `web/` (happy-dom preload + harness)
 
 ## Commands
 

@@ -2,6 +2,10 @@
   "extends": "@zyplux/tsconfig/bun.json",
   "compilerOptions": {
     "outDir": "./.tsbuild/node",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@/og/*": ["./og/*"]
+    },
     "tsBuildInfoFile": "./.tsbuild/node/tsconfig.node.tsbuildinfo"
   },
   "references": [{ "path": "./tsconfig.json" }],

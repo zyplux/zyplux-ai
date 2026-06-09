@@ -1,8 +1,8 @@
 import { motion } from 'motion/react';
 
-import { PROCESS } from '../../content';
-import { Reveal } from '../ui/reveal';
-import { SpotlightCard } from '../ui/spotlight-card';
+import { Reveal } from '@/components/ui/reveal';
+import { SpotlightCard } from '@/components/ui/spotlight-card';
+import { PROCESS } from '@/content';
 
 export const ProcessLadder = () => (
   <section className='relative py-32' id='how-it-works'>

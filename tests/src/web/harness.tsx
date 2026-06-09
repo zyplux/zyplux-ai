@@ -2,7 +2,7 @@ import { cleanup, render } from '@testing-library/react';
 import App from '@zyplux/web';
 import { act } from 'react';
 
-import type { Harness } from '../stories/harness';
+import type { Harness } from '@/stories/harness';
 
 const visibleText = () => document.body.textContent;
 

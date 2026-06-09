@@ -2,8 +2,9 @@ import type { ReactNode } from 'react';
 
 import { ArrowLeft, Zap } from 'lucide-react';
 
-import { BRAND_NAME, NAV, SKIP_LINK_LABEL } from '../../content';
-import { Footer } from '../sections/footer';
+import { Footer } from '@/components/sections/footer';
+import { BRAND_NAME, NAV, SKIP_LINK_LABEL } from '@/content';
+
 import { GridBackground } from './grid-background';
 
 export const SubpageLayout = ({ children }: { children: ReactNode }) => (

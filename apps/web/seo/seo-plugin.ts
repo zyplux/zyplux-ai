@@ -2,8 +2,8 @@ import type { HtmlTagDescriptor, Plugin } from 'vite';
 
 import path from 'node:path';
 
-import { PAGES } from '../src/content';
-import { pageHead } from '../src/seo';
+import { PAGES } from '@/content';
+import { pageHead } from '@/seo';
 
 const injectTo: HtmlTagDescriptor['injectTo'] = 'head';
 

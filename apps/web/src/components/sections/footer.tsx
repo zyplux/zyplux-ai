@@ -1,6 +1,6 @@
 import { Zap } from 'lucide-react';
 
-import { BRAND_NAME, CONTACT_EMAIL, FOOTER, NAV } from '../../content';
+import { BRAND_NAME, CONTACT_EMAIL, FOOTER, NAV } from '@/content';
 
 export const Footer = () => (
   <footer className='relative mt-24 py-12 border-t border-border'>

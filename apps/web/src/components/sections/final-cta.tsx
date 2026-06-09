@@ -1,6 +1,6 @@
-import { FINAL_CTA } from '../../content';
-import { AuditForm } from '../forms/audit-form';
-import { Reveal } from '../ui/reveal';
+import { AuditForm } from '@/components/forms/audit-form';
+import { Reveal } from '@/components/ui/reveal';
+import { FINAL_CTA } from '@/content';
 
 export const FinalCta = () => (
   <section className='relative py-32' id='audit'>

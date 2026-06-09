@@ -1,6 +1,7 @@
-import type { FormName } from '../../content';
+import type { FormName } from '@/content';
 
-import { FORM_MESSAGES } from '../../content';
+import { FORM_MESSAGES } from '@/content';
+
 import { HoneypotField, SubmitErrorNote, useHostedForm } from './hosted-form';
 
 export const EmailCapture = ({

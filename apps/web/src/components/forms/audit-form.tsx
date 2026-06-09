@@ -1,4 +1,5 @@
-import { AUDIT_FORM, FORM_MESSAGES } from '../../content';
+import { AUDIT_FORM, FORM_MESSAGES } from '@/content';
+
 import { HoneypotField, SubmitErrorNote, useHostedForm } from './hosted-form';
 
 const fieldClasses =

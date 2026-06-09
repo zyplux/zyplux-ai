@@ -1,6 +1,6 @@
-import founderPhoto from '../../assets/founder.jpg';
-import { FOUNDER } from '../../content';
-import { Reveal } from '../ui/reveal';
+import founderPhoto from '@/assets/founder.jpg';
+import { Reveal } from '@/components/ui/reveal';
+import { FOUNDER } from '@/content';
 
 export const FounderNote = () => (
   <section className='relative py-32'>

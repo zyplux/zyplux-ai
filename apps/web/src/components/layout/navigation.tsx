@@ -2,7 +2,7 @@ import { Zap } from 'lucide-react';
 import { motion, useMotionValueEvent, useScroll, useSpring } from 'motion/react';
 import { useState } from 'react';
 
-import { BRAND_NAME, NAV } from '../../content';
+import { BRAND_NAME, NAV } from '@/content';
 
 export const Navigation = () => {
   const [scrolled, setScrolled] = useState(false);

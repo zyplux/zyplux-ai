@@ -2,7 +2,7 @@ import { Glob } from 'bun';
 import { describe, expect, it } from 'bun:test';
 import path from 'node:path';
 
-const REPO_ROOT = path.resolve(import.meta.dir, '../../../..');
+const REPO_ROOT = path.resolve(import.meta.dir, '../../..');
 
 const SPEC_FIELDS = ['dependencies', 'devDependencies', 'optionalDependencies', 'peerDependencies'];
 

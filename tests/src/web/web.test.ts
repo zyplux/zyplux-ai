@@ -1,6 +1,7 @@
-import { PAGES } from '../fixtures/content';
-import registerLandingScenarios from '../stories/landing';
-import registerSeoScenarios from '../stories/seo';
+import { PAGES } from '@/fixtures/content';
+import registerLandingScenarios from '@/stories/landing';
+import registerSeoScenarios from '@/stories/seo';
+
 import { webHarness } from './harness';
 import { seoHarness } from './seo-harness';
 
