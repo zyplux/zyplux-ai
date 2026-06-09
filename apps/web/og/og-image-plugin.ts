@@ -8,7 +8,7 @@ import path from 'node:path';
 import { createElement, type ReactNode } from 'react';
 import satori, { type SatoriOptions } from 'satori';
 
-import { BRAND_NAME, HERO, OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH, SITE_DOMAIN, TAGLINE } from '../src/content';
+import { BRAND_NAME, HERO, OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH, SITE_DOMAIN, TAGLINE } from '@/content';
 
 const OG_WIDTH = OG_IMAGE_WIDTH;
 const OG_HEIGHT = OG_IMAGE_HEIGHT;

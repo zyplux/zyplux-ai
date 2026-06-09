@@ -1,7 +1,7 @@
 import { ArrowRight, Sparkles } from 'lucide-react';
 import { motion } from 'motion/react';
 
-import { BRAND_NAME, HERO } from '../../content';
+import { BRAND_NAME, HERO } from '@/content';
 
 export const Hero = () => (
   <section className='relative min-h-screen flex items-center justify-center overflow-hidden'>

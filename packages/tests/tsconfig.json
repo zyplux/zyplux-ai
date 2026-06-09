@@ -1,5 +1,0 @@
-{
-  "extends": "@zyplux/tsconfig/web.json",
-  "include": ["src"],
-  "references": [{ "path": "../ui" }, { "path": "../../apps/web" }]
-}

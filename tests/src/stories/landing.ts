@@ -1,8 +1,8 @@
 import { test } from 'bun:test';
 
-import type { Harness } from './harness';
+import { BRAND_NAME, HERO_BADGE, SKIP_LINK_LABEL } from '@/fixtures/content';
 
-import { BRAND_NAME, HERO_BADGE, SKIP_LINK_LABEL } from '../fixtures/content';
+import type { Harness } from './harness';
 
 const registerLandingScenarios = (harness: Harness) => {
   test('shows the brand and hero copy', async () => {

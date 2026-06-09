@@ -1,9 +1,9 @@
 import { Lock, MousePointerClick, Plug, ScrollText, Server } from 'lucide-react';
 
-import { SECURITY } from '../../content';
-import { Pictogram } from '../ui/pictogram';
-import { Reveal } from '../ui/reveal';
-import { SpotlightCard } from '../ui/spotlight-card';
+import { Pictogram } from '@/components/ui/pictogram';
+import { Reveal } from '@/components/ui/reveal';
+import { SpotlightCard } from '@/components/ui/spotlight-card';
+import { SECURITY } from '@/content';
 
 const POINT_ICONS = [Plug, MousePointerClick, ScrollText, Lock, Server];
 

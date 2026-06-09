@@ -1,7 +1,7 @@
 import { Check } from 'lucide-react';
 
-import { TIMELINE } from '../../content';
-import { Reveal } from '../ui/reveal';
+import { Reveal } from '@/components/ui/reveal';
+import { TIMELINE } from '@/content';
 
 const TimelineScene = ({ index, scene }: { index: number; scene: (typeof TIMELINE.scenes)[0] }) => (
   <li className='relative'>

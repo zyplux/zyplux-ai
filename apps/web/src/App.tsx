@@ -1,3 +1,5 @@
+import { SKIP_LINK_LABEL } from '@/content';
+
 import { GridBackground } from './components/layout/grid-background';
 import { Navigation } from './components/layout/navigation';
 import { Faq } from './components/sections/faq';
@@ -9,7 +11,6 @@ import { NotChatbot } from './components/sections/not-chatbot';
 import { ProcessLadder } from './components/sections/process-ladder';
 import { Security } from './components/sections/security';
 import { VignetteTimeline } from './components/sections/vignette-timeline';
-import { SKIP_LINK_LABEL } from './content';
 
 const App = () => (
   <div className='min-h-screen overflow-x-hidden'>

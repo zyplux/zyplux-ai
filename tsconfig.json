@@ -5,6 +5,6 @@
     { "path": "./packages/ui" },
     { "path": "./apps/web" },
     { "path": "./apps/web/tsconfig.node.json" },
-    { "path": "./packages/tests" }
+    { "path": "./tests" }
   ]
 }

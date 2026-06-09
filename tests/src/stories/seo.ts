@@ -1,8 +1,8 @@
 import { test } from 'bun:test';
 
-import type { Harness } from './harness';
+import { BRAND_NAME } from '@/fixtures/content';
 
-import { BRAND_NAME } from '../fixtures/content';
+import type { Harness } from './harness';
 
 const registerSeoScenarios = (harness: Harness, pageName: string, title: string) => {
   test(`the ${pageName} page head carries the brand and its title`, async () => {

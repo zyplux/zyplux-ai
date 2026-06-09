@@ -1,5 +1,5 @@
-import { SubpageLayout } from '../components/layout/subpage-layout';
-import { PRIVACY_PAGE } from '../content';
+import { SubpageLayout } from '@/components/layout/subpage-layout';
+import { PRIVACY_PAGE } from '@/content';
 
 export const PrivacyPage = () => (
   <SubpageLayout>

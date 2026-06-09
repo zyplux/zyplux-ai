@@ -1,7 +1,7 @@
 import { ChevronDown } from 'lucide-react';
 
-import { FAQ } from '../../content';
-import { Reveal } from '../ui/reveal';
+import { Reveal } from '@/components/ui/reveal';
+import { FAQ } from '@/content';
 
 export const Faq = () => (
   <section className='relative py-32' id='faq'>

@@ -1,9 +1,9 @@
 import { Repeat, ShieldCheck, Workflow } from 'lucide-react';
 
-import { NOT_CHATBOT } from '../../content';
-import { Pictogram } from '../ui/pictogram';
-import { Reveal } from '../ui/reveal';
-import { SpotlightCard } from '../ui/spotlight-card';
+import { Pictogram } from '@/components/ui/pictogram';
+import { Reveal } from '@/components/ui/reveal';
+import { SpotlightCard } from '@/components/ui/spotlight-card';
+import { NOT_CHATBOT } from '@/content';
 
 const POINT_ICONS = [Workflow, Repeat, ShieldCheck];
 

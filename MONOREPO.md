@@ -19,7 +19,7 @@ flowchart TD
 - `apps/web` — Vite + React app deployed to Cloudflare
 - `packages/ui` — shared utilities (`cn`)
 - `packages/tsconfig` — shared TypeScript presets (`base.json`, `bun.json`, `web.json`)
-- `packages/tests` — smoke tests against public package interfaces only (`fixtures/` + `stories/` + happy-dom web harness)
+- `tests` — smoke tests against public package interfaces only (`fixtures/` + `stories/` + happy-dom web harness)
 
 ## TypeScript Configuration
 
