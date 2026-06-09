@@ -49,6 +49,7 @@ export const NAV = {
   backHome: 'Back home',
   cta: 'Get your free audit',
   links: [
+    { href: '#build', label: 'What we build' },
     { href: '#how-it-works', label: 'How it works' },
     { href: '#security', label: 'Security' },
     { href: '#faq', label: 'FAQ' },
@@ -58,10 +59,62 @@ export const NAV = {
 export const HERO = {
   badge: 'Bespoke AI agents for growing businesses',
   microcopy: 'No call required. Real findings in days.',
-  primaryCta: 'Get your free workflow audit',
+  primaryCta: 'Get your free systems audit',
   secondaryCta: 'See how it works ↓',
   subhead:
-    'We connect a private AI agent to the systems your business already runs on — email, spreadsheets, databases — and give it real jobs: the repetitive, multi-step work that fills your team’s week. It works around the clock, and nothing goes out without your approval.',
+    'We connect a private AI agent to the systems your business already runs on — email, spreadsheets, databases — and give it the repetitive, multi-step work that fills your team’s week. It works around the clock, nothing goes out without your approval — and when the work reaches your customers, we build that too.',
+};
+
+export const METHOD = {
+  beats: [
+    {
+      detail: 'We trace how work, money, and information move through your business — and where they stall.',
+      title: 'Map the loops.',
+    },
+    {
+      detail: 'The handful of spots where one change returns the most hours, the most cash, at the least risk.',
+      title: 'Find the pressure points.',
+    },
+    {
+      detail:
+        'An agent, a dashboard, or an app your customers touch — whatever the spot actually needs. Built around your loop, not bolted on.',
+      title: 'Put intelligence there.',
+    },
+  ],
+  heading: 'We start with your system, not our software.',
+  paragraphs: [
+    'Every business is a set of loops. An order comes in, it’s filled, invoiced, paid — and the cash funds the next order. A customer asks, gets an answer, comes back. When a loop runs clean, the business grows. When it snags — a step done by hand, a hand-off that drops things, a report nobody has time to read — the whole system slows, and you feel it as lost hours and missed money.',
+    'So before we build anything, we learn your loops. We sit with how the work actually happens — not the org chart, the real flow — and find the few places where a small change pays back the most. Then we put intelligence exactly there.',
+    'That’s the order we work in: understand the system, fall for the problem, then walk back to the technology. The software is the last decision, not the first.',
+  ],
+};
+
+export const BUILD = {
+  buckets: [
+    {
+      detail:
+        'The repetitive, multi-step work that fills your team’s week — handled end to end, with a human approving anything that leaves the building. We connect the email, spreadsheets, and tools you already pay for, and tune the loop until it runs on its own — with you watching, not driving.',
+      outcome: 'Hours back. Loops that, over time, run themselves.',
+      surface: 'Inside your operations',
+      title: 'Close the loop.',
+    },
+    {
+      detail:
+        'Ask a question in plain language — “how did the north region do last quarter?” — and get a dashboard built from your own data, on the spot.',
+      outcome: 'Answers in seconds, not a ticket to the data team.',
+      surface: 'Inside your operations',
+      title: 'Light up the system.',
+    },
+    {
+      detail:
+        'The software your customers actually touch — a registration page, a booking flow, a mobile app, a website assistant that answers like your best rep. Built fast, because an agent carries the load.',
+      outcome: 'Reach your customers better — and ship in weeks, not quarters.',
+      surface: 'At the edge, with your customers',
+      title: 'Build at the edge.',
+    },
+  ],
+  heading: 'Three places intelligence pays back.',
+  intro: 'Once we know your loops, the build is the easy part. It lands in one of three places — sometimes all three.',
 };
 
 export const TIMELINE = {
@@ -116,8 +169,8 @@ export const PROCESS = {
   heading: 'How this becomes real',
   steps: [
     {
-      body: 'Tell us how your business runs — or let us take a look. You get back a plain-English read of your workflows, the top three automation opportunities ranked by the hours they’d return, and a plan to build the first one. No call required.',
-      title: 'Free workflow audit.',
+      body: 'Tell us how your business runs — or let us take a look. You get back a map of your loops, the three places intelligence pays back fastest — ranked by the hours and cash they’d return — and a plan to build the first one. No call required.',
+      title: 'Free systems audit.',
     },
     {
       body: 'Pick one job from the audit. We connect Zyplux to the systems involved, build the workflow, and run it live. You measure the result before any talk of more.',
@@ -163,6 +216,11 @@ export const SECURITY = {
       detail: 'Not shared infrastructure spread across thousands of accounts.',
       title: 'Your agent runs privately, for your business alone.',
     },
+    {
+      detail:
+        'Anything we build for your customers protects their data under the same rules — scoped, logged, never used to train public AI models.',
+      title: 'Customer-facing work, held to the same standard.',
+    },
   ],
 };
 
@@ -188,6 +246,21 @@ export const FAQ = {
       answer:
         'It takes over the most tedious part of their day, not their jobs. The point is to free your best people from retyping data so they can focus on the work you hired them for.',
       question: 'Will this replace my employees?',
+    },
+    {
+      answer:
+        'Not in the usual sense. We don’t take a spec and bill hours. We find the loop where intelligence pays back, build the smallest thing that proves it, and tune it until it runs. This is usually the work that keeps getting pushed to next quarter.',
+      question: 'We already have developers — are you just an agency?',
+    },
+    {
+      answer:
+        'Yes. The same method builds the things your customers touch — a registration page, a booking flow, a mobile app, a website assistant. Inside your operations or at the edge with your customers, the approach is identical: find the loop, build for it.',
+      question: 'Can this help us serve our own customers, not just our back office?',
+    },
+    {
+      answer:
+        'Ask in plain language — "show me last quarter’s refunds by region" — and a view is assembled from your own data while you wait. No ticket, no waiting on the data team. You decide what’s worth keeping.',
+      question: 'What’s a "dashboard from a question"?',
     },
     {
       answer:
