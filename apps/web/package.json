@@ -5,7 +5,9 @@
   "type": "module",
   "exports": {
     ".": "./src/app.tsx",
+    "./config": "./src/config.ts",
     "./content": "./src/content.ts",
+    "./posts": "./src/posts.ts",
     "./seo": "./src/seo.ts",
     "./pages/agent-page": "./src/pages/agent-page.tsx",
     "./pages/privacy-page": "./src/pages/privacy-page.tsx"
@@ -32,7 +34,6 @@
     "@content-collections/cli": "catalog:",
     "@content-collections/core": "catalog:",
     "@content-collections/markdown": "catalog:",
-    "@content-collections/mdx": "catalog:",
     "@content-collections/vite": "catalog:",
     "@fontsource/inter": "catalog:",
     "@resvg/resvg-js": "catalog:",
@@ -42,7 +43,6 @@
     "@types/react-dom": "catalog:",
     "@vitejs/plugin-react": "catalog:",
     "@zyplux/tsconfig": "workspace:*",
-    "mdx-bundler": "catalog:",
     "satori": "catalog:",
     "tailwindcss": "catalog:",
     "vite": "catalog:",

@@ -1,6 +1,7 @@
 import { EmailCapture } from '@/components/forms/email-capture';
 import { SubpageLayout } from '@/components/layout/subpage-layout';
-import { INSIGHTS_PAGE, INSIGHTS_POSTS } from '@/content';
+import { INSIGHTS_PAGE } from '@/content';
+import { INSIGHTS_POSTS } from '@/posts';
 
 export const InsightsPage = () => (
   <SubpageLayout>

@@ -1,12 +1,5 @@
-import {
-  BRAND_NAME,
-  OG_IMAGE_HEIGHT,
-  OG_IMAGE_WIDTH,
-  PAGES,
-  SITE_URL,
-  TAGLINE,
-  THEME_COLOR,
-} from '@zyplux/web/content';
+import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH, SITE_URL, THEME_COLOR } from '@/config';
+import { BRAND_NAME, PAGES, TAGLINE } from '@/content';
 
 export type MetaTag = { content: string; name?: string; property?: string } | { title: string };
 export type Page = (typeof PAGES)[PageKey];
@@ -18,7 +11,7 @@ const ogImageUrl = `${SITE_URL}/og.png`;
 
 export const postOgImagePath = (slug: string) => `/og/insights/${slug}.png`;
 
-const head = (page: Page, image: { alt: string; url: string }) =>
+const head = (page: Page, path: string, image: { alt: string; url: string }) =>
   ({
     meta: [
       { title: page.title },
@@ -27,7 +20,7 @@ const head = (page: Page, image: { alt: string; url: string }) =>
       { content: page.title, property: 'og:title' },
       { content: page.description, property: 'og:description' },
       { content: 'website', property: 'og:type' },
-      { content: `${SITE_URL}${page.path}`, property: 'og:url' },
+      { content: `${SITE_URL}${path}`, property: 'og:url' },
       { content: image.url, property: 'og:image' },
       { content: String(OG_IMAGE_WIDTH), property: 'og:image:width' },
       { content: String(OG_IMAGE_HEIGHT), property: 'og:image:height' },
@@ -36,10 +29,10 @@ const head = (page: Page, image: { alt: string; url: string }) =>
     ],
   }) satisfies PageHead;
 
-export const pageHead = (page: Page) => head(page, { alt: ogImageAlt, url: ogImageUrl });
+export const pageHead = (page: Page, path: string) => head(page, path, { alt: ogImageAlt, url: ogImageUrl });
 
 export const postHead = (post: { description: string; slug: string; title: string }) =>
-  head(
-    { description: post.description, path: `/insights/${post.slug}`, title: `${BRAND_NAME} — ${post.title}` },
-    { alt: post.title, url: `${SITE_URL}${postOgImagePath(post.slug)}` },
-  );
+  head({ description: post.description, title: `${BRAND_NAME} — ${post.title}` }, `/insights/${post.slug}`, {
+    alt: post.title,
+    url: `${SITE_URL}${postOgImagePath(post.slug)}`,
+  });

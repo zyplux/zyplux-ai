@@ -1,4 +1,4 @@
-import type { InsightsPost } from '@/content';
+import type { InsightsPost } from '@/posts';
 
 import { SubpageLayout } from '@/components/layout/subpage-layout';
 

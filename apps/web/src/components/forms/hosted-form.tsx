@@ -2,9 +2,12 @@ import type { SubmitEvent } from 'react';
 
 import { useState } from 'react';
 
-import { CONTACT_EMAIL, FORM_ENDPOINT, FORM_MESSAGES } from '@/content';
+import { FORM_ENDPOINT } from '@/config';
+import { CONTACT_EMAIL, FORM_MESSAGES } from '@/content';
 
 const HONEYPOT_FIELD = 'website';
+
+export type FormName = 'agent-updates' | 'audit' | 'insights-updates';
 
 type SubmitStatus = 'error' | 'idle' | 'sending' | 'sent';
 

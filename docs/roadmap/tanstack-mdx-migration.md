@@ -37,6 +37,19 @@ Issues encountered:
 
 No dependency added, no `package.json` change; `cn()` and the `@theme` tokens are untouched and the FAQ stays native `<details>`/`<summary>`. The trigger (first widget needing focus/keyboard management beyond native elements) has not fired.
 
+### Post-migration review — simplifications applied (2026-06-11)
+
+A full-implementation review after Phase 4 removed leftover migration scaffolding and several duplications:
+
+- **MDX evaluation pipeline removed.** Because workerd forbids `new Function` even during build-time prerendering (see Phase 4), MDX bodies were already rendered to static HTML at content build time — embedded components could never hydrate, so the MDX layer bought nothing over markdown. All bodies (agent, insights, posts; privacy already did) now compile with `@content-collections/markdown`; `@content-collections/mdx` and `mdx-bundler` are removed. Content files renamed `.mdx` → `.md` to match what the compiler accepts (JSX in a markdown-compiled file would silently disappear). Reintroduce `@content-collections/mdx` only when an embedded component actually lands, together with client-only rendering for the routes that use it.
+- **`src/content.ts` is now purely the content facade** — it unwraps the singleton collections into stable named exports, nothing else. Its other jobs moved out: the config re-exports are gone (consumers import `@/config` / `@zyplux/web/config`), `FormName` lives with the form infrastructure in `hosted-form.tsx`, and the posts collection moved to `src/posts.ts` (`@zyplux/web/posts`) so post bodies ride only in the insights route chunks instead of the shared chunk every page loads.
+- **Generated documents ship only what pages render.** Collection transforms return explicit fields, so the raw markdown `content` and `_meta` no longer reach the client bundle (the raw source previously shipped alongside the compiled HTML). The frontmatter-only landing page uses `parser: 'frontmatter-only'`.
+- **Single sources of truth.** Page `path` left frontmatter — routes own URLs, and `head()` derives `og:url` from `match.pathname` via `pageHead(page, path)`. `siteDomain` left `site.yaml` — derived from `SITE_URL`. The sitemap host in `vite.config.ts` imports `SITE_URL` from `src/config.ts`. The OG plugin reuses `postOgImagePath` from `src/seo.ts` instead of rebuilding the path.
+- **The OG plugin is JSX.** `og/og-image-plugin.tsx` replaces the `el()`/`createElement` helper, and the two cards share a `CardShell`. Font loading lives in `og/fonts.ts` because Vite's config bundler injects the `import.meta.url` shim only for `.ts`/`.js` modules, not `.tsx`.
+- **Conformance fixes.** `<meta charSet='utf-8' />` is literal JSX in the root document — the HTML spec requires `utf-8`, and `unicorn/text-encoding-identifier-case` exempts the JSX `charSet` attribute but not object literals in `head()`. `.content-collections` added to `.prettierignore`.
+
+Verified: `just check` green; prerendered HTML equal to the pre-review build modulo hashed asset names, the intended `utf-8` charset, and `&quot;` vs literal quotes in one insights paragraph (React vs remark text escaping — identical rendering); `og.png` and `sitemap.xml` byte-identical; the draft-post round trip (publish → article HTML, per-post OG card, listing; revert → excluded everywhere) passes; `just og` and dev-server SSR of all four routes plus `/og.png` spot-checked.
+
 Decisions (research review, 2026-06-11):
 
 - **Framework:** TanStack Start (RC, ≥ 1.168) on Cloudflare Workers via `@cloudflare/vite-plugin` — file routes, static prerender of all marketing pages, per-route `head()`.

@@ -1,7 +1,6 @@
 ---
 title: Zyplux — Insights
 description: Short, honest reads on what AI agents can and can’t do for a business. No jargon, no hype.
-path: /insights
 headline: How agents actually work — in plain language.
 emailLabel: Email
 button: Send me the first one

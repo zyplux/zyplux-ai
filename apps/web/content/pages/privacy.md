@@ -1,7 +1,6 @@
 ---
 title: Zyplux — Privacy
 description: How zyplux.ai handles what you type into our forms — what we collect, why, and where it goes.
-path: /privacy
 headline: Privacy, plainly.
 ---
 

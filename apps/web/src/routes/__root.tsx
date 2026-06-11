@@ -5,6 +5,7 @@ import '@/index.css';
 const RootDocument = () => (
   <html lang='en'>
     <head>
+      <meta charSet='utf-8' />
       <HeadContent />
     </head>
     <body>
@@ -18,6 +19,6 @@ export const Route = createRootRoute({
   component: RootDocument,
   head: () => ({
     links: [{ href: '/favicon.svg', rel: 'icon', type: 'image/svg+xml' }],
-    meta: [{ charSet: 'utf8' }, { content: 'width=device-width, initial-scale=1.0', name: 'viewport' }],
+    meta: [{ content: 'width=device-width, initial-scale=1.0', name: 'viewport' }],
   }),
 });

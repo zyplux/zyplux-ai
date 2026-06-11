@@ -23,7 +23,7 @@ registerSubpageScenarios('agent', pageHarness(createElement(AgentPage)), [
   'We’re polishing the showcase.',
 ]);
 
-registerSeoScenarios(seoHarness('index'), 'home', PAGES.index.title);
-registerSeoScenarios(seoHarness('agent'), 'agent', PAGES.agent.title);
-registerSeoScenarios(seoHarness('insights'), 'insights', PAGES.insights.title);
-registerSeoScenarios(seoHarness('privacy'), 'privacy', PAGES.privacy.title);
+registerSeoScenarios(seoHarness('index', '/'), 'home', PAGES.index.title);
+registerSeoScenarios(seoHarness('agent', '/agent'), 'agent', PAGES.agent.title);
+registerSeoScenarios(seoHarness('insights', '/insights'), 'insights', PAGES.insights.title);
+registerSeoScenarios(seoHarness('privacy', '/privacy'), 'privacy', PAGES.privacy.title);

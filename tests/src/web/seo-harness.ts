@@ -5,10 +5,10 @@ import type { Harness } from '@/stories/harness';
 
 const flatten = (head: PageHead) => head.meta.map(tag => ('title' in tag ? tag.title : tag.content)).join('\n');
 
-export const seoHarness = (key: PageKey) =>
+export const seoHarness = (key: PageKey, path: string) =>
   ({
     open: () => {
-      const head = flatten(pageHead(PAGES[key]));
+      const head = flatten(pageHead(PAGES[key], path));
       let disposed = false;
       return Promise.resolve({
         assert: {

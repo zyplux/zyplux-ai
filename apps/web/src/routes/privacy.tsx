@@ -6,5 +6,5 @@ import { pageHead } from '@/seo';
 
 export const Route = createFileRoute('/privacy')({
   component: PrivacyPage,
-  head: () => pageHead(PAGES.privacy),
+  head: ({ match }) => pageHead(PAGES.privacy, match.pathname),
 });

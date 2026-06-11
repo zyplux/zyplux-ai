@@ -6,5 +6,5 @@ import { pageHead } from '@/seo';
 
 export const Route = createFileRoute('/')({
   component: App,
-  head: () => pageHead(PAGES.index),
+  head: ({ match }) => pageHead(PAGES.index, match.pathname),
 });

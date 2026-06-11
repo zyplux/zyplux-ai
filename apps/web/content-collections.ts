@@ -1,31 +1,22 @@
-import { type Context, defineCollection, defineConfig, type Meta } from '@content-collections/core';
+import { defineCollection, defineConfig } from '@content-collections/core';
 import { compileMarkdown } from '@content-collections/markdown';
-import { compileMDX } from '@content-collections/mdx';
-import { getMDXComponent } from 'mdx-bundler/client/index.js';
-import { createElement } from 'react';
-import { renderToStaticMarkup } from 'react-dom/server';
 import { z } from 'zod';
 
-// Compiled MDX evaluates via `new Function`, which workerd disallows even during
-// build-time prerendering (EvalError: code generation from strings). MDX bodies are
-// therefore evaluated and rendered to static HTML here, at content build time; pages
-// receive plain HTML strings and never evaluate code on Workers.
-const renderMDX = async (context: Context, document: { _meta: Meta; content: string }) => {
-  const code = await compileMDX(context, document);
-  return renderToStaticMarkup(createElement(getMDXComponent(code)));
-};
+// Bodies are compiled to plain HTML strings at content build time: workerd, which runs
+// the build-time prerender, forbids the `new Function` evaluation compiled MDX needs.
+// If embedded components ever land, reintroduce @content-collections/mdx together with
+// client-only rendering for the routes that use it.
 
 const pageMeta = {
-  content: z.string(),
   description: z.string(),
-  path: z.string(),
   title: z.string(),
 };
 
 const landing = defineCollection({
   directory: 'content/pages',
-  include: 'index.mdx',
+  include: 'index.md',
   name: 'landing',
+  parser: 'frontmatter-only',
   schema: z.object({
     ...pageMeta,
     auditForm: z.object({
@@ -99,35 +90,43 @@ const capturePage = (name: string, include: string) =>
     schema: z.object({
       ...pageMeta,
       button: z.string(),
+      content: z.string(),
       emailLabel: z.string(),
       headline: z.string(),
     }),
     transform: async (document, context) => ({
-      ...document,
-      body: await renderMDX(context, document),
+      body: await compileMarkdown(context, document),
+      button: document.button,
+      description: document.description,
+      emailLabel: document.emailLabel,
+      headline: document.headline,
+      title: document.title,
     }),
   });
 
-const agent = capturePage('agent', 'agent.mdx');
-const insights = capturePage('insights', 'insights.mdx');
+const agent = capturePage('agent', 'agent.md');
+const insights = capturePage('insights', 'insights.md');
 
 const privacy = defineCollection({
   directory: 'content/pages',
-  include: 'privacy.mdx',
+  include: 'privacy.md',
   name: 'privacy',
   schema: z.object({
     ...pageMeta,
+    content: z.string(),
     headline: z.string(),
   }),
   transform: async (document, context) => ({
-    ...document,
     body: await compileMarkdown(context, document),
+    description: document.description,
+    headline: document.headline,
+    title: document.title,
   }),
 });
 
 const posts = defineCollection({
   directory: 'content/insights',
-  include: '*.mdx',
+  include: '*.md',
   name: 'posts',
   schema: z.object({
     content: z.string(),
@@ -137,9 +136,12 @@ const posts = defineCollection({
     title: z.string(),
   }),
   transform: async (document, context) => ({
-    ...document,
-    body: await renderMDX(context, document),
+    body: await compileMarkdown(context, document),
+    date: document.date,
+    description: document.description,
+    draft: document.draft,
     slug: document._meta.path,
+    title: document.title,
   }),
 });
 
@@ -171,7 +173,6 @@ const site = defineCollection({
       cta: z.string(),
       links: z.array(z.object({ href: z.string(), label: z.string() })),
     }),
-    siteDomain: z.string(),
     skipLinkLabel: z.string(),
     tagline: z.string(),
   }),

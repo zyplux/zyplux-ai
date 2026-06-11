@@ -1,7 +1,7 @@
 import { createFileRoute, notFound } from '@tanstack/react-router';
 
-import { INSIGHTS_POSTS } from '@/content';
 import { InsightsPostPage } from '@/pages/insights-post-page';
+import { INSIGHTS_POSTS } from '@/posts';
 import { postHead } from '@/seo';
 
 const findPost = (slug: string) => {
