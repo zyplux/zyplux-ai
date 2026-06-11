@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "exports": {
-    ".": "./src/App.tsx",
+    ".": "./src/app.tsx",
     "./content": "./src/content.ts",
     "./seo": "./src/seo.ts",
     "./pages/agent-page": "./src/pages/agent-page.tsx",

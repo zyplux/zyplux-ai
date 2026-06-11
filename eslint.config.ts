@@ -9,13 +9,6 @@ export default defineConfig(
     tsconfigRootDir: import.meta.dirname,
   }),
   {
-    files: ['**/*.{ts,tsx,js,mjs,cjs}'],
-    rules: {
-      'unicorn/filename-case': ['error', { cases: { camelCase: true, kebabCase: true, pascalCase: true } }],
-    },
-  },
-  {
-    files: ['apps/web/src/routes/**'],
     rules: {
       '@typescript-eslint/only-throw-error': [
         'error',
