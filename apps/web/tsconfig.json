@@ -3,8 +3,9 @@
   "compilerOptions": {
     "paths": {
       "@/*": ["./src/*"],
-      "@/og/*": ["./og/*"]
+      "@/og/*": ["./og/*"],
+      "content-collections": ["./.content-collections/generated"]
     }
   },
-  "include": ["src"]
+  "include": ["src", ".content-collections/generated"]
 }

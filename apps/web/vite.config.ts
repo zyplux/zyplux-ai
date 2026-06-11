@@ -1,26 +1,32 @@
 import { cloudflare } from '@cloudflare/vite-plugin';
+import contentCollections from '@content-collections/vite';
+import tailwindcss from '@tailwindcss/vite';
+import { tanstackStart } from '@tanstack/react-start/plugin/vite';
 import react from '@vitejs/plugin-react';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'vite';
 
 import { ogImagePlugin } from './og/og-image-plugin';
-import { seoPlugin } from './seo/seo-plugin';
 
-const __dirname = fileURLToPath(new URL('.', import.meta.url));
+// The cloudflare plugin's dev-mode worker proxy hangs under bun (its `ws` client
+// relies on Node events bun does not implement), so it runs only at build time.
+// tanstackStart detects the cloudflare plugin from the user config object, so the
+// config must stay an object literal (the function form breaks that detection).
+const isBuild = process.argv.includes('build');
 
 export default defineConfig({
   build: {
-    rollupOptions: {
-      input: {
-        agent: path.resolve(__dirname, 'agent.html'),
-        index: path.resolve(__dirname, 'index.html'),
-        insights: path.resolve(__dirname, 'insights.html'),
-        privacy: path.resolve(__dirname, 'privacy.html'),
-      },
-    },
     target: ['chrome107', 'edge107', 'firefox104', 'safari16'],
   },
-  plugins: [react(), cloudflare(), ogImagePlugin(), seoPlugin()],
+  plugins: [
+    contentCollections(),
+    tailwindcss(),
+    ...(isBuild ? [cloudflare({ viteEnvironment: { name: 'ssr' } })] : []),
+    tanstackStart({
+      prerender: { crawlLinks: true, enabled: true, failOnError: true },
+      sitemap: { host: 'https://zyplux.ai' },
+    }),
+    react(),
+    ogImagePlugin(),
+  ],
   resolve: { tsconfigPaths: true },
 });

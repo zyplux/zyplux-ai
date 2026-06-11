@@ -1,5 +1,42 @@
 # TanStack Start + MDX migration
 
+## Status
+
+### Phase 1 — done (2026-06-11)
+
+All eleven steps are in place: `reference_clones/` is gitignored; `@tanstack/react-start` 1.168.25 and `@tanstack/react-router` 1.170.15 are pinned exact in the catalog; Tailwind moved from PostCSS to `@tailwindcss/vite` (`postcss.config.js`, `@tailwindcss/postcss`, and `autoprefixer` removed); routing lives in `src/routes/` (`__root.tsx` document shell + thin `index`/`agent`/`insights`/`privacy` wrappers around the unchanged page components); `pageHead` now emits the TanStack `head()` shape and `apps/web/seo/` is gone; the legacy `*.html` entries and `main/mount/agent/insights/privacy.tsx` are deleted; `routeTree.gen.ts` is excluded from prettier/eslint and knip entries point at `src/routes/**` + `src/router.tsx`; prerender + sitemap are enabled (`/`, `/agent`, `/insights`, `/privacy` all emit HTML containing the page copy, sitemap lists them plus the crawled `/#…` anchors); the OG plugin emits `og.png` once from the client build; `wrangler.jsonc` uses `@tanstack/react-start/server-entry` with `nodejs_compat`. `just check` is green and `just og` still renders the preview.
+
+Issues encountered (all bun-runtime related):
+
+- **miniflare dispose crash under bun** — after a successful prerender the build died with `ERR_SERVER_NOT_RUNNING`: bun's `node:http` shim errors on `server.close()` after `closeAllConnections()` where Node does not. Fixed with a one-line patch to miniflare via `bun patch` (committed in `patches/`, wired through `patchedDependencies`), tolerating that error code in `dispose()`.
+- **cloudflare vite plugin hangs `just dev`** — the plugin's dev-mode worker proxy never finishes starting under bun (`ws.WebSocket 'upgrade' event is not implemented in bun`). The plugin is therefore included only for `vite build` (module-scope `isBuild` check in `vite.config.ts`); dev SSR runs in Vite's default environment, which serves all four routes and `/og.png` correctly. Note: the config must stay an **object literal** — with the function form of `defineConfig`, tanstackStart fails to detect the cloudflare plugin and prerender breaks.
+- **`bunx wrangler dev` responses hang locally** — workerd binds the port but responses never arrive; same family of bun/miniflare loopback incompatibility (the assets proxy runs through the bun-hosted wrangler process). The worker bundle itself is exercised end-to-end by the build-time prerender (miniflare served every route during the build), so this only blocks the local `wrangler dev` spot-check, not deploys.
+- **`bun test tests` swept up `reference_clones/`** — bun's positional test filter is a substring match, so `reference_clones/ui/packages/tests/**` matched. Root `test` script changed to `cd tests && bun test`, with a `tests/bunfig.toml` carrying the happy-dom preload.
+
+### Phase 2 — done (2026-06-11)
+
+Collections live in `apps/web/content-collections.ts` (zod v4 standard schemas) with `content/site.yaml` plus `content/pages/{index,agent,insights,privacy}.mdx`; technical constants moved to `src/config.ts`; `src/content.ts` is a typed facade with unchanged export names so no component, test, fixture, or OG-plugin change was needed. The `contentCollections()` Vite plugin is wired and `content-collections build` chains ahead of `dev`, `build`, `og`, and the root `test`. Parity verified: prerendered HTML differed only in the hashed-asset manifest blob; `og.png` byte-identical; an intentionally broken frontmatter field fails the build with a precise validation error. The mini-dashboard question string moved to landing frontmatter (`miniDashboard.question`) and flows in as a prop.
+
+Issue: content-collections deprecations — collections need an explicit `content: z.string()` schema property and `defineConfig` uses `content:` (not `collections:`).
+
+### Phase 3 — done (2026-06-11)
+
+`components/diagram/` holds `useDiagramPhases` (+ `DiagramPhaseContext`), the `<Diagram viewBox caption resolveDelayMs>` shell, leaf primitives (`DiagramNode`, `LoopRing`, `SpokeLine`, `ResolveBadge`, `PhaseCaption`), and a `tokens.ts` mirroring the `@theme` palette (plus the `warning` amber that only the diagram uses). `system-map.tsx` is now pure composition with zero copy literals and zero `motion.` elements; node labels, badge, captions, and the figcaption live in the landing frontmatter under `method.diagram` and flow through the `Method` section. Animation props were transplanted verbatim, and the prerendered landing page's visible text is identical to the pre-migration build.
+
+### Phase 4 — done (2026-06-11)
+
+Privacy prose is a markdown-compiled MDX body; agent/insights paragraphs are MDX bodies; subpage stories assert body copy flows through the content pipeline (privacy + agent). The `posts` collection (`content/insights/*.mdx`, schema `title/description/date/draft`) backs the insights index list (email capture remains the empty state) and the `/insights/$slug` route (`insights_/$slug.tsx`, non-nested) with per-post `head()`. Per-post OG cards are emitted to `og/insights/<slug>.png` during the client build. Verified by flipping the seeded draft to `draft: false`: the post page prerenders with the article and references its OG image; reverted, it disappears from the list, build, and OG output.
+
+Issues encountered:
+
+- **workerd forbids `new Function` even during prerender** — MDX-evaluating components SSR'd empty (`EvalError: code generation from strings disallowed`) because build-time prerendering runs through the Cloudflare workers runtime. The roadmap's "prerendered or client-rendered" assumption was insufficient. Resolution: MDX bodies are evaluated and rendered to static HTML at content build time (`renderMDX` in `content-collections.ts` via `mdx-bundler`'s `getMDXComponent` + `renderToStaticMarkup`); pages receive plain HTML strings and never evaluate code on Workers. A components mapping can still be passed at content build time when embeds land.
+- **`insights.index.tsx` produced a `/insights/` index path** whose 307 trailing-slash redirect was prerendered over the real page; restructured as a leaf `insights.tsx` plus non-nested `insights_/$slug.tsx`.
+- **`throw notFound()`** trips `@typescript-eslint/only-throw-error` (it throws a plain object by design); the rule now allows `NotFoundError` from `@tanstack/router-core` for `src/routes/**` only.
+
+### Phase 5 — deferred by design (2026-06-11)
+
+No dependency added, no `package.json` change; `cn()` and the `@theme` tokens are untouched and the FAQ stays native `<details>`/`<summary>`. The trigger (first widget needing focus/keyboard management beyond native elements) has not fired.
+
 Decisions (research review, 2026-06-11):
 
 - **Framework:** TanStack Start (RC, ≥ 1.168) on Cloudflare Workers via `@cloudflare/vite-plugin` — file routes, static prerender of all marketing pages, per-route `head()`.

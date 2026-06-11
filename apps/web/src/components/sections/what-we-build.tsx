@@ -4,7 +4,7 @@ import { MiniDashboard } from '@/components/ui/mini-dashboard';
 import { Pictogram } from '@/components/ui/pictogram';
 import { Reveal } from '@/components/ui/reveal';
 import { SpotlightCard } from '@/components/ui/spotlight-card';
-import { BUILD } from '@/content';
+import { BUILD, MINI_DASHBOARD } from '@/content';
 
 const BUCKET_ICONS = [RefreshCw, LayoutDashboard, Smartphone];
 
@@ -60,7 +60,7 @@ export const WhatWeBuild = () => (
               like.
             </p>
           </div>
-          <MiniDashboard />
+          <MiniDashboard question={MINI_DASHBOARD.question} />
         </div>
       </Reveal>
     </div>

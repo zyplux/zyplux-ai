@@ -6,17 +6,22 @@
   "exports": {
     ".": "./src/App.tsx",
     "./content": "./src/content.ts",
-    "./seo": "./src/seo.ts"
+    "./seo": "./src/seo.ts",
+    "./pages/agent-page": "./src/pages/agent-page.tsx",
+    "./pages/privacy-page": "./src/pages/privacy-page.tsx"
   },
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
+    "content": "content-collections build",
+    "dev": "content-collections build && vite",
+    "build": "content-collections build && vite build",
     "preview": "vite preview",
-    "deploy": "vite build && wrangler deploy",
+    "deploy": "bun run build && wrangler deploy",
     "cf:dev": "wrangler dev",
-    "og": "bun scripts/render-og.ts"
+    "og": "content-collections build && bun scripts/render-og.ts"
   },
   "dependencies": {
+    "@tanstack/react-router": "catalog:",
+    "@tanstack/react-start": "catalog:",
     "lucide-react": "catalog:",
     "motion": "catalog:",
     "react": "catalog:",
@@ -24,18 +29,24 @@
   },
   "devDependencies": {
     "@cloudflare/vite-plugin": "catalog:",
+    "@content-collections/cli": "catalog:",
+    "@content-collections/core": "catalog:",
+    "@content-collections/markdown": "catalog:",
+    "@content-collections/mdx": "catalog:",
+    "@content-collections/vite": "catalog:",
     "@fontsource/inter": "catalog:",
     "@resvg/resvg-js": "catalog:",
-    "@tailwindcss/postcss": "catalog:",
+    "@tailwindcss/vite": "catalog:",
     "@types/bun": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "@vitejs/plugin-react": "catalog:",
     "@zyplux/tsconfig": "workspace:*",
-    "autoprefixer": "catalog:",
+    "mdx-bundler": "catalog:",
     "satori": "catalog:",
     "tailwindcss": "catalog:",
     "vite": "catalog:",
-    "wrangler": "catalog:"
+    "wrangler": "catalog:",
+    "zod": "catalog:"
   }
 }

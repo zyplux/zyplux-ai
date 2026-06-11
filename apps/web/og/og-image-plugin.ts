@@ -1,9 +1,17 @@
 import type { Plugin } from 'vite';
 
 import { Resvg } from '@resvg/resvg-js';
-import { BRAND_NAME, HERO, OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH, SITE_DOMAIN, TAGLINE } from '@zyplux/web/content';
+import {
+  BRAND_NAME,
+  HERO,
+  INSIGHTS_POSTS,
+  OG_IMAGE_HEIGHT,
+  OG_IMAGE_WIDTH,
+  SITE_DOMAIN,
+  TAGLINE,
+} from '@zyplux/web/content';
 import { readFileSync } from 'node:fs';
-import { writeFile } from 'node:fs/promises';
+import { mkdir, writeFile } from 'node:fs/promises';
 import { createRequire } from 'node:module';
 import path from 'node:path';
 import { createElement, type ReactNode } from 'react';
@@ -123,6 +131,77 @@ const card = el('div', {
   },
 });
 
+const postCard = (title: string, description: string) =>
+  el('div', {
+    children: [
+      el('img', { height: OG_HEIGHT, src: gridDataUri, style: { inset: 0, position: 'absolute' }, width: OG_WIDTH }),
+      el('div', {
+        children: [
+          el('div', {
+            children: [
+              el('img', { height: 44, src: boltDataUri, width: 44 }),
+              el('div', {
+                children: BRAND_NAME,
+                style: { color: '#f0f6fc', fontSize: 40, fontWeight: 800, letterSpacing: '-0.03em' },
+              }),
+            ],
+            style: { alignItems: 'center', display: 'flex', gap: 14, marginBottom: 48 },
+          }),
+          el('div', {
+            children: title,
+            style: {
+              backgroundClip: 'text',
+              backgroundImage: 'linear-gradient(120deg, #f0f6fc 25%, #58a6ff 65%, #bc8cff 95%)',
+              color: 'transparent',
+              fontSize: 64,
+              fontWeight: 800,
+              letterSpacing: '-0.02em',
+              lineHeight: 1.15,
+              marginBottom: 28,
+            },
+          }),
+          el('div', {
+            children: description,
+            style: { color: '#8b949e', fontSize: 30, fontWeight: 500, lineHeight: 1.4 },
+          }),
+        ],
+        style: { display: 'flex', flexDirection: 'column', padding: '0 80px', position: 'relative' },
+      }),
+      el('div', {
+        children: SITE_DOMAIN,
+        style: {
+          bottom: 38,
+          color: '#8b949e',
+          display: 'flex',
+          fontSize: 25,
+          fontWeight: 500,
+          justifyContent: 'center',
+          position: 'absolute',
+          width: OG_WIDTH,
+        },
+      }),
+    ],
+    style: {
+      alignItems: 'flex-start',
+      backgroundColor: '#0d1117',
+      backgroundImage:
+        'radial-gradient(ellipse 90% 60% at 50% -10%, rgba(88,166,255,0.16), transparent 70%),' +
+        'radial-gradient(ellipse 60% 40% at 85% 0%, rgba(188,140,255,0.12), transparent 70%)',
+      display: 'flex',
+      flexDirection: 'column',
+      fontFamily: 'Inter',
+      height: OG_HEIGHT,
+      justifyContent: 'center',
+      position: 'relative',
+      width: OG_WIDTH,
+    },
+  });
+
+const renderCardPng = async (node: ReactNode) => {
+  const svg = await satori(node, { fonts, height: OG_HEIGHT, width: OG_WIDTH });
+  return new Resvg(svg, { fitTo: { mode: 'width', value: OG_WIDTH } }).render().asPng();
+};
+
 export const ogImagePlugin = () => {
   let cached: Buffer | undefined;
   const render = async () => (cached ??= await renderOgPng());
@@ -143,18 +222,20 @@ export const ogImagePlugin = () => {
       });
     },
     name: 'zyplux:og-image',
-    writeBundle: async (options, bundle) => {
-      if (!options.dir || !('index.html' in bundle)) return;
+    async writeBundle(options) {
+      if (!options.dir || this.environment.name !== 'client') return;
       await writeFile(path.join(options.dir, OG_FILE_NAME), await render());
+      if (INSIGHTS_POSTS.length === 0) return;
+      const postsDir = path.join(options.dir, 'og', 'insights');
+      await mkdir(postsDir, { recursive: true });
+      for (const post of INSIGHTS_POSTS) {
+        await writeFile(
+          path.join(postsDir, `${post.slug}.png`),
+          await renderCardPng(postCard(post.title, post.description)),
+        );
+      }
     },
   } satisfies Plugin;
 };
 
-export const renderOgPng = async () => {
-  const svg = await satori(card, {
-    fonts,
-    height: OG_HEIGHT,
-    width: OG_WIDTH,
-  });
-  return new Resvg(svg, { fitTo: { mode: 'width', value: OG_WIDTH } }).render().asPng();
-};
+export const renderOgPng = () => renderCardPng(card);

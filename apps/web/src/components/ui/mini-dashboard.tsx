@@ -2,7 +2,6 @@ import { Search, TrendingUp } from 'lucide-react';
 import { animate, motion, useInView, useReducedMotion } from 'motion/react';
 import { useEffect, useRef, useState } from 'react';
 
-const QUESTION = 'How did the north region do last quarter?';
 const TYPE_INTERVAL_MS = 38;
 const GROWTH_PERCENT = 18;
 const BARS = [
@@ -13,7 +12,7 @@ const BARS = [
   { id: 'w5', value: 96 },
 ];
 
-export const MiniDashboard = () => {
+export const MiniDashboard = ({ question }: { question: string }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { margin: '-60px', once: true });
   const prefersReducedMotion = useReducedMotion();
@@ -21,8 +20,8 @@ export const MiniDashboard = () => {
   const [typed, setTyped] = useState(0);
   const [growth, setGrowth] = useState(0);
 
-  const typedCount = still ? QUESTION.length : typed;
-  const revealed = typedCount >= QUESTION.length;
+  const typedCount = still ? question.length : typed;
+  const revealed = typedCount >= question.length;
   const growthShown = still ? GROWTH_PERCENT : growth;
 
   useEffect(() => {
@@ -33,14 +32,14 @@ export const MiniDashboard = () => {
     const id = setInterval(() => {
       count += 1;
       setTyped(count);
-      if (count >= QUESTION.length) {
+      if (count >= question.length) {
         clearInterval(id);
       }
     }, TYPE_INTERVAL_MS);
     return () => {
       clearInterval(id);
     };
-  }, [isInView, still]);
+  }, [isInView, question.length, still]);
 
   useEffect(() => {
     if (still || !revealed) {
@@ -61,7 +60,7 @@ export const MiniDashboard = () => {
     <div className='rounded-xl border border-border bg-surface p-5' ref={ref}>
       <div className='flex items-center gap-2 rounded-lg border border-border bg-background/60 px-3 py-2 text-sm'>
         <Search aria-hidden className='h-4 w-4 shrink-0 text-muted' />
-        <span className='text-heading'>{QUESTION.slice(0, typedCount)}</span>
+        <span className='text-heading'>{question.slice(0, typedCount)}</span>
         {!revealed && (
           <motion.span
             animate={{ opacity: [1, 0, 1] }}

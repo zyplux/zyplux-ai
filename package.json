@@ -14,26 +14,33 @@
       "tests"
     ],
     "catalog": {
-      "@cloudflare/vite-plugin": "^1.40.0",
+      "@cloudflare/vite-plugin": "^1.40.1",
+      "@content-collections/cli": "^0.1.9",
+      "@content-collections/core": "^0.15.1",
+      "@content-collections/markdown": "^0.1.4",
+      "@content-collections/mdx": "^0.2.2",
+      "@content-collections/vite": "^0.3.0",
       "@fontsource/inter": "^5.2.8",
       "@happy-dom/global-registrator": "^20",
       "@resvg/resvg-js": "^2.6.2",
-      "@tailwindcss/postcss": "^4.3.0",
+      "@tailwindcss/vite": "^4.3.0",
+      "@tanstack/react-router": "1.170.15",
+      "@tanstack/react-start": "1.168.25",
       "@testing-library/react": "^16",
-      "@totvibe/eslint-config": "^0.1.0",
+      "@totvibe/eslint-config": "^0.2.0",
       "@types/bun": "latest",
       "@types/react": "^19.2.17",
       "@types/react-dom": "^19.2.3",
       "@vitejs/plugin-react": "^6.0.2",
-      "autoprefixer": "^10.5.0",
       "clsx": "^2.1.1",
       "eslint": "^10.4.1",
       "jiti": "^2.7.0",
       "knip": "^6.16.1",
       "lucide-react": "^1.17.0",
+      "mdx-bundler": "^10.1.1",
       "motion": "^12.40.0",
       "npm-check-updates": "^22.2.3",
-      "prettier": "^3.8.3",
+      "prettier": "^3.8.4",
       "react": "^19.2.7",
       "react-dom": "^19.2.7",
       "satori": "^0.26.0",
@@ -41,7 +48,8 @@
       "tailwindcss": "^4.3.0",
       "typescript": "^6.0.3",
       "vite": "^8.0.16",
-      "wrangler": "^4.98.0"
+      "wrangler": "^4.99.0",
+      "zod": "^4.4.3"
     }
   },
   "scripts": {
@@ -52,7 +60,7 @@
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
     "knip": "knip-bun",
-    "test": "bun test tests",
+    "test": "bun --filter @zyplux/web content && cd tests && bun test",
     "upgrade": "npm-check-updates --root --workspaces --format group"
   },
   "trustedDependencies": [
@@ -71,5 +79,8 @@
     "npm-check-updates": "catalog:",
     "prettier": "catalog:",
     "typescript": "catalog:"
+  },
+  "patchedDependencies": {
+    "miniflare@4.20260609.0": "patches/miniflare@4.20260609.0.patch"
   }
 }

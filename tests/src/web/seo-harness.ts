@@ -3,7 +3,7 @@ import { pageHead, type PageHead, type PageKey } from '@zyplux/web/seo';
 
 import type { Harness } from '@/stories/harness';
 
-const flatten = (head: PageHead) => [head.title, ...head.tags.map(tag => tag.content)].join('\n');
+const flatten = (head: PageHead) => head.meta.map(tag => ('title' in tag ? tag.title : tag.content)).join('\n');
 
 export const seoHarness = (key: PageKey) =>
   ({
