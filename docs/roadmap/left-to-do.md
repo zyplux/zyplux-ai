@@ -77,9 +77,3 @@ now minimal shells (no title/meta).
   invented client counts, testimonials, or results.
 - Outcome and time words over technology words; mirror the buyer's own phrases.
 - No public pricing — the free audit delivers the exact fixed price.
-
-## Decisions changed after the kit
-
-- Hero h1 is the brand **Zyplux** (shimmer gradient) again — founder preference,
-  2026-06-07. "Work that finishes itself." was dropped from the hero (the subhead "We
-  connect a private AI agent…" stays) but remains the `<title>` and `og:title`.
