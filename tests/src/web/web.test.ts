@@ -1,27 +1,20 @@
-import { AgentPage } from '@zyplux/web/routes/agent';
-import { PrivacyPage } from '@zyplux/web/routes/privacy';
-import { createElement } from 'react';
-
 import { PAGE_META } from '@/fixtures/content';
 import registerLandingScenarios from '@/stories/landing';
 import registerSeoScenarios from '@/stories/seo';
 import registerSubpageScenarios from '@/stories/subpages';
 
-import { pageHarness, webHarness } from './harness';
+import { routerHarness } from './harness';
 import { seoHarness } from './seo-harness';
 
-registerLandingScenarios(webHarness);
+registerLandingScenarios(routerHarness('/'));
 
-registerSubpageScenarios('privacy', pageHarness(createElement(PrivacyPage)), [
+registerSubpageScenarios('privacy', routerHarness('/privacy'), [
   'Privacy, plainly.',
   'What we collect.',
   'Zyplux is based in Sydney, Australia.',
 ]);
 
-registerSubpageScenarios('agent', pageHarness(createElement(AgentPage)), [
-  'The agent, live.',
-  'We’re polishing the showcase.',
-]);
+registerSubpageScenarios('agent', routerHarness('/agent'), ['The agent, live.', 'We’re polishing the showcase.']);
 
 registerSeoScenarios(seoHarness('home', PAGE_META.home, '/'), 'home', PAGE_META.home.title);
 registerSeoScenarios(seoHarness('agent', PAGE_META.agent, '/agent'), 'agent', PAGE_META.agent.title);

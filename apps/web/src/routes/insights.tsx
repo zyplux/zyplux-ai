@@ -9,7 +9,7 @@ import { PROSE_COMPONENTS } from '@/components/mdx/prose-components';
 import { INSIGHTS_POSTS } from '@/posts';
 import { pageHead } from '@/seo';
 
-export const InsightsPage = () => (
+const InsightsPage = () => (
   <SubpageLayout>
     <PageHeadline>{frontmatter.headline}</PageHeadline>
     {INSIGHTS_POSTS.length > 0 && (

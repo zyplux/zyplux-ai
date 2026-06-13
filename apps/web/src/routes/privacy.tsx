@@ -7,7 +7,7 @@ import { SubpageLayout } from '@/components/layout/subpage-layout';
 import { PROSE_COMPONENTS } from '@/components/mdx/prose-components';
 import { pageHead } from '@/seo';
 
-export const PrivacyPage = () => (
+const PrivacyPage = () => (
   <SubpageLayout>
     <PageHeadline>{frontmatter.headline}</PageHeadline>
     <div className={prose({ size: 'base' })}>

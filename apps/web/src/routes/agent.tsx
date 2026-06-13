@@ -8,7 +8,7 @@ import { SubpageLayout } from '@/components/layout/subpage-layout';
 import { PROSE_COMPONENTS } from '@/components/mdx/prose-components';
 import { pageHead } from '@/seo';
 
-export const AgentPage = () => (
+const AgentPage = () => (
   <SubpageLayout>
     <PageHeadline>{frontmatter.headline}</PageHeadline>
     <div className={prose({ class: 'mb-10' })}>

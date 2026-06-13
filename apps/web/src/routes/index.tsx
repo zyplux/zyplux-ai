@@ -8,7 +8,7 @@ import { HOME_COMPONENTS } from '@/components/mdx/home-components';
 import { pageHead } from '@/seo';
 import { SKIP_LINK_LABEL } from '@/site';
 
-export const HomePage = () => (
+const HomePage = () => (
   <div className='min-h-screen overflow-x-hidden'>
     <a className='skip-link' href='#main-content'>
       {SKIP_LINK_LABEL}

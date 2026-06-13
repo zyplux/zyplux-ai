@@ -8,9 +8,7 @@
     "./page-meta": "./src/page-meta.ts",
     "./seo": "./src/seo.ts",
     "./site": "./src/site.ts",
-    "./routes/index": "./src/routes/index.tsx",
-    "./routes/agent": "./src/routes/agent.tsx",
-    "./routes/privacy": "./src/routes/privacy.tsx"
+    "./route-tree": "./src/routeTree.gen.ts"
   },
   "scripts": {
     "dev": "vite",
