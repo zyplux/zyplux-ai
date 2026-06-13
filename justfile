@@ -45,8 +45,8 @@ lint:
 test:
     bun run test
 
-# Full gate: install, knip, typecheck, lint, test — autofix throughout.
-check: install knip typecheck lint test
+# Full gate: install, knip, typecheck, lint, build, test — autofix throughout.
+check: install knip typecheck lint build test
 
 # Deploy the web app to Cloudflare (vite build + wrangler deploy).
 deploy:
