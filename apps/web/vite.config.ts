@@ -6,13 +6,14 @@ import react from '@vitejs/plugin-react';
 import { MDX_OPTIONS } from '@zyplux/mdx';
 import { defineConfig } from 'vite';
 
+import { insightsFrontmatterPlugin } from './og/insights-frontmatter-plugin';
 import { ogImagePlugin } from './og/og-image-plugin';
 import { SITE_URL } from './src/config';
 
-// The cloudflare plugin's dev-mode worker proxy hangs under bun (its `ws` client
-// relies on Node events bun does not implement), so it runs only at build time.
-// tanstackStart detects the cloudflare plugin from the user config object, so the
-// config must stay an object literal (the function form breaks that detection).
+// The cloudflare worker is excluded from dev (its proxy hangs under bun — see
+// OVERVIEW.md "Runtime") and included only for build/prerender/deploy. We key off
+// argv, not Vite's `command`, because prerender runs an in-process `vite preview`
+// (command 'serve') that still needs the worker — argv stays 'build' there.
 const isBuild = process.argv.includes('build');
 
 export default defineConfig({
@@ -21,6 +22,7 @@ export default defineConfig({
   },
   plugins: [
     { enforce: 'pre', ...mdx(MDX_OPTIONS) },
+    insightsFrontmatterPlugin(),
     tailwindcss(),
     ...(isBuild ? [cloudflare({ viteEnvironment: { name: 'ssr' } })] : []),
     tanstackStart({
