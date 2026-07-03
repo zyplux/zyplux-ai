@@ -111,4 +111,4 @@ og:
 
 # Shallow-clone a reference repo into reference_clones/ (optional branch or tag).
 clone repo ref="":
-    scripts/clone_reference.py {{ repo }} {{ ref }}
+    bun run cz clone-reference-repo {{ repo }} {{ ref }}

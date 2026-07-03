@@ -10,7 +10,10 @@ ignore = [
     "D",      # docstrings are optional here — code is written to be self-documenting
     "DOC",    # docstring-section rules only matter once docstrings are mandated (they aren't)
     "CPY001", # the project carries no copyright-header convention
-    "S404",   # scripts/clone_reference.py shells out to git; subprocess is the intended mechanism
-    "S603",   # argv is built as a literal list with no shell — no injection surface
-    "S607",   # git is intentionally invoked by name off PATH
+]
+
+[lint.per-file-ignores]
+"**/tests/**" = [
+    "INP001", # the tests tree is deliberately not an importable package (pytest rootdir layout)
+    "S101",   # `assert` is pytest's assertion API (production asserts stay flagged)
 ]
