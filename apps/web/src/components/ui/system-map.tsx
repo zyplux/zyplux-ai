@@ -10,7 +10,7 @@ const NODE_POSITIONS = [
   { x: 130, y: 200 },
 ];
 
-export type SystemMapContent = {
+type SystemMapContent = {
   badge: string;
   captionPending: string;
   captionResolved: string;
@@ -18,7 +18,9 @@ export type SystemMapContent = {
   nodes: { label: string; snag?: boolean | undefined }[];
 };
 
-export const SystemMap = ({ content }: { content: SystemMapContent }) => (
+type SystemMapProps = { content: SystemMapContent };
+
+export const SystemMap = ({ content }: SystemMapProps) => (
   <Diagram caption={content.figcaption} resolveDelayMs={RESOLVE_DELAY_MS} viewBox='0 0 560 400'>
     <LoopRing cx={280} cy={200} r={150} />
     <SpokeLine x1={280} x2={280} y1={200} y2={350} />

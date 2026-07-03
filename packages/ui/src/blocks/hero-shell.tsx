@@ -5,7 +5,9 @@ import { ScrollCue } from '@zyplux/ui/motion';
 import { container } from '@zyplux/ui/recipes';
 import * as m from 'motion/react-m';
 
-export const HeroShell = ({ children }: { children: ReactNode }) => (
+type HeroShellProps = { children: ReactNode };
+
+export const HeroShell = ({ children }: HeroShellProps) => (
   <section className='relative min-h-screen flex items-center justify-center overflow-hidden'>
     <FloatingParticles />
     <div className={container({ class: 'py-32 relative z-10' })}>

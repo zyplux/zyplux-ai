@@ -5,48 +5,66 @@ import { useDiagramPhase } from './use-diagram-phases';
 
 const { accent, border, heading, muted, success, surface, warning } = PALETTE;
 
+const NODE_WIDTH = 96;
+const NODE_HEIGHT = 40;
 const NODE_HALF_WIDTH = 48;
 const NODE_HALF_HEIGHT = 20;
+const NODE_STROKE_WIDTH = 1.5;
+const SNAG_STROKE_WIDTH = 2;
+const LABEL_BASELINE_OFFSET = 5;
+const PULSE_SCALE = 1.06;
+const DASH_TRAVEL_OFFSET = -96;
+const SPOKE_STROKE_WIDTH = 2;
+const RESOLVE_BADGE_RADIUS = 38;
+const RESOLVE_RING_STROKE_WIDTH = 2;
+const RIPPLE_PEAK_OPACITY = 0.4;
+const RIPPLE_PEAK_SCALE = 1.55;
 const CENTERED = { transformBox: 'fill-box', transformOrigin: 'center' } as const;
 
-export const DiagramNode = ({
-  label,
-  snag = false,
-  x,
-  y,
-}: {
+type DiagramNodeProps = {
   label: string;
   snag?: boolean | undefined;
   x: number;
   y: number;
-}) => {
+};
+
+export const DiagramNode = ({ label, snag = false, x, y }: DiagramNodeProps) => {
   const { resolved, still } = useDiagramPhase();
-  const pulsing = snag && !resolved && !still;
+  const isPulsing = snag && !resolved && !still;
   return (
     <m.g
-      animate={pulsing ? { scale: [1, 1.06, 1] } : { scale: 1 }}
+      animate={isPulsing ? { scale: [1, PULSE_SCALE, 1] } : { scale: 1 }}
       style={CENTERED}
-      transition={pulsing ? { duration: 1.6, ease: 'easeInOut', repeat: Infinity } : { duration: 0.3 }}
+      transition={isPulsing ? { duration: 1.6, ease: 'easeInOut', repeat: Infinity } : { duration: 0.3 }}
     >
       <m.rect
         animate={{ stroke: resolved ? success : snag ? warning : border }}
         fill={surface}
-        height={NODE_HALF_HEIGHT * 2}
+        height={NODE_HEIGHT}
         rx={10}
-        strokeWidth={snag ? 2 : 1.5}
+        strokeWidth={snag ? SNAG_STROKE_WIDTH : NODE_STROKE_WIDTH}
         transition={{ duration: 0.5 }}
-        width={NODE_HALF_WIDTH * 2}
+        width={NODE_WIDTH}
         x={x - NODE_HALF_WIDTH}
         y={y - NODE_HALF_HEIGHT}
       />
-      <text fill={snag ? heading : muted} fontSize={14} fontWeight={500} textAnchor='middle' x={x} y={y + 5}>
+      <text
+        fill={snag ? heading : muted}
+        fontSize={14}
+        fontWeight={500}
+        textAnchor='middle'
+        x={x}
+        y={y + LABEL_BASELINE_OFFSET}
+      >
         {label}
       </text>
     </m.g>
   );
 };
 
-export const LoopRing = ({ cx, cy, r }: { cx: number; cy: number; r: number }) => {
+type LoopRingProps = { cx: number; cy: number; r: number };
+
+export const LoopRing = ({ cx, cy, r }: LoopRingProps) => {
   const { drawn, resolved, still } = useDiagramPhase();
   return (
     <>
@@ -62,7 +80,7 @@ export const LoopRing = ({ cx, cy, r }: { cx: number; cy: number; r: number }) =
         transition={{ pathLength: { duration: 1, ease: 'easeInOut' }, stroke: { duration: 0.6 } }}
       />
       <m.circle
-        animate={resolved && !still ? { opacity: 1, strokeDashoffset: [0, -96] } : { opacity: 0 }}
+        animate={resolved && !still ? { opacity: 1, strokeDashoffset: [0, DASH_TRAVEL_OFFSET] } : { opacity: 0 }}
         cx={cx}
         cy={cy}
         fill='none'
@@ -82,14 +100,16 @@ export const LoopRing = ({ cx, cy, r }: { cx: number; cy: number; r: number }) =
   );
 };
 
-export const SpokeLine = ({ x1, x2, y1, y2 }: { x1: number; x2: number; y1: number; y2: number }) => {
+type SpokeLineProps = { x1: number; x2: number; y1: number; y2: number };
+
+export const SpokeLine = ({ x1, x2, y1, y2 }: SpokeLineProps) => {
   const { resolved, still } = useDiagramPhase();
   return (
     <m.line
       animate={resolved ? { opacity: 0.7, pathLength: 1 } : { opacity: 0, pathLength: 0 }}
       initial={{ opacity: 0, pathLength: still ? 1 : 0 }}
       stroke={success}
-      strokeWidth={2}
+      strokeWidth={SPOKE_STROKE_WIDTH}
       transition={{ duration: 0.5 }}
       x1={x1}
       x2={x2}
@@ -99,12 +119,18 @@ export const SpokeLine = ({ x1, x2, y1, y2 }: { x1: number; x2: number; y1: numb
   );
 };
 
-export const ResolveBadge = ({ label, r = 38, x, y }: { label: string; r?: number; x: number; y: number }) => {
+type ResolveBadgeProps = { label: string; r?: number; x: number; y: number };
+
+export const ResolveBadge = ({ label, r = RESOLVE_BADGE_RADIUS, x, y }: ResolveBadgeProps) => {
   const { resolved, still } = useDiagramPhase();
   return (
     <>
       <m.circle
-        animate={resolved && !still ? { opacity: [0.4, 0, 0.4], scale: [1, 1.55, 1] } : { opacity: 0 }}
+        animate={
+          resolved && !still
+            ? { opacity: [RIPPLE_PEAK_OPACITY, 0, RIPPLE_PEAK_OPACITY], scale: [1, RIPPLE_PEAK_SCALE, 1] }
+            : { opacity: 0 }
+        }
         cx={x}
         cy={y}
         fill='none'
@@ -121,8 +147,8 @@ export const ResolveBadge = ({ label, r = 38, x, y }: { label: string; r?: numbe
         style={CENTERED}
         transition={{ damping: 16, stiffness: 220, type: 'spring' }}
       >
-        <circle cx={x} cy={y} fill={surface} r={r} stroke={success} strokeWidth={2} />
-        <text fill={heading} fontSize={13} fontWeight={600} textAnchor='middle' x={x} y={y + 5}>
+        <circle cx={x} cy={y} fill={surface} r={r} stroke={success} strokeWidth={RESOLVE_RING_STROKE_WIDTH} />
+        <text fill={heading} fontSize={13} fontWeight={600} textAnchor='middle' x={x} y={y + LABEL_BASELINE_OFFSET}>
           {label}
         </text>
       </m.g>
@@ -130,17 +156,14 @@ export const ResolveBadge = ({ label, r = 38, x, y }: { label: string; r?: numbe
   );
 };
 
-export const PhaseCaption = ({
-  pending,
-  resolved: resolvedLabel,
-  x,
-  y,
-}: {
+type PhaseCaptionProps = {
   pending: string;
   resolved: string;
   x: number;
   y: number;
-}) => {
+};
+
+export const PhaseCaption = ({ pending, resolved: resolvedLabel, x, y }: PhaseCaptionProps) => {
   const { resolved, still } = useDiagramPhase();
   return (
     <>

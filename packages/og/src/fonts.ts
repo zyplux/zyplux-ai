@@ -7,8 +7,12 @@ const require = createRequire(import.meta.url);
 const interFilesDir = path.join(path.dirname(require.resolve('@fontsource/inter/package.json')), 'files');
 const readInterWeight = (weight: number) => readFileSync(path.join(interFilesDir, `inter-latin-${weight}-normal.woff`));
 
+const FONT_WEIGHT_MEDIUM = 500;
+const FONT_WEIGHT_SEMIBOLD = 600;
+const FONT_WEIGHT_EXTRABOLD = 800;
+
 export const INTER_FONTS: SatoriOptions['fonts'] = [
-  { data: readInterWeight(500), name: 'Inter', style: 'normal', weight: 500 },
-  { data: readInterWeight(600), name: 'Inter', style: 'normal', weight: 600 },
-  { data: readInterWeight(800), name: 'Inter', style: 'normal', weight: 800 },
+  { data: readInterWeight(FONT_WEIGHT_MEDIUM), name: 'Inter', style: 'normal', weight: FONT_WEIGHT_MEDIUM },
+  { data: readInterWeight(FONT_WEIGHT_SEMIBOLD), name: 'Inter', style: 'normal', weight: FONT_WEIGHT_SEMIBOLD },
+  { data: readInterWeight(FONT_WEIGHT_EXTRABOLD), name: 'Inter', style: 'normal', weight: FONT_WEIGHT_EXTRABOLD },
 ];

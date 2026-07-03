@@ -2,7 +2,9 @@ import type { ReactNode } from 'react';
 
 import { ChevronDown } from 'lucide-react';
 
-export const Disclosure = ({ children, summary }: { children: ReactNode; summary: ReactNode }) => (
+type DisclosureProps = { children: ReactNode; summary: ReactNode };
+
+export const Disclosure = ({ children, summary }: DisclosureProps) => (
   <details className='group rounded-xl border border-border bg-surface transition-colors hover:border-accent/55'>
     <summary className='flex cursor-pointer list-none items-center justify-between gap-4 p-5 font-semibold text-heading'>
       {summary}

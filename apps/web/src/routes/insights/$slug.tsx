@@ -18,7 +18,9 @@ const findPost = (slug: string) => {
   return post;
 };
 
-const InsightsPostPage = ({ post }: { post: InsightsPost }) => (
+type InsightsPostPageProps = { post: InsightsPost };
+
+const InsightsPostPage = ({ post }: InsightsPostPageProps) => (
   <SubpageLayout>
     <article>
       <PageHeadline className='mb-2'>{post.title}</PageHeadline>
@@ -37,7 +39,7 @@ const PostComponent = () => {
   return <InsightsPostPage post={findPost(slug)} />;
 };
 
-export const Route = createFileRoute('/insights_/$slug')({
+export const Route = createFileRoute('/insights/$slug')({
   component: PostComponent,
   head: ({ match }) => postHead(findPost(match.params.slug)),
 });

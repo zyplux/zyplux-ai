@@ -8,28 +8,32 @@ export type PageMeta = { description: string; title: string };
 const ogImageAlt = `${BRAND_NAME} — ${TAGLINE}`;
 const ogImageUrl = `${SITE_URL}/og.png`;
 
-const head = (page: PageMeta, path: string, image: { alt: string; url: string }) =>
+type OgImageRef = { alt: string; url: string };
+
+const head = ({ description, title }: PageMeta, path: string, { alt, url }: OgImageRef) =>
   ({
     meta: [
-      { title: page.title },
-      { content: page.description, name: 'description' },
+      { title: title },
+      { content: description, name: 'description' },
       { content: THEME_COLOR, name: 'theme-color' },
-      { content: page.title, property: 'og:title' },
-      { content: page.description, property: 'og:description' },
+      { content: title, property: 'og:title' },
+      { content: description, property: 'og:description' },
       { content: 'website', property: 'og:type' },
       { content: `${SITE_URL}${path}`, property: 'og:url' },
-      { content: image.url, property: 'og:image' },
+      { content: url, property: 'og:image' },
       { content: String(OG_IMAGE_WIDTH), property: 'og:image:width' },
       { content: String(OG_IMAGE_HEIGHT), property: 'og:image:height' },
-      { content: image.alt, property: 'og:image:alt' },
+      { content: alt, property: 'og:image:alt' },
       { content: 'summary_large_image', name: 'twitter:card' },
     ],
   }) satisfies PageHead;
 
 export const pageHead = (page: PageMeta, path: string) => head(page, path, { alt: ogImageAlt, url: ogImageUrl });
 
-export const postHead = (post: { description: string; slug: string; title: string }) =>
-  head({ description: post.description, title: `${BRAND_NAME} — ${post.title}` }, `/insights/${post.slug}`, {
-    alt: post.title,
-    url: `${SITE_URL}${postOgImagePath(post.slug)}`,
+type PostMeta = { description: string; slug: string; title: string };
+
+export const postHead = ({ description, slug, title }: PostMeta) =>
+  head({ description: description, title: `${BRAND_NAME} — ${title}` }, `/insights/${slug}`, {
+    alt: title,
+    url: `${SITE_URL}${postOgImagePath(slug)}`,
   });

@@ -11,7 +11,7 @@ const config: Config = {
     {
       files: '*.md',
       options: {
-        printWidth: Number.POSITIVE_INFINITY,
+        printWidth: Infinity,
         proseWrap: 'preserve',
       },
     },

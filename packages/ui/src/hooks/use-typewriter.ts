@@ -3,16 +3,18 @@ import { useEffect, useState } from 'react';
 
 const DEFAULT_TYPE_INTERVAL_MS = 38;
 
+type TypewriterOptions = { intervalMs?: number; play?: boolean };
+
 export const useTypewriter = (
   text: string,
-  { intervalMs = DEFAULT_TYPE_INTERVAL_MS, play = true }: { intervalMs?: number; play?: boolean } = {},
+  { intervalMs = DEFAULT_TYPE_INTERVAL_MS, play = true }: TypewriterOptions = {},
 ) => {
   const prefersReducedMotion = useReducedMotion();
-  const still = prefersReducedMotion === true;
+  const isStill = prefersReducedMotion === true;
   const [typed, setTyped] = useState(0);
 
   useEffect(() => {
-    if (still || !play) {
+    if (isStill || !play) {
       return;
     }
     let count = 0;
@@ -26,8 +28,8 @@ export const useTypewriter = (
     return () => {
       clearInterval(id);
     };
-  }, [intervalMs, play, still, text.length]);
+  }, [intervalMs, play, isStill, text.length]);
 
-  const typedCount = still ? text.length : typed;
+  const typedCount = isStill ? text.length : typed;
   return { revealed: typedCount >= text.length, typedText: text.slice(0, typedCount) };
 };

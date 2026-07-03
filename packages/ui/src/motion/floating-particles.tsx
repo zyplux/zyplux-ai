@@ -11,7 +11,13 @@ const AMBIENT_PARTICLES: Particle[] = [
   { delay: 1.1, duration: 8.5, left: '90%', size: 5, top: '70%' },
 ];
 
-export const FloatingParticles = ({ particles = AMBIENT_PARTICLES }: { particles?: Particle[] }) => {
+const DIM_OPACITY = 0.15;
+const GLOW_OPACITY = 0.5;
+const DRIFT_RISE_PX = -18;
+
+type FloatingParticlesProps = { particles?: Particle[] };
+
+export const FloatingParticles = ({ particles = AMBIENT_PARTICLES }: FloatingParticlesProps) => {
   const prefersReducedMotion = useReducedMotion();
 
   if (prefersReducedMotion === true) {
@@ -22,9 +28,9 @@ export const FloatingParticles = ({ particles = AMBIENT_PARTICLES }: { particles
     <div aria-hidden className='pointer-events-none absolute inset-0 z-0'>
       {particles.map(particle => (
         <m.span
-          animate={{ opacity: [0.15, 0.5, 0.15], y: [0, -18, 0] }}
+          animate={{ opacity: [DIM_OPACITY, GLOW_OPACITY, DIM_OPACITY], y: [0, DRIFT_RISE_PX, 0] }}
           className='absolute rounded-full bg-accent/40'
-          initial={{ opacity: 0.15, y: 0 }}
+          initial={{ opacity: DIM_OPACITY, y: 0 }}
           key={`${particle.left}-${particle.top}`}
           style={{ height: particle.size, left: particle.left, top: particle.top, width: particle.size }}
           transition={{ delay: particle.delay, duration: particle.duration, ease: 'easeInOut', repeat: Infinity }}

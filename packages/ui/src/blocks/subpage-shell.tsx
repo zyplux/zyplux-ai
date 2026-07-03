@@ -5,26 +5,24 @@ import { cx } from '@zyplux/ui/lib/style';
 import { container, navLink } from '@zyplux/ui/recipes';
 import { ArrowLeft } from 'lucide-react';
 
-export const BackLink = ({ children, href }: { children: ReactNode; href: string }) => (
+type BackLinkProps = { children: ReactNode; href: string };
+
+export const BackLink = ({ children, href }: BackLinkProps) => (
   <a className={cx(navLink(), 'flex items-center gap-2')} href={href}>
     <ArrowLeft aria-hidden className='h-4 w-4' />
     {children}
   </a>
 );
 
-export const SubpageShell = ({
-  backLink,
-  brand,
-  children,
-  footer,
-  skipLinkLabel,
-}: {
+type SubpageShellProps = {
   backLink: ReactNode;
   brand: ReactNode;
   children: ReactNode;
   footer: ReactNode;
   skipLinkLabel: string;
-}) => (
+};
+
+export const SubpageShell = ({ backLink, brand, children, footer, skipLinkLabel }: SubpageShellProps) => (
   <div className='min-h-screen overflow-x-hidden'>
     <a className='skip-link' href='#main-content'>
       {skipLinkLabel}

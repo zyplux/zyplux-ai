@@ -65,17 +65,14 @@ const injectChildIndexes = (children: ReactNode, propsAt: (index: number) => obj
     isValidElement<object>(child) ? cloneElement(child, propsAt(index)) : child,
   );
 
-const Hero = ({
-  children,
-  microcopy,
-  primaryCta,
-  secondaryCta,
-}: {
+type HeroProps = {
   children: ReactNode;
   microcopy: string;
   primaryCta: string;
   secondaryCta: string;
-}) => (
+};
+
+const Hero = ({ children, microcopy, primaryCta, secondaryCta }: HeroProps) => (
   <HeroShell>
     <Entrance className={pill({ class: 'px-4 py-2 mb-8', tone: 'accent' })} scale={0.8} y={0}>
       <Sparkles className='h-4 w-4' />
@@ -108,37 +105,35 @@ const Hero = ({
   </HeroShell>
 );
 
-const Cards = ({ children, narrow = false }: { children: ReactNode; narrow?: boolean }) => (
-  <CardGrid className={cx(narrow && 'max-w-4xl', Children.count(children) > 3 && 'md:grid-cols-2 lg:grid-cols-3')}>
+const CARD_ROW_CAPACITY = 3;
+
+type CardsProps = { children: ReactNode; narrow?: boolean };
+
+const Cards = ({ children, narrow = false }: CardsProps) => (
+  <CardGrid
+    className={cx(
+      narrow && 'max-w-4xl',
+      Children.count(children) > CARD_ROW_CAPACITY && 'md:grid-cols-2 lg:grid-cols-3',
+    )}
+  >
     {injectChildIndexes(children, index => ({ index }))}
   </CardGrid>
 );
 
-const Card = ({
-  children,
-  icon,
-  index = 0,
-  title,
-}: {
+type CardProps = {
   children?: ReactNode;
   icon: IconName;
   index?: number;
   title: string;
-}) => (
+};
+
+const Card = ({ children, icon, index = 0, title }: CardProps) => (
   <FeatureCard icon={ICONS[icon]} index={index} title={title}>
     {children}
   </FeatureCard>
 );
 
-const BuildCard = ({
-  children,
-  customerFacing = false,
-  icon,
-  index = 0,
-  outcome,
-  surface,
-  title,
-}: {
+type BuildCardProps = {
   children: ReactNode;
   customerFacing?: boolean;
   icon: IconName;
@@ -146,7 +141,9 @@ const BuildCard = ({
   outcome: string;
   surface: string;
   title: string;
-}) => (
+};
+
+const BuildCard = ({ children, customerFacing = false, icon, index = 0, outcome, surface, title }: BuildCardProps) => (
   <FeatureCard
     eyebrow={
       <span className={pill({ class: 'mb-5 w-fit text-xs font-medium', tone: customerFacing ? 'violet' : 'accent' })}>
@@ -162,17 +159,21 @@ const BuildCard = ({
   </FeatureCard>
 );
 
-const Steps = ({ children }: { children: ReactNode }) => (
+type ChildrenProps = { children: ReactNode };
+
+const Steps = ({ children }: ChildrenProps) => (
   <CardGrid>{injectChildIndexes(children, index => ({ step: index + 1 }))}</CardGrid>
 );
 
-const Step = ({ children, step = 0, title }: { children: ReactNode; step?: number; title: string }) => (
+type StepProps = { children: ReactNode; step?: number; title: string };
+
+const Step = ({ children, step = 0, title }: StepProps) => (
   <StepCard step={step} title={title}>
     {children}
   </StepCard>
 );
 
-const Week = ({ children }: { children: ReactNode }) => (
+const Week = ({ children }: ChildrenProps) => (
   <Timeline className='mx-auto max-w-2xl'>
     {Children.map(children, (child, index) => (
       <TimelineItem index={index}>{child}</TimelineItem>
@@ -180,17 +181,14 @@ const Week = ({ children }: { children: ReactNode }) => (
   </Timeline>
 );
 
-const Scene = ({
-  children,
-  status,
-  timestamp,
-  title,
-}: {
+type SceneProps = {
   children: ReactNode;
   status: string;
   timestamp: string;
   title: string;
-}) => (
+};
+
+const Scene = ({ children, status, timestamp, title }: SceneProps) => (
   <>
     <h3 className='text-xl md:text-2xl font-semibold mb-3'>
       <span className='text-accent'>{timestamp}</span>
@@ -204,25 +202,21 @@ const Scene = ({
   </>
 );
 
-const Bridge = ({ children }: { children: ReactNode }) => (
+const Bridge = ({ children }: ChildrenProps) => (
   <Reveal className='mx-auto mt-20 max-w-2xl text-center'>
     <div className='text-muted'>{children}</div>
   </Reveal>
 );
 
-const Showcase = ({
-  caption,
-  children,
-  growthNote,
-  question,
-  title,
-}: {
+type ShowcaseProps = {
   caption: string;
   children: ReactNode;
   growthNote: string;
   question: string;
   title: string;
-}) => (
+};
+
+const Showcase = ({ caption, children, growthNote, question, title }: ShowcaseProps) => (
   <Reveal className='mx-auto mt-16 max-w-4xl'>
     <ShowcasePanel demo={<MiniDashboard caption={caption} growthNote={growthNote} question={question} />} title={title}>
       {children}
@@ -230,7 +224,9 @@ const Showcase = ({
   </Reveal>
 );
 
-const SystemMap = ({ caption }: { caption: string }) => (
+type SystemMapProps = { caption: string };
+
+const SystemMap = ({ caption }: SystemMapProps) => (
   <Reveal className='mb-16'>
     <SystemMapDiagram
       content={{
@@ -244,22 +240,28 @@ const SystemMap = ({ caption }: { caption: string }) => (
   </Reveal>
 );
 
-const Founder = ({ children, photoAlt }: { children: ReactNode; photoAlt: string }) => (
+type FounderProps = { children: ReactNode; photoAlt: string };
+
+const Founder = ({ children, photoAlt }: FounderProps) => (
   <Reveal className='flex flex-col items-center gap-8 md:flex-row md:items-start'>
     <img alt={photoAlt} className={avatar({ class: 'size-40 shrink-0' })} height={400} src={founderPhoto} width={400} />
     <div className={prose({ size: 'base' })}>{children}</div>
   </Reveal>
 );
 
-const Faq = ({ children }: { children: ReactNode }) => <div className='space-y-4'>{children}</div>;
+const Faq = ({ children }: ChildrenProps) => <div className='space-y-4'>{children}</div>;
 
-const FaqItem = ({ children, question }: { children: ReactNode; question: string }) => (
+type FaqItemProps = { children: ReactNode; question: string };
+
+const FaqItem = ({ children, question }: FaqItemProps) => (
   <Reveal>
     <Disclosure summary={question}>{children}</Disclosure>
   </Reveal>
 );
 
-const Cta = ({ children, href }: { children: ReactNode; href: string }) => (
+type CtaProps = { children: ReactNode; href: string };
+
+const Cta = ({ children, href }: CtaProps) => (
   <Reveal className='mt-16 text-center'>
     <ButtonLink className='inline-block' href={href}>
       {children}

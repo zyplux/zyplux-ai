@@ -21,19 +21,26 @@ const boltDataUri = pngDataUri(BOLT_SVG);
 
 const backgroundGridUri = gridDataUri({ ...OG_SIZE, stroke: PALETTE.grid });
 
+const ACCENT_GLOW_ALPHA = 0.16;
+const VIOLET_GLOW_ALPHA = 0.12;
+const PILL_FILL_ALPHA = 0.1;
+const PILL_BORDER_ALPHA = 0.3;
+
 const GRADIENT_TEXT = {
   backgroundClip: 'text',
   backgroundImage: TEXT_GRADIENT,
   color: 'transparent',
 } satisfies CSSProperties;
 
-const CardShell = ({ children, style }: { children: ReactNode; style: CSSProperties }) => (
+type CardShellProps = { children: ReactNode; style: CSSProperties };
+
+const CardShell = ({ children, style }: CardShellProps) => (
   <div
     style={{
       backgroundColor: PALETTE.background,
       backgroundImage:
-        `radial-gradient(ellipse 90% 60% at 50% -10%, ${toRgba(PALETTE.accent, 0.16)}, transparent 70%),` +
-        `radial-gradient(ellipse 60% 40% at 85% 0%, ${toRgba(PALETTE.violet, 0.12)}, transparent 70%)`,
+        `radial-gradient(ellipse 90% 60% at 50% -10%, ${toRgba(PALETTE.accent, ACCENT_GLOW_ALPHA)}, transparent 70%),` +
+        `radial-gradient(ellipse 60% 40% at 85% 0%, ${toRgba(PALETTE.violet, VIOLET_GLOW_ALPHA)}, transparent 70%)`,
       display: 'flex',
       fontFamily: 'Inter',
       height: OG_IMAGE_HEIGHT,
@@ -74,8 +81,8 @@ const brandCard = (
       <div
         style={{
           alignItems: 'center',
-          backgroundColor: toRgba(PALETTE.accent, 0.1),
-          border: `1px solid ${toRgba(PALETTE.accent, 0.3)}`,
+          backgroundColor: toRgba(PALETTE.accent, PILL_FILL_ALPHA),
+          border: `1px solid ${toRgba(PALETTE.accent, PILL_BORDER_ALPHA)}`,
           borderRadius: 999,
           color: PALETTE.accent,
           display: 'flex',
@@ -129,25 +136,31 @@ export const ogImagePlugin = () => {
   const render = async () => (cached ??= await renderOgPng());
 
   return {
+    applyToEnvironment: environment => environment.name === 'client',
     configureServer: server => {
       server.middlewares.use((req, res, next) => {
-        if (req.url?.split('?')[0] !== `/${OG_FILE_NAME}`) {
+        if (req.url?.split('?', 1)[0] !== `/${OG_FILE_NAME}`) {
           next();
           return;
         }
-        render()
-          .then(png => {
+        const respond = async () => {
+          try {
+            const png = await render();
             res.setHeader('Content-Type', 'image/png');
             res.end(png);
-          })
-          .catch(next);
+          } catch (error) {
+            next(error);
+          }
+        };
+        void respond();
       });
     },
     name: 'zyplux:og-image',
-    async writeBundle(options) {
-      if (!options.dir || this.environment.name !== 'client') return;
+    writeBundle: async options => {
+      if (!options.dir) return;
       await writeFile(path.join(options.dir, OG_FILE_NAME), await render());
-      for (const post of await readPostCards()) {
+      const posts = await readPostCards();
+      for (const post of posts) {
         const imagePath = path.join(options.dir, postOgImagePath(post.slug));
         await mkdir(path.dirname(imagePath), { recursive: true });
         await writeFile(imagePath, await renderCardPng(postCard(post.title, post.description), OG_SIZE));

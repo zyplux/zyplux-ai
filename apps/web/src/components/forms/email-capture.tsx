@@ -6,17 +6,15 @@ import { FORM_MESSAGES } from '@/site';
 
 import { FormErrorNote } from './form-notes';
 
-export type FormName = 'agent-updates' | 'audit' | 'insights-updates';
-
-export const EmailCapture = ({
-  button,
-  emailLabel,
-  formName,
-}: {
+type EmailCaptureProps = {
   button: string;
   emailLabel: string;
   formName: FormName;
-}) => (
+};
+
+type FormName = 'agent-updates' | 'audit' | 'insights-updates';
+
+export const EmailCapture = ({ button, emailLabel, formName }: EmailCaptureProps) => (
   <EmailCaptureForm
     buttonLabel={button}
     emailLabel={emailLabel}

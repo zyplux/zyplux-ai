@@ -7,21 +7,16 @@ import { REVEAL_STAGGER_S } from '@zyplux/ui/motion';
 import { Pictogram } from './pictogram';
 import { CardTitle, SpotlightCard } from './spotlight-card';
 
-export const FeatureCard = ({
-  children,
-  eyebrow,
-  footer,
-  icon,
-  index = 0,
-  title,
-}: {
+type FeatureCardProps = {
   children?: ReactNode;
   eyebrow?: ReactNode;
   footer?: ReactNode;
   icon: LucideIcon | undefined;
   index?: number;
   title: ReactNode;
-}) => (
+};
+
+export const FeatureCard = ({ children, eyebrow, footer, icon, index = 0, title }: FeatureCardProps) => (
   <SpotlightCard>
     <div className='flex h-full flex-col'>
       {eyebrow}

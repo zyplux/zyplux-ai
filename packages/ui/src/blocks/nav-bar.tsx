@@ -8,15 +8,17 @@ import * as m from 'motion/react-m';
 
 const SCROLLED_THRESHOLD_PX = 50;
 
-export const NavBar = ({ brand, children }: { brand: ReactNode; children: ReactNode }) => {
-  const scrolled = useScrolledPast(SCROLLED_THRESHOLD_PX);
+type NavBarProps = { brand: ReactNode; children: ReactNode };
+
+export const NavBar = ({ brand, children }: NavBarProps) => {
+  const isScrolled = useScrolledPast(SCROLLED_THRESHOLD_PX);
 
   return (
     <m.nav
       animate={{ y: 0 }}
       className={cx(
         'fixed top-0 left-0 right-0 z-50 border-b transition-colors duration-300',
-        scrolled ? 'bg-background/80 backdrop-blur-lg border-border' : 'bg-transparent border-transparent',
+        isScrolled ? 'bg-background/80 backdrop-blur-lg border-border' : 'bg-transparent border-transparent',
       )}
       initial={{ y: -80 }}
       style={{ willChange: 'transform' }}
