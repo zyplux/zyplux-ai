@@ -6,6 +6,7 @@
       "name": "zyplux-ai",
       "devDependencies": {
         "@types/bun": "catalog:",
+        "@zyplux/cz": "catalog:",
         "@zyplux/eslint-config": "catalog:",
         "@zyplux/tsconfig": "workspace:*",
         "eslint": "catalog:",
@@ -167,6 +168,7 @@
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.3",
+    "@zyplux/cz": "^0.3.0",
     "@zyplux/eslint-config": "^0.6.5",
     "cva": "^1.0.0-beta.4",
     "eslint": "^10.6.0",
@@ -427,6 +429,10 @@
     "@oozcitak/url": ["@oozcitak/url@3.0.0", "", { "dependencies": { "@oozcitak/infra": "^2.0.2", "@oozcitak/util": "^10.0.0" } }, "sha512-ZKfET8Ak1wsLAiLWNfFkZc/BraDccuTJKR6svTYc7sVjbR+Iu0vtXdiDMY4o6jaFl5TW2TlS7jbLl4VovtAJWQ=="],
 
     "@oozcitak/util": ["@oozcitak/util@10.0.0", "", {}, "sha512-hAX0pT/73190NLqBPPWSdBVGtbY6VOhWYK3qqHqtXQ1gK7kS2yz4+ivsN07hpJ6I3aeMtKP6J6npsEKOAzuTLA=="],
+
+    "@optique/core": ["@optique/core@1.1.1", "", {}, "sha512-tbZLdH5wEnh8IRG8KTmWPZCKHLmD4bXigoPdzoSUVi+V46qZTNEaTdqtR7EuEwhbPI0KQjLSYRZCxFTdr9OZkA=="],
+
+    "@optique/run": ["@optique/run@1.1.1", "", { "dependencies": { "@optique/core": "1.1.1" } }, "sha512-jSZeuiljDEWYkQ67bVDucRknzFVwiSH1j4ho2jFWfcdMMa+WDRSfZA3GZoHA8zKj0Bf6UbJ+FMs/2IReQ0KYNQ=="],
 
     "@oxc-parser/binding-android-arm-eabi": ["@oxc-parser/binding-android-arm-eabi@0.137.0", "", { "os": "android", "cpu": "arm" }, "sha512-KDs+0VPdEmasOkpuJHW9V5WCF+cvYdMQv2Jd+aJXt+cxIx12NToRQRbXaRwUEDsZw+/jMk81Ve8ZFbjUkJTOwA=="],
 
@@ -800,6 +806,8 @@
 
     "@volar/typescript": ["@volar/typescript@2.4.28", "", { "dependencies": { "@volar/language-core": "2.4.28", "path-browserify": "^1.0.1", "vscode-uri": "^3.0.8" } }, "sha512-Ja6yvWrbis2QtN4ClAKreeUZPVYMARDYZl9LMEv1iQ1QdepB6wn0jTRxA9MftYmYa4DQ4k/DaSZpFPUfxl8giw=="],
 
+    "@zyplux/cz": ["@zyplux/cz@0.3.0", "", { "dependencies": { "@optique/core": "^1.1.1", "@optique/run": "^1.1.1", "@zyplux/util": "0.2.0", "zod": "^4.4.3" }, "bin": { "cz": "src/index.ts" } }, "sha512-lvfVqNS0t2YYYMl3c4B7RhtW+fM3+QDdt4feh4SRd1usnKhmW3jiNpvGWKCCn8M0+tVKSkO31/U95HwddVybfg=="],
+
     "@zyplux/eslint-config": ["@zyplux/eslint-config@0.6.5", "", { "dependencies": { "@eslint/js": "^10.0.1", "@typescript-eslint/type-utils": "^8.62.1", "@typescript-eslint/utils": "^8.62.1", "@vitest/eslint-plugin": "^1.6.20", "eslint-config-prettier": "^10.1.8", "eslint-plugin-perfectionist": "^5.9.1", "eslint-plugin-prefer-arrow-functions": "^3.9.1", "eslint-plugin-react": "^7.37.5", "eslint-plugin-react-hooks": "^7.1.1", "eslint-plugin-unicorn": "^70.0.0", "typescript-eslint": "^8.62.1" }, "peerDependencies": { "eslint": "^10.6.0", "typescript": "^6.0.3" } }, "sha512-pFKP02bzZX0Dm8C5ci8ZIPngT2L7etFroMCprTHKrzi35Jopn79KlPx551GhGY7G5cpx9L0LOZkIYt/RKNe4eg=="],
 
     "@zyplux/mdx": ["@zyplux/mdx@workspace:packages/mdx"],
@@ -811,6 +819,8 @@
     "@zyplux/tsconfig": ["@zyplux/tsconfig@workspace:packages/tsconfig"],
 
     "@zyplux/ui": ["@zyplux/ui@workspace:packages/ui"],
+
+    "@zyplux/util": ["@zyplux/util@0.2.0", "", { "peerDependencies": { "zod": "^4.4.3" } }, "sha512-7tJ1kvhXsrmzNq4Q3yoeFj5i9/dY1P+9XE5GuESHMgDIXUj0I9ZrBmoQdjS40u5BuGuZ7WDk2CsaRfRzmJJhIg=="],
 
     "@zyplux/web": ["@zyplux/web@workspace:apps/web"],
 

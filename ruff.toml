@@ -1,0 +1,16 @@
+line-length = 120
+target-version = "py314"
+preview = true
+
+[lint]
+select = ["ALL"]
+ignore = [
+    "COM812", # the formatter owns trailing commas; the rule fights it
+    "ISC001", # the formatter owns implicit string concatenation; the rule fights it
+    "D",      # docstrings are optional here — code is written to be self-documenting
+    "DOC",    # docstring-section rules only matter once docstrings are mandated (they aren't)
+    "CPY001", # the project carries no copyright-header convention
+    "S404",   # scripts/clone_reference.py shells out to git; subprocess is the intended mechanism
+    "S603",   # argv is built as a literal list with no shell — no injection surface
+    "S607",   # git is intentionally invoked by name off PATH
+]

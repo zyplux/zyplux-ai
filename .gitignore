@@ -30,6 +30,12 @@ logs
 .cache
 *.tsbuildinfo
 
+# uv workspace (Python tooling)
+.venv
+__pycache__
+.ruff_cache
+.pytest_cache
+
 # project-references typecheck output (tsc -b emits .d.ts here; never consumed at runtime)
 .tsbuild
 
