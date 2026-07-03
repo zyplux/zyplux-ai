@@ -7,10 +7,13 @@ import { seoHarness } from '@/web/seo-harness';
 
 const expectShows = async (harness: Harness, copies: string[]) => {
   const scene = await harness.open();
-  for (const copy of copies) {
-    scene.assert.shows(copy);
+  try {
+    for (const copy of copies) {
+      scene.assert.shows(copy);
+    }
+  } finally {
+    scene.dispose();
   }
-  scene.dispose();
 };
 
 const brandAndTitle = (title: string) => [BRAND_NAME, title];

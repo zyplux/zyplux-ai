@@ -12,10 +12,13 @@ import { routerHarness } from '@/web/harness';
 
 const expectShows = async (path: string, copies: string[]) => {
   const scene = await routerHarness(path).open();
-  for (const copy of copies) {
-    scene.assert.shows(copy);
+  try {
+    for (const copy of copies) {
+      scene.assert.shows(copy);
+    }
+  } finally {
+    scene.dispose();
   }
-  scene.dispose();
 };
 
 test('1.1.1 shows the brand and hero copy', async () => {

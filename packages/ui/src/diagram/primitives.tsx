@@ -5,10 +5,11 @@ import { useDiagramPhase } from './use-diagram-phases';
 
 const { accent, border, heading, muted, success, surface, warning } = PALETTE;
 
+const HALF = 0.5;
 const NODE_WIDTH = 96;
 const NODE_HEIGHT = 40;
-const NODE_HALF_WIDTH = 48;
-const NODE_HALF_HEIGHT = 20;
+const NODE_HALF_WIDTH = NODE_WIDTH * HALF;
+const NODE_HALF_HEIGHT = NODE_HEIGHT * HALF;
 const NODE_STROKE_WIDTH = 1.5;
 const SNAG_STROKE_WIDTH = 2;
 const LABEL_BASELINE_OFFSET = 5;
