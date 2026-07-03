@@ -15,13 +15,13 @@ CHECKOUT_ONLY_STEPS = ("git config",)
 
 
 def parse_workflow_commands() -> list[str]:
-    ci_yml = (REPO_ROOT / ".github" / "workflows" / "ci.yml").read_text()
+    ci_yml = (REPO_ROOT / ".github" / "workflows" / "ci.yml").read_text(encoding="utf-8")
     commands = WORKFLOW_RUN_STEP.findall(ci_yml)
     return [command for command in commands if not command.startswith(CHECKOUT_ONLY_STEPS)]
 
 
 def parse_container_commands() -> list[str]:
-    justfile = (REPO_ROOT / "justfile").read_text()
+    justfile = (REPO_ROOT / "justfile").read_text(encoding="utf-8")
     pipeline = CI_RECIPE_PIPELINE.search(justfile)
     assert pipeline is not None, "justfile `ci` recipe has no `sh -euc '...'` pipeline"
     return [segment.strip().removeprefix("{ ").removesuffix("; }") for segment in pipeline.group(1).split("&&")]
