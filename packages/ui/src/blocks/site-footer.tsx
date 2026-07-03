@@ -7,17 +7,14 @@ export type FooterColumn = {
   links: { external?: boolean; href: string; label: string }[];
 };
 
-export const SiteFooter = ({
-  blurb,
-  brand,
-  columns,
-  copyright,
-}: {
+type SiteFooterProps = {
   blurb: ReactNode;
   brand: ReactNode;
   columns: FooterColumn[];
   copyright: ReactNode;
-}) => (
+};
+
+export const SiteFooter = ({ blurb, brand, columns, copyright }: SiteFooterProps) => (
   <footer className='relative mt-24 py-12 border-t border-border'>
     <div className={container()}>
       <div className='grid grid-cols-1 md:grid-cols-5 gap-8 mb-8'>

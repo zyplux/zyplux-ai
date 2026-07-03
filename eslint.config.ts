@@ -1,9 +1,9 @@
-import { totvibe } from '@totvibe/eslint-config';
+import { zyplux } from '@zyplux/eslint-config';
 import * as mdx from 'eslint-plugin-mdx';
 import { defineConfig } from 'eslint/config';
 
 export default defineConfig(
-  ...totvibe({
+  ...zyplux({
     ignores: ['**/.content-collections/**', '**/.tsbuild/**', '**/routeTree.gen.ts', 'reference_clones/**'],
     react: true,
     reactVersion: '19.0',

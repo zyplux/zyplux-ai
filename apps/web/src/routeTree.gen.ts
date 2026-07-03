@@ -10,19 +10,14 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as PrivacyRouteImport } from './routes/privacy'
-import { Route as InsightsRouteImport } from './routes/insights'
 import { Route as AgentRouteImport } from './routes/agent'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as InsightsSlugRouteImport } from './routes/insights_/$slug'
+import { Route as InsightsIndexRouteImport } from './routes/insights/index'
+import { Route as InsightsSlugRouteImport } from './routes/insights/$slug'
 
 const PrivacyRoute = PrivacyRouteImport.update({
   id: '/privacy',
   path: '/privacy',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const InsightsRoute = InsightsRouteImport.update({
-  id: '/insights',
-  path: '/insights',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AgentRoute = AgentRouteImport.update({
@@ -35,8 +30,13 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const InsightsIndexRoute = InsightsIndexRouteImport.update({
+  id: '/insights/',
+  path: '/insights/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const InsightsSlugRoute = InsightsSlugRouteImport.update({
-  id: '/insights_/$slug',
+  id: '/insights/$slug',
   path: '/insights/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
@@ -44,45 +44,40 @@ const InsightsSlugRoute = InsightsSlugRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/agent': typeof AgentRoute
-  '/insights': typeof InsightsRoute
   '/privacy': typeof PrivacyRoute
   '/insights/$slug': typeof InsightsSlugRoute
+  '/insights/': typeof InsightsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/agent': typeof AgentRoute
-  '/insights': typeof InsightsRoute
   '/privacy': typeof PrivacyRoute
   '/insights/$slug': typeof InsightsSlugRoute
+  '/insights': typeof InsightsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/agent': typeof AgentRoute
-  '/insights': typeof InsightsRoute
   '/privacy': typeof PrivacyRoute
-  '/insights_/$slug': typeof InsightsSlugRoute
+  '/insights/$slug': typeof InsightsSlugRoute
+  '/insights/': typeof InsightsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/agent' | '/insights' | '/privacy' | '/insights/$slug'
+  fullPaths: '/' | '/agent' | '/privacy' | '/insights/$slug' | '/insights/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/agent' | '/insights' | '/privacy' | '/insights/$slug'
+  to: '/' | '/agent' | '/privacy' | '/insights/$slug' | '/insights'
   id:
-    | '__root__'
-    | '/'
-    | '/agent'
-    | '/insights'
-    | '/privacy'
-    | '/insights_/$slug'
+    '__root__' | '/' | '/agent' | '/privacy' | '/insights/$slug' | '/insights/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AgentRoute: typeof AgentRoute
-  InsightsRoute: typeof InsightsRoute
   PrivacyRoute: typeof PrivacyRoute
   InsightsSlugRoute: typeof InsightsSlugRoute
+  InsightsIndexRoute: typeof InsightsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -92,13 +87,6 @@ declare module '@tanstack/react-router' {
       path: '/privacy'
       fullPath: '/privacy'
       preLoaderRoute: typeof PrivacyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/insights': {
-      id: '/insights'
-      path: '/insights'
-      fullPath: '/insights'
-      preLoaderRoute: typeof InsightsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/agent': {
@@ -115,8 +103,15 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/insights_/$slug': {
-      id: '/insights_/$slug'
+    '/insights/': {
+      id: '/insights/'
+      path: '/insights'
+      fullPath: '/insights/'
+      preLoaderRoute: typeof InsightsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/insights/$slug': {
+      id: '/insights/$slug'
       path: '/insights/$slug'
       fullPath: '/insights/$slug'
       preLoaderRoute: typeof InsightsSlugRouteImport
@@ -128,9 +123,9 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AgentRoute: AgentRoute,
-  InsightsRoute: InsightsRoute,
   PrivacyRoute: PrivacyRoute,
   InsightsSlugRoute: InsightsSlugRoute,
+  InsightsIndexRoute: InsightsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

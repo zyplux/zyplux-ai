@@ -14,7 +14,15 @@ export const PALETTE = {
 
 export const TEXT_GRADIENT = `linear-gradient(120deg, ${PALETTE.heading} 25%, ${PALETTE.accent} 65%, ${PALETTE.violet} 95%)`;
 
+const HEX_RADIX = 16;
+const HEX_PAIR_LENGTH = 2;
+const RED_OFFSET = 1;
+const GREEN_OFFSET = 3;
+const BLUE_OFFSET = 5;
+
 export const toRgba = (hex: string, alpha: number) => {
-  const channels = [1, 3, 5].map(offset => Number.parseInt(hex.slice(offset, offset + 2), 16));
+  const channels = [RED_OFFSET, GREEN_OFFSET, BLUE_OFFSET].map(offset =>
+    Number.parseInt(hex.slice(offset, offset + HEX_PAIR_LENGTH), HEX_RADIX),
+  );
   return `rgba(${channels.join(',')},${String(alpha)})`;
 };

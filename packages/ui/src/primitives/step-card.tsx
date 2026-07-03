@@ -3,7 +3,9 @@ import type { ReactNode } from 'react';
 import { CardTitle, SpotlightCard } from './spotlight-card';
 import { StepBadge } from './step-badge';
 
-export const StepCard = ({ children, step, title }: { children: ReactNode; step: ReactNode; title: ReactNode }) => (
+type StepCardProps = { children: ReactNode; step: ReactNode; title: ReactNode };
+
+export const StepCard = ({ children, step, title }: StepCardProps) => (
   <SpotlightCard>
     <StepBadge className='mb-6'>{step}</StepBadge>
     <CardTitle className='mb-3'>{title}</CardTitle>

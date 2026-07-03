@@ -4,6 +4,17 @@ import { button, fieldInput } from '@zyplux/ui/recipes';
 
 import { HoneypotField, useHostedForm } from './hosted-form';
 
+type EmailCaptureProps = {
+  buttonLabel: string;
+  emailLabel: string;
+  endpoint: string;
+  error: ReactNode;
+  formName: string;
+  placeholder: string;
+  sendingLabel: string;
+  success: ReactNode;
+};
+
 export const EmailCapture = ({
   buttonLabel,
   emailLabel,
@@ -13,16 +24,7 @@ export const EmailCapture = ({
   placeholder,
   sendingLabel,
   success,
-}: {
-  buttonLabel: string;
-  emailLabel: string;
-  endpoint: string;
-  error: ReactNode;
-  formName: string;
-  placeholder: string;
-  sendingLabel: string;
-  success: ReactNode;
-}) => {
+}: EmailCaptureProps) => {
   const { status, submit } = useHostedForm(endpoint);
 
   if (status === 'sent') {

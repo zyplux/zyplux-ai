@@ -2,13 +2,15 @@ import type { MouseEvent, ReactNode } from 'react';
 
 import { cx } from '@zyplux/ui/lib/style';
 
-const trackSpotlight = (event: MouseEvent<HTMLDivElement>) => {
-  const bounds = event.currentTarget.getBoundingClientRect();
-  event.currentTarget.style.setProperty('--spot-x', `${String(event.clientX - bounds.left)}px`);
-  event.currentTarget.style.setProperty('--spot-y', `${String(event.clientY - bounds.top)}px`);
+const trackSpotlight = ({ clientX, clientY, currentTarget }: MouseEvent<HTMLDivElement>) => {
+  const bounds = currentTarget.getBoundingClientRect();
+  currentTarget.style.setProperty('--spot-x', `${String(clientX - bounds.left)}px`);
+  currentTarget.style.setProperty('--spot-y', `${String(clientY - bounds.top)}px`);
 };
 
-export const SpotlightCard = ({ children }: { children: ReactNode }) => (
+type SpotlightCardProps = { children: ReactNode };
+
+export const SpotlightCard = ({ children }: SpotlightCardProps) => (
   <div
     className='group relative h-full overflow-hidden rounded-xl border border-border bg-surface p-8 transition-[border-color,box-shadow] duration-300 hover:border-accent/55 hover:shadow-glow'
     onMouseMove={trackSpotlight}
@@ -25,6 +27,8 @@ export const SpotlightCard = ({ children }: { children: ReactNode }) => (
   </div>
 );
 
-export const CardTitle = ({ children, className }: { children: ReactNode; className?: string }) => (
+type CardTitleProps = { children: ReactNode; className?: string };
+
+export const CardTitle = ({ children, className }: CardTitleProps) => (
   <h3 className={cx('text-xl font-semibold text-heading mb-2', className)}>{children}</h3>
 );

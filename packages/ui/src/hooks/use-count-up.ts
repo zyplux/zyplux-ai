@@ -1,16 +1,20 @@
 import { animate, useReducedMotion } from 'motion/react';
 import { useEffect, useState } from 'react';
 
+const DEFAULT_COUNT_UP_DURATION_S = 0.9;
+
+type CountUpOptions = { duration?: number; play?: boolean };
+
 export const useCountUp = (
   target: number,
-  { duration = 0.9, play = true }: { duration?: number; play?: boolean } = {},
+  { duration = DEFAULT_COUNT_UP_DURATION_S, play = true }: CountUpOptions = {},
 ) => {
   const prefersReducedMotion = useReducedMotion();
-  const still = prefersReducedMotion === true;
+  const isStill = prefersReducedMotion === true;
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    if (still || !play) {
+    if (isStill || !play) {
       return;
     }
     const controls = animate(0, target, {
@@ -22,7 +26,7 @@ export const useCountUp = (
     return () => {
       controls.stop();
     };
-  }, [duration, play, still, target]);
+  }, [duration, play, isStill, target]);
 
-  return still ? target : count;
+  return isStill ? target : count;
 };

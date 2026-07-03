@@ -4,7 +4,9 @@ import { cx } from '@zyplux/ui/lib/style';
 import { Reveal } from '@zyplux/ui/motion';
 import { container, heading, prose } from '@zyplux/ui/recipes';
 
-export const SectionHeading = ({ children, className }: { children: ReactNode; className?: string }) => (
+type SectionHeadingProps = { children: ReactNode; className?: string };
+
+export const SectionHeading = ({ children, className }: SectionHeadingProps) => (
   <Reveal className={cx('text-center', className)}>
     <h2 className={heading()}>
       <span className='text-gradient'>{children}</span>
@@ -12,15 +14,13 @@ export const SectionHeading = ({ children, className }: { children: ReactNode; c
   </Reveal>
 );
 
-export const SectionIntro = ({
-  centered = false,
-  children,
-  className,
-}: {
+type SectionIntroProps = {
   centered?: boolean;
   children: ReactNode;
   className?: string;
-}) => (
+};
+
+export const SectionIntro = ({ centered = false, children, className }: SectionIntroProps) => (
   <Reveal
     className={cx(prose({ tone: 'muted' }), 'mx-auto -mt-10 mb-16 max-w-2xl', centered && 'text-center', className)}
   >
@@ -33,6 +33,15 @@ const SECTION_WIDTHS = {
   slim: 'max-w-xl',
 };
 
+type SectionProps = {
+  centered?: boolean;
+  children: ReactNode;
+  className?: string | undefined;
+  heading?: ReactNode;
+  id?: string | undefined;
+  width?: keyof typeof SECTION_WIDTHS;
+};
+
 export const Section = ({
   centered = false,
   children,
@@ -40,14 +49,7 @@ export const Section = ({
   heading: headingContent,
   id,
   width,
-}: {
-  centered?: boolean;
-  children: ReactNode;
-  className?: string | undefined;
-  heading?: ReactNode;
-  id?: string | undefined;
-  width?: keyof typeof SECTION_WIDTHS;
-}) => (
+}: SectionProps) => (
   <section className='relative py-32' id={id}>
     <div
       className={container({

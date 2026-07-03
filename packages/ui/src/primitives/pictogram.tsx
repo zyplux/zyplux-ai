@@ -4,7 +4,12 @@ import { useInView, useReducedMotion } from 'motion/react';
 import * as m from 'motion/react-m';
 import { useRef } from 'react';
 
-export const Pictogram = ({ delay = 0, icon: Icon }: { delay?: number; icon: LucideIcon }) => {
+const SPIN_IN_DELAY_S = 0.1;
+
+type PictogramProps = { delay?: number; icon: LucideIcon };
+
+export const Pictogram = ({ delay = 0, icon }: PictogramProps) => {
+  const Icon = icon;
   const ref = useRef(null);
   const isInView = useInView(ref, { margin: '-100px 0px', once: false });
   const prefersReducedMotion = useReducedMotion();
@@ -20,7 +25,7 @@ export const Pictogram = ({ delay = 0, icon: Icon }: { delay?: number; icon: Luc
       initial={hidden}
       ref={ref}
       style={{ willChange: 'transform, opacity' }}
-      transition={{ delay: delay + 0.1, stiffness: 200, type: 'spring' }}
+      transition={{ delay: delay + SPIN_IN_DELAY_S, stiffness: 200, type: 'spring' }}
       whileHover={hover}
     >
       <Icon aria-hidden className='size-6' />

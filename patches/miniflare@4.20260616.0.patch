@@ -1,8 +1,8 @@
 diff --git a/dist/src/index.js b/dist/src/index.js
-index 19f50fe927f769a2c3c917cc07dc51e702d572dc..178485f64436f4ac9c6212f2e3dfced8645c7126 100644
+index 38cb0eebc9fde146fefc5af79282af2daef6c492..e2e0ef1018bfd5c729de4550f0d8a9b7750c5959 100644
 --- a/dist/src/index.js
 +++ b/dist/src/index.js
-@@ -86979,7 +86979,7 @@ var InspectorProxyController = class {
+@@ -87016,7 +87016,7 @@ var InspectorProxyController = class {
      const server = await this.#server;
      server.closeAllConnections();
      return new Promise((resolve6, reject) => {

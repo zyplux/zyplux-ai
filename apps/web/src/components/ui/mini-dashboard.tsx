@@ -16,15 +16,13 @@ const BARS = [
   { id: 'w5', percent: 96 },
 ];
 
-export const MiniDashboard = ({
-  caption,
-  growthNote,
-  question,
-}: {
+type MiniDashboardProps = {
   caption: string;
   growthNote: string;
   question: string;
-}) => {
+};
+
+export const MiniDashboard = ({ caption, growthNote, question }: MiniDashboardProps) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { margin: '-60px', once: true });
   const { revealed, typedText } = useTypewriter(question, { play: isInView });

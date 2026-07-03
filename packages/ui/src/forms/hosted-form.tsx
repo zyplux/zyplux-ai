@@ -41,13 +41,15 @@ export const HoneypotField = () => (
   <input aria-hidden autoComplete='off' className='hidden' name={HONEYPOT_FIELD} tabIndex={-1} type='text' />
 );
 
-export const SubmitSuccessNote = ({ children }: { children: ReactNode }) => (
+type NoteProps = { children: ReactNode };
+
+export const SubmitSuccessNote = ({ children }: NoteProps) => (
   <p className='rounded-xl border border-success/30 bg-success/10 p-6 text-success' role='status'>
     {children}
   </p>
 );
 
-export const SubmitErrorNote = ({ children }: { children: ReactNode }) => (
+export const SubmitErrorNote = ({ children }: NoteProps) => (
   <p className='text-sm text-muted' role='alert'>
     {children}
   </p>

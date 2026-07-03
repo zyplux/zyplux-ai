@@ -6,9 +6,10 @@
     },
     "types": ["bun", "react", "react-dom", "mdx"]
   },
-  "include": ["src", "vitest.config.ts"],
+  "include": ["src", "mdx", "og", "ui", "web", "vitest.config.ts"],
   "references": [
     { "path": "../packages/mdx/tsconfig.json" },
+    { "path": "../packages/og/tsconfig.json" },
     { "path": "../packages/ui/tsconfig.json" },
     { "path": "../apps/web/tsconfig.json" }
   ]

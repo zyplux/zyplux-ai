@@ -13,15 +13,17 @@ export const useDiagramPhase = () => {
   return phases;
 };
 
-export const useDiagramPhases = ({ resolveDelayMs }: { resolveDelayMs: number }) => {
+type DiagramTiming = { resolveDelayMs: number };
+
+export const useDiagramPhases = ({ resolveDelayMs }: DiagramTiming) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { margin: '-80px', once: true });
   const prefersReducedMotion = useReducedMotion();
-  const still = prefersReducedMotion === true;
+  const isStill = prefersReducedMotion === true;
   const [delayDone, setDelayDone] = useState(false);
 
   useEffect(() => {
-    if (still || !isInView) {
+    if (isStill || !isInView) {
       return;
     }
     const timer = setTimeout(() => {
@@ -30,12 +32,12 @@ export const useDiagramPhases = ({ resolveDelayMs }: { resolveDelayMs: number })
     return () => {
       clearTimeout(timer);
     };
-  }, [isInView, resolveDelayMs, still]);
+  }, [isInView, resolveDelayMs, isStill]);
 
   return {
-    drawn: still || isInView,
+    drawn: isStill || isInView,
     ref,
-    resolved: still || delayDone,
-    still,
+    resolved: isStill || delayDone,
+    still: isStill,
   };
 };

@@ -4,10 +4,12 @@ import type { Plugin, Transformer } from 'unified';
 
 import { parse } from 'yaml';
 
+const SECTION_HEADING_DEPTH = 2;
+
 const HEADING_ATTR_SUFFIX = /^(?<title>.*\S)\s+\[(?<tokens>[^\]]+)\]$/;
 
-const isSectionsDocument = (tree: Root) => {
-  const frontmatterNode = tree.children.find(node => node.type === 'yaml');
+const isSectionsDocument = ({ children }: Root) => {
+  const frontmatterNode = children.find(node => node.type === 'yaml');
   if (!frontmatterNode) return false;
   const meta: unknown = parse(frontmatterNode.value);
   return typeof meta === 'object' && meta !== null && 'sections' in meta && meta.sections === true;
@@ -38,19 +40,18 @@ const transformSections: Transformer<Root> = (tree, file) => {
     }
   };
 
-  const sectionAttributes = (heading: Heading) => {
-    const raw = heading.children
+  const sectionAttributes = ({ children, position }: Heading) => {
+    const raw = children
       .map(child =>
-        child.type === 'text'
-          ? child.value
-          : file.fail('section headings must be plain text', { place: heading.position }),
+        child.type === 'text' ? child.value : file.fail('section headings must be plain text', { place: position }),
       )
       .join('');
     const match = HEADING_ATTR_SUFFIX.exec(raw);
     const attributes: MdxJsxAttribute[] = [
       { name: 'heading', type: 'mdxJsxAttribute', value: match?.groups?.['title'] ?? raw },
     ];
-    for (const token of match?.groups?.['tokens']?.split(/\s+/) ?? []) {
+    const tokens = match?.groups?.['tokens']?.split(/\s+/) ?? [];
+    for (const token of tokens) {
       if (token.startsWith('#')) {
         attributes.push({ name: 'id', type: 'mdxJsxAttribute', value: token.slice(1) });
       } else if (token === '.centered') {
@@ -59,7 +60,7 @@ const transformSections: Transformer<Root> = (tree, file) => {
         attributes.push({ name: 'width', type: 'mdxJsxAttribute', value: token.slice(1) });
       } else {
         file.fail(`unknown section attribute "${token}" — expected #id, .narrow, .slim, or .centered`, {
-          place: heading.position,
+          place: position,
         });
       }
     }
@@ -106,7 +107,7 @@ const transformSections: Transformer<Root> = (tree, file) => {
   };
 
   for (const node of tree.children) {
-    if (node.type === 'heading' && node.depth === 2) {
+    if (node.type === 'heading' && node.depth === SECTION_HEADING_DEPTH) {
       flushSection();
       openHeading = node;
     } else if (openHeading === undefined) {

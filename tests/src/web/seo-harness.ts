@@ -2,17 +2,17 @@ import { pageHead, type PageHead, type PageMeta } from '@zyplux/web/seo';
 
 import type { Harness } from '@/stories/harness';
 
-const flatten = (head: PageHead) => head.meta.map(tag => ('title' in tag ? tag.title : tag.content)).join('\n');
+const flatten = ({ meta }: PageHead) => meta.map(tag => ('title' in tag ? tag.title : tag.content)).join('\n');
 
 export const seoHarness = (name: string, meta: PageMeta, path: string) =>
   ({
     open: () => {
       const head = flatten(pageHead(meta, path));
-      let disposed = false;
+      let isDisposed = false;
       return Promise.resolve({
         assert: {
           shows: text => {
-            if (disposed) {
+            if (isDisposed) {
               throw new Error('scene used after dispose');
             }
             if (!head.includes(text)) {
@@ -21,7 +21,7 @@ export const seoHarness = (name: string, meta: PageMeta, path: string) =>
           },
         },
         dispose: () => {
-          disposed = true;
+          isDisposed = true;
         },
       });
     },

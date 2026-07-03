@@ -34,7 +34,7 @@ const InsightsPage = () => (
   </SubpageLayout>
 );
 
-export const Route = createFileRoute('/insights')({
+export const Route = createFileRoute('/insights/')({
   component: InsightsPage,
   head: ({ match }) => pageHead(frontmatter, match.pathname),
 });

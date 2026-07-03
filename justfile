@@ -35,11 +35,12 @@ knip:
 typecheck:
     bun run typecheck
 
-# Lint and format every workspace package: eslint --fix + prettier --write.
+# Lint and format every workspace package, then verify org invariants with cerberus.
 lint:
     uv run rumdl check --fix
     bun run lint:fix
     bun run format
+    uvx --from zyplux-cerberus cerberus --fix
 
 # Run all workspace tests with bun test.
 test:
@@ -48,15 +49,15 @@ test:
 # Full gate: install, knip, typecheck, lint, build, test — autofix throughout.
 check: install knip typecheck lint test
 
-# Reproduce the GitHub Actions CI run locally inside the same Bun container.
+# Reproduce the GitHub Actions CI run locally inside the org CI container.
 # An anonymous volume masks node_modules so the host install is left untouched.
 ci:
     podman run --rm \
         -v {{ justfile_directory() }}:/work \
         -v /work/node_modules \
         -w /work \
-        oven/bun:1.3.14-debian \
-        sh -euc 'apt-get update && apt-get install -y --no-install-recommends git ca-certificates && bun install --frozen-lockfile && bun run build && bun run knip && bun run typecheck && bun run lint && bunx prettier --check . && bun run test'
+        ghcr.io/zyplux/ci:0.1.1 \
+        sh -euc 'bun install --frozen-lockfile && bun run build && bun run knip && bun run typecheck && bun run lint && bunx prettier --check . && bun run test && uvx --from zyplux-cerberus cerberus'
 
 # Deploy the web app to Cloudflare (vite build + wrangler deploy).
 deploy:
@@ -78,3 +79,9 @@ upgrade-interactive:
 
 clone repo ref="":
     scripts/clone_reference.py {{ repo }} {{ ref }}
+
+# Remove deps, build output, and caches from the workspace.
+clean:
+    rm -rf node_modules apps/*/node_modules packages/*/node_modules tests/node_modules
+    find . -type d \( -name .tsbuild -o -name dist \) -prune -exec rm -rf {} +
+    find . -type f \( -name '*.tsbuildinfo' -o -name '.eslintcache' \) -delete

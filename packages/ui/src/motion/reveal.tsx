@@ -6,15 +6,13 @@ import { useRef } from 'react';
 
 export const REVEAL_STAGGER_S = 0.2;
 
-export const Reveal = ({
-  children,
-  className,
-  delay = 0,
-}: {
+type RevealProps = {
   children: ReactNode;
   className?: string;
   delay?: number;
-}) => {
+};
+
+export const Reveal = ({ children, className, delay = 0 }: RevealProps) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { margin: '-100px', once: false });
   const prefersReducedMotion = useReducedMotion();
