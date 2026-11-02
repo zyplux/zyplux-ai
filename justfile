@@ -60,7 +60,7 @@ push *flags:
 # Push the current branch and open a PR marked ready, enabling auto-merge.
 push-ready: (push "--ready")
 
-# Remove gitignored build artifacts and caches.
+# Remove gitignored build artifacts and caches from all workspaces.
 clean *flags:
     pnpm run cz clean {{ flags }}
 
