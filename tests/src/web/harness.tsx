@@ -19,6 +19,7 @@ export const routerHarness = (path: string): Harness => ({
         <MotionConfig skipAnimations>
           <RouterProvider router={router} />
         </MotionConfig>,
+        { container: document },
       );
     });
     return {
