@@ -2,3 +2,7 @@ preset = "strict"
 python-interpreter-path = ".venv/bin/python3"
 
 project-includes = ["tests"]
+
+min-severity = "warn"
+disable-project-excludes-heuristics = true
+use-ignore-files = false

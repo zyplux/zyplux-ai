@@ -1,6 +1,6 @@
 import { createMemoryHistory, createRouter, RouterProvider } from '@tanstack/react-router';
 import { act, cleanup, render } from '@testing-library/react';
-import { routeTree } from '@zyplux/web/route-tree';
+import { routeTree } from '@zyplux/web/routeTree.gen';
 import { MotionConfig } from 'motion/react';
 
 import type { Harness } from '@/stories/harness';

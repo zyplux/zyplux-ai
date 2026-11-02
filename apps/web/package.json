@@ -7,7 +7,7 @@
     "./config": "./src/config.ts",
     "./seo": "./src/seo.ts",
     "./site": "./src/site.ts",
-    "./route-tree": "./src/routeTree.gen.ts",
+    "./routeTree.gen": "./src/routeTree.gen.ts",
     "./insights-frontmatter-plugin": "./og/insights-frontmatter-plugin.ts",
     "./og-image-plugin": "./og/og-image-plugin.tsx"
   },

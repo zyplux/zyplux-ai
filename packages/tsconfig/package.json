@@ -9,5 +9,6 @@
   ],
   "dependencies": {
     "react": "catalog:"
-  }
+  },
+  "sideEffects": false
 }
