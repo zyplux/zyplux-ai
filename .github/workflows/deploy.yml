@@ -13,4 +13,5 @@ jobs:
       - uses: zyplux/zyplux/apps/action-setup-pm@setup-pm-v1
       - run: pnpm --filter @zyplux/web run deploy
         env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
