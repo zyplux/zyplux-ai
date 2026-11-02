@@ -79,7 +79,7 @@ build:
 
 # Deploy the web app to Cloudflare (vite build + wrangler deploy).
 deploy:
-    pnpm --filter @zyplux/web deploy
+    pnpm --filter @zyplux/web run deploy
 
 # Render the social share card to apps/web/og-preview.png for a quick visual check.
 # The deployed image (dist/og.png) is generated automatically by the Vite build.
