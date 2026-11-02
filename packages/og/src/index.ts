@@ -1,3 +1,2 @@
-export { INTER_FONTS } from './fonts';
-export { gridDataUri } from './grid';
-export { pngDataUri, renderCardPng } from './render';
+export { gridDataUri } from './grid.ts';
+export { pngDataUri, renderCardPng } from './render.ts';

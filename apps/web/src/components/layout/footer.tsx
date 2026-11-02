@@ -5,6 +5,8 @@ import { SiteFooter } from '@zyplux/ui/blocks';
 import { BrandMark } from '@/components/ui/brand-mark';
 import { BRAND_NAME, CONTACT_EMAIL, FOOTER, NAV } from '@/site';
 
+const COPYRIGHT_YEAR = new Date().getFullYear();
+
 const FOOTER_COLUMNS: FooterColumn[] = [
   {
     heading: FOOTER.navigateHeading,
@@ -27,7 +29,7 @@ export const Footer = () => (
     columns={FOOTER_COLUMNS}
     copyright={
       <>
-        © {new Date().getFullYear()} {BRAND_NAME}.
+        © {COPYRIGHT_YEAR} {BRAND_NAME}.
       </>
     }
   />

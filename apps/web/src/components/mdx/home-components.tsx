@@ -28,7 +28,9 @@ import {
   UserCheck,
   Workflow,
 } from 'lucide-react';
-import { Children, cloneElement, isValidElement } from 'react';
+import { createContext, use } from 'react';
+import { isValidElement } from 'react';
+import flattenChildren from 'react-keyed-flatten-children';
 
 import type { AuditFormCopy } from '@/components/forms/audit-form';
 
@@ -60,9 +62,17 @@ const ICONS = {
 
 type IconName = keyof typeof ICONS;
 
-const injectChildIndexes = (children: ReactNode, propsAt: (index: number) => object) =>
-  Children.map(children, (child, index) =>
-    isValidElement<object>(child) ? cloneElement(child, propsAt(index)) : child,
+const ChildIndexContext = createContext(0);
+
+const indexChildren = (children: ReactNode) =>
+  flattenChildren(children).map((child, index) =>
+    isValidElement(child) ? (
+      <ChildIndexContext key={child.key} value={index}>
+        {child}
+      </ChildIndexContext>
+    ) : (
+      child
+    ),
   );
 
 type HeroProps = {
@@ -113,22 +123,21 @@ const Cards = ({ children, narrow = false }: CardsProps) => (
   <CardGrid
     className={cx(
       narrow && 'max-w-4xl',
-      Children.count(children) > CARD_ROW_CAPACITY && 'md:grid-cols-2 lg:grid-cols-3',
+      flattenChildren(children).length > CARD_ROW_CAPACITY && 'md:grid-cols-2 lg:grid-cols-3',
     )}
   >
-    {injectChildIndexes(children, index => ({ index }))}
+    {indexChildren(children)}
   </CardGrid>
 );
 
 type CardProps = {
   children?: ReactNode;
   icon: IconName;
-  index?: number;
   title: string;
 };
 
-const Card = ({ children, icon, index = 0, title }: CardProps) => (
-  <FeatureCard icon={ICONS[icon]} index={index} title={title}>
+const Card = ({ children, icon, title }: CardProps) => (
+  <FeatureCard icon={ICONS[icon]} index={use(ChildIndexContext)} title={title}>
     {children}
   </FeatureCard>
 );
@@ -137,13 +146,12 @@ type BuildCardProps = {
   children: ReactNode;
   customerFacing?: boolean;
   icon: IconName;
-  index?: number;
   outcome: string;
   surface: string;
   title: string;
 };
 
-const BuildCard = ({ children, customerFacing = false, icon, index = 0, outcome, surface, title }: BuildCardProps) => (
+const BuildCard = ({ children, customerFacing = false, icon, outcome, surface, title }: BuildCardProps) => (
   <FeatureCard
     eyebrow={
       <span className={pill({ class: 'mb-5 w-fit text-xs font-medium', tone: customerFacing ? 'violet' : 'accent' })}>
@@ -152,7 +160,7 @@ const BuildCard = ({ children, customerFacing = false, icon, index = 0, outcome,
     }
     footer={<p className={pill({ class: 'mt-auto rounded-lg py-2', tone: 'success' })}>{outcome}</p>}
     icon={ICONS[icon]}
-    index={index}
+    index={use(ChildIndexContext)}
     title={title}
   >
     {children}
@@ -161,23 +169,27 @@ const BuildCard = ({ children, customerFacing = false, icon, index = 0, outcome,
 
 type ChildrenProps = { children: ReactNode };
 
-const Steps = ({ children }: ChildrenProps) => (
-  <CardGrid>{injectChildIndexes(children, index => ({ step: index + 1 }))}</CardGrid>
-);
+const Steps = ({ children }: ChildrenProps) => <CardGrid>{indexChildren(children)}</CardGrid>;
 
-type StepProps = { children: ReactNode; step?: number; title: string };
+type StepProps = { children: ReactNode; title: string };
 
-const Step = ({ children, step = 0, title }: StepProps) => (
-  <StepCard step={step} title={title}>
+const Step = ({ children, title }: StepProps) => (
+  <StepCard step={use(ChildIndexContext) + 1} title={title}>
     {children}
   </StepCard>
 );
 
 const Week = ({ children }: ChildrenProps) => (
   <Timeline className='mx-auto max-w-2xl'>
-    {Children.map(children, (child, index) => (
-      <TimelineItem index={index}>{child}</TimelineItem>
-    ))}
+    {flattenChildren(children).map((child, index) =>
+      isValidElement(child) ? (
+        <TimelineItem index={index} key={child.key}>
+          {child}
+        </TimelineItem>
+      ) : (
+        child
+      ),
+    )}
   </Timeline>
 );
 

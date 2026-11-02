@@ -49,7 +49,7 @@ frontmatter, derived by `apps/web/src/seo.ts` in the route files' `head` option.
 
 ## Later (not blocking launch) — carried over from the kit
 
-- **`/agent` showcase** — embed the web view from the totvibe-agent repo (Bun.serve +
+- **`/agent` showcase** — embed the web view from the zyp repo (Bun.serve +
   WebSocket, one runtime per connection) as a sandboxed read-only demo session with a
   scripted scenario, e.g. the invoice vignette from the home page played out for real.
   Visible approval moments and the audit log are the money shots — they prove the "your

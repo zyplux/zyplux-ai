@@ -1,18 +1,27 @@
 {
-  "extends": "@zyplux/tsconfig/bun.json",
+  "extends": "@zyplux/tsconfig/node.json",
   "compilerOptions": {
     "outDir": "./.tsbuild/node",
     "paths": {
       "@/*": ["./src/*"],
       "@/og/*": ["./og/*"]
     },
-    "tsBuildInfoFile": "./.tsbuild/node/tsconfig.node.tsbuildinfo"
+    "tsBuildInfoFile": "./.tsbuild/node/tsconfig.node.tsbuildinfo",
+    "jsx": "react"
   },
   "references": [
-    { "path": "./tsconfig.json" },
-    { "path": "../../packages/mdx/tsconfig.json" },
-    { "path": "../../packages/og/tsconfig.json" },
-    { "path": "../../packages/ui/tsconfig.json" }
+    {
+      "path": "./tsconfig.json"
+    },
+    {
+      "path": "../../packages/mdx/tsconfig.json"
+    },
+    {
+      "path": "../../packages/og/tsconfig.json"
+    },
+    {
+      "path": "../../packages/ui/tsconfig.json"
+    }
   ],
   "include": ["vite.config.ts", "og", "scripts"]
 }

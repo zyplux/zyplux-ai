@@ -1,4 +1,5 @@
-import { type CVA, type CX, defineConfig } from 'cva';
+import { cx as concatenate, type CVA, type CX, type CXOptions } from 'cva';
+import { defineConfig } from 'cva/config';
 import { extendTailwindMerge } from 'tailwind-merge';
 
 const mergeThemeClasses = extendTailwindMerge<'text-gradient'>({
@@ -11,7 +12,7 @@ const mergeThemeClasses = extendTailwindMerge<'text-gradient'>({
   },
 });
 
-const styleConfig = defineConfig({ hooks: { onComplete: mergeThemeClasses } });
+const styleConfig = defineConfig({ cx: (...inputs: CXOptions) => mergeThemeClasses(concatenate(...inputs)) });
 
 export const cva: CVA = styleConfig.cva;
 export const cx: CX = styleConfig.cx;

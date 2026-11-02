@@ -15,6 +15,13 @@ export default defineConfig({
   ],
   resolve: { tsconfigPaths: true },
   test: {
-    setupFiles: ['./src/web/happydom.ts'],
+    coverage: {
+      enabled: true,
+      provider: 'istanbul',
+      reportsDirectory: 'coverage',
+      thresholds: { branches: 90, functions: 90, lines: 90, statements: 90 },
+    },
+    include: ['tests/**/*.test.ts'],
+    setupFiles: ['./tests/src/web/happydom.ts'],
   },
 });

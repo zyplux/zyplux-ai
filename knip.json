@@ -1,8 +1,4 @@
 {
-  "$schema": "https://unpkg.com/knip@latest/schema.json",
-  "workspaces": {
-    "apps/web": {
-      "entry": ["src/routes/**", "src/router.tsx"]
-    }
-  }
+  "$schema": "https://unpkg.com/knip@6/schema.json",
+  "remark": [".remarkrc.mjs"]
 }

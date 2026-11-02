@@ -1,4 +1,4 @@
-import { pngDataUri } from './render';
+import { pngDataUri } from './render.ts';
 
 const gridCell = (stroke: string, cellPx: number, opacity: number) =>
   `<pattern id="cell${cellPx}" width="${cellPx}" height="${cellPx}" patternUnits="userSpaceOnUse">` +

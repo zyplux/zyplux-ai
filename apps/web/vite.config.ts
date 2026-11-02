@@ -6,15 +6,9 @@ import react from '@vitejs/plugin-react';
 import { MDX_OPTIONS } from '@zyplux/mdx';
 import { defineConfig } from 'vite';
 
-import { insightsFrontmatterPlugin } from './og/insights-frontmatter-plugin';
-import { ogImagePlugin } from './og/og-image-plugin';
-import { SITE_URL } from './src/config';
-
-// The cloudflare worker is excluded from dev (its proxy hangs under bun — see
-// OVERVIEW.md "Runtime") and included only for build/prerender/deploy. We key off
-// argv, not Vite's `command`, because prerender runs an in-process `vite preview`
-// (command 'serve') that still needs the worker — argv stays 'build' there.
-const isBuild = process.argv.includes('build');
+import { insightsFrontmatterPlugin } from './og/insights-frontmatter-plugin.ts';
+import { ogImagePlugin } from './og/og-image-plugin.tsx';
+import { SITE_URL } from './src/config.ts';
 
 export default defineConfig({
   build: {
@@ -24,7 +18,7 @@ export default defineConfig({
     { enforce: 'pre', ...mdx(MDX_OPTIONS) },
     insightsFrontmatterPlugin(),
     tailwindcss(),
-    ...(isBuild ? [cloudflare({ viteEnvironment: { name: 'ssr' } })] : []),
+    cloudflare({ viteEnvironment: { name: 'ssr' } }),
     tanstackStart({
       prerender: { crawlLinks: true, enabled: true, failOnError: true },
       sitemap: { host: SITE_URL },

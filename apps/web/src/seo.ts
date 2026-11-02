@@ -1,9 +1,9 @@
 import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH, postOgImagePath, SITE_URL, THEME_COLOR } from '@/config';
 import { BRAND_NAME, TAGLINE } from '@/site';
 
-export type MetaTag = { content: string; name?: string; property?: string } | { title: string };
 export type PageHead = { meta: MetaTag[] };
 export type PageMeta = { description: string; title: string };
+type MetaTag = { content: string; name?: string; property?: string } | { title: string };
 
 const ogImageAlt = `${BRAND_NAME} — ${TAGLINE}`;
 const ogImageUrl = `${SITE_URL}/og.png`;

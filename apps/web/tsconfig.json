@@ -6,9 +6,23 @@
       "@/og/*": ["./og/*"],
       "@content/*": ["./content/*"]
     },
-    "types": ["bun", "react", "react-dom", "mdx"],
-    "plugins": [{ "name": "@mdx-js/typescript-plugin" }]
+    "types": ["node", "react", "react-dom", "mdx"],
+    "plugins": [
+      {
+        "name": "@mdx-js/typescript-plugin"
+      }
+    ]
   },
   "include": ["src", "content"],
-  "references": [{ "path": "../../packages/ui/tsconfig.json" }]
+  "references": [
+    {
+      "path": "../../packages/ui/tsconfig.json"
+    },
+    {
+      "path": "../../packages/mdx/tsconfig.json"
+    },
+    {
+      "path": "../../packages/og/tsconfig.json"
+    }
+  ]
 }

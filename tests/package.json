@@ -13,7 +13,8 @@
     "@zyplux/ui": "workspace:*",
     "@zyplux/web": "workspace:*",
     "react": "catalog:",
-    "react-dom": "catalog:"
+    "react-dom": "catalog:",
+    "motion": "catalog:"
   },
   "devDependencies": {
     "@happy-dom/global-registrator": "catalog:",
@@ -23,10 +24,10 @@
     "@types/mdx": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
-    "@vitejs/plugin-react": "catalog:",
     "@zyplux/tsconfig": "workspace:*",
     "vite": "catalog:",
     "vitest": "catalog:",
-    "zod": "catalog:"
+    "zod": "catalog:",
+    "yaml": "catalog:"
   }
 }

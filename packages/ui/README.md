@@ -23,7 +23,7 @@ In the app's Tailwind entry CSS:
 Wrap the app once; components animate via `m.*` + `LazyMotion`:
 
 ```tsx
-import { MotionProvider } from '@zyplux/ui/motion/provider';
+import { MotionProvider } from '@zyplux/ui/motion';
 ```
 
 ## Exports
@@ -33,13 +33,13 @@ Ordered from most abstract to most composed:
 - `@zyplux/ui/tokens` — `PALETTE` (hex values for SVG/canvas/OG rendering), `TEXT_GRADIENT`, `toRgba`
 - `@zyplux/ui/lib/style` — `cva`, `cx` (cva + `tailwind-merge` taught the custom theme tokens)
 - `@zyplux/ui/recipes` — class-only recipes: `container`, `heading`, `button`, `pill`, `navLink`, `inlineLink`, `prose`, `avatar`, `fieldInput`, `fieldLabel`
-- `@zyplux/ui/hooks/*` — `use-scrolled-past`, `use-typewriter`, `use-count-up`
-- `@zyplux/ui/motion/*` — motion system: `provider`, `reveal` (in-view, exports `REVEAL_STAGGER_S`), `entrance` (mount; rise via `y`, pop via `scale`), `blinking-caret`, `floating-particles`, `scroll-cue`, `scroll-progress-bar`
-- `@zyplux/ui/primitives/*` — context-free atoms: `button-link`, `brand-lockup`, `paragraphs`, `step-badge`, `pictogram`, `spotlight-card`, `feature-card` (icon + title + body in a spotlight card, plus `eyebrow`/`footer` slots), `step-card` (numbered step in a spotlight card), `showcase-panel` (title + body beside a live `demo` slot), `disclosure`, `animated-bars`
-- `@zyplux/ui/layout/*` — page structure: `section` (Section with `heading`/`intro` slots that own the vertical rhythm: heading sits `mb-6` above an intro, `mb-16` above content; SectionHeading and SectionIntro stay exported for bespoke layouts), `card-grid` (responsive grid that stagger-reveals its children), `page-headline`, `grid-background`
-- `@zyplux/ui/blocks/*` — slot-based page-scale compositions: `nav-bar`, `site-footer`, `subpage-shell`, `hero-shell`, `timeline` (TimelineItem stagger-reveals its content via `index`)
-- `@zyplux/ui/forms/*` — `hosted-form` (hook + honeypot + status notes), `email-capture`
-- `@zyplux/ui/diagram/*` — `diagram`, `primitives` (animated SVG diagram kit)
+- `@zyplux/ui/hooks` — `useHasScrolledPast`, `useTypewriter`, `useCountUp`
+- `@zyplux/ui/motion` — `MotionProvider`, `Reveal`, `REVEAL_STAGGER_S`, `Entrance`, `BlinkingCaret`, `FloatingParticles`, `ScrollCue`, `ScrollProgressBar`
+- `@zyplux/ui/primitives` — buttons, brand lockups, badges, pictograms, spotlight and feature cards, disclosures, showcase panels, and animated bars
+- `@zyplux/ui/layout` — `Section` with a heading slot and width options, `SectionIntro`, `CardGrid`, `PageHeadline`, `GridBackground`
+- `@zyplux/ui/blocks` — `NavBar`, `SiteFooter`, `SubpageShell`, `BackLink`, `HeroShell`, `Timeline`, `TimelineItem`
+- `@zyplux/ui/forms` — `useHostedForm`, honeypot and status components, `EmailCapture`
+- `@zyplux/ui/diagram` — animated SVG diagram components and phase hooks
 
 ## Development
 

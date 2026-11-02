@@ -1,12 +1,12 @@
 import { useInView, useReducedMotion } from 'motion/react';
-import { createContext, useContext, useEffect, useRef, useState } from 'react';
+import { createContext, use, useEffect, useRef, useState } from 'react';
 
 export type DiagramPhases = { drawn: boolean; resolved: boolean; still: boolean };
 
 export const DiagramPhaseContext = createContext<DiagramPhases | undefined>(undefined);
 
 export const useDiagramPhase = () => {
-  const phases = useContext(DiagramPhaseContext);
+  const phases = use(DiagramPhaseContext);
   if (!phases) {
     throw new Error('useDiagramPhase must be used inside a <Diagram>');
   }

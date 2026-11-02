@@ -1,7 +1,7 @@
 [project]
 name = "zyplux-ai"
 version = "0"
-description = "zyplux-ai — virtual workspace root (Python side carries org dev tooling and repo-invariant tests)"
+description = "zyplux-ai — virtual workspace root (Python side carries shared repository tooling)"
 requires-python = ">=3.14"
 
 [tool.uv]
@@ -10,24 +10,12 @@ package = false
 [tool.uv.workspace]
 members = []
 
-[tool.pytest.ini_options]
-testpaths = ["tests"]
-
-[tool.coverage.report]
-fail_under = 90
-
-[tool.vulture]
-paths = ["tests"]
-
 [dependency-groups]
 lint = [
     "ruff>=0.15.20",
     "rumdl>=0.2.28",
     "vulture>=2.16",
-    "zyplux-cerberus>=0.8.0",
-]
-test = [
-    "pytest>=9.1.1",
+    "zyplux-cerberus==0.27.2",
 ]
 type = [
     "pyrefly>=1.1.1",

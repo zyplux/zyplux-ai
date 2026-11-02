@@ -1,7 +1,7 @@
 import { useMotionValueEvent, useScroll } from 'motion/react';
 import { useState } from 'react';
 
-export const useScrolledPast = (thresholdPx: number) => {
+export const useHasScrolledPast = (thresholdPx: number) => {
   const [hasScrolledPast, setHasScrolledPast] = useState(false);
   const { scrollY } = useScroll();
 

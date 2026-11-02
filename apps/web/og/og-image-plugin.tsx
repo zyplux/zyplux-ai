@@ -7,8 +7,9 @@ import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH, postOgImagePath, SITE_URL } from '@zyp
 import { BRAND_NAME, BRAND_POSITIONING, TAGLINE } from '@zyplux/web/site';
 import { mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
+import React from 'react';
 
-import { readPostCards } from './posts';
+import { readPostCards } from './posts.ts';
 
 const OG_FILE_NAME = 'og.png';
 const OG_SIZE = { height: OG_IMAGE_HEIGHT, width: OG_IMAGE_WIDTH };

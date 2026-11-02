@@ -10,17 +10,18 @@
     "./tokens": "./src/tokens.ts",
     "./recipes": "./src/recipes.ts",
     "./lib/*": "./src/lib/*.ts",
-    "./hooks": "./src/hooks/index.ts",
-    "./motion": "./src/motion/index.ts",
-    "./primitives": "./src/primitives/index.ts",
-    "./layout": "./src/layout/index.ts",
-    "./blocks": "./src/blocks/index.ts",
-    "./forms": "./src/forms/index.ts",
-    "./diagram": "./src/diagram/index.ts"
+    "./hooks": "./src/hooks.ts",
+    "./motion": "./src/motion.ts",
+    "./primitives": "./src/primitives.ts",
+    "./layout": "./src/layout.ts",
+    "./blocks": "./src/blocks.ts",
+    "./forms": "./src/forms.ts",
+    "./diagram": "./src/diagram.ts"
   },
   "dependencies": {
     "cva": "catalog:",
-    "tailwind-merge": "catalog:"
+    "tailwind-merge": "catalog:",
+    "react-keyed-flatten-children": "catalog:"
   },
   "peerDependencies": {
     "lucide-react": "catalog:",

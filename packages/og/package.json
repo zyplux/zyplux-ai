@@ -13,7 +13,7 @@
     "satori": "catalog:"
   },
   "devDependencies": {
-    "@types/bun": "catalog:",
+    "@types/node": "catalog:",
     "@types/react": "catalog:",
     "@zyplux/tsconfig": "workspace:*",
     "react": "catalog:"

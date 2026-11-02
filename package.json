@@ -4,83 +4,23 @@
   "private": true,
   "type": "module",
   "engines": {
-    "bun": ">=1.3.0"
+    "node": ">=26",
+    "pnpm": ">=12 <13"
   },
-  "packageManager": "bun@1.3.14",
-  "workspaces": {
-    "packages": [
-      "apps/*",
-      "packages/*",
-      "tests"
-    ],
-    "catalog": {
-      "@cloudflare/vite-plugin": "1.41.0",
-      "@fontsource/inter": "^5.2.8",
-      "@happy-dom/global-registrator": "^20",
-      "@mdx-js/mdx": "^3.1.1",
-      "@mdx-js/rollup": "^3.1.1",
-      "@mdx-js/typescript-plugin": "^0.1.3",
-      "@resvg/resvg-js": "^2.6.2",
-      "@tailwindcss/vite": "^4.3.2",
-      "@tanstack/react-router": "1.170.17",
-      "@tanstack/react-start": "1.168.27",
-      "@testing-library/react": "^16",
-      "@types/bun": "latest",
-      "@types/mdast": "^4.0.4",
-      "@types/mdx": "^2.0.14",
-      "@types/react": "^19.2.17",
-      "@types/react-dom": "^19.2.3",
-      "@vitejs/plugin-react": "^6.0.3",
-      "@zyplux/cz": "^0.3.0",
-      "@zyplux/eslint-config": "^0.6.5",
-      "cva": "^1.0.0-beta.4",
-      "eslint": "^10.6.0",
-      "eslint-plugin-mdx": "^3.8.1",
-      "jiti": "^2.7.0",
-      "knip": "^6.24.0",
-      "lucide-react": "^1.23.0",
-      "mdast-util-mdx-jsx": "^3.2.0",
-      "motion": "^12.42.2",
-      "npm-check-updates": "^22.2.9",
-      "prettier": "^3.9.4",
-      "react": "^19.2.7",
-      "react-dom": "^19.2.7",
-      "remark-frontmatter": "^5.0.0",
-      "remark-gfm": "^4.0.1",
-      "remark-mdx-frontmatter": "^5.2.0",
-      "remark-preset-lint-recommended": "^7.0.1",
-      "satori": "^0.26.0",
-      "tailwind-merge": "^3.6.0",
-      "tailwindcss": "^4.3.2",
-      "typescript": "^6.0.3",
-      "unified": "^11.0.5",
-      "vite": "^8.1.3",
-      "vitest": "^4.1.9",
-      "wrangler": "^4.107.0",
-      "yaml": "^2.9.0",
-      "zod": "^4.4.3"
-    }
-  },
+  "packageManager": "pnpm@12.16.1",
   "scripts": {
-    "dev": "bun --filter @zyplux/web dev",
-    "build": "bun --filter '*' build",
+    "dev": "pnpm --filter @zyplux/web dev",
+    "build": "pnpm -r run build",
     "typecheck": "tsc -b",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
-    "knip": "knip-bun",
-    "test": "cd tests && bun run test",
-    "upgrade": "npm-check-updates --root --workspaces --format group",
-    "cz": "cz"
+    "knip": "knip",
+    "test": "vitest run",
+    "upgrade": "pnpm run cz upgrade",
+    "cz": "node scripts/run-cz.ts"
   },
-  "trustedDependencies": [
-    "@tailwindcss/oxide",
-    "esbuild",
-    "sharp",
-    "workerd"
-  ],
   "devDependencies": {
-    "@types/bun": "catalog:",
     "@zyplux/cz": "catalog:",
     "@zyplux/eslint-config": "catalog:",
     "@zyplux/tsconfig": "workspace:*",
@@ -88,11 +28,24 @@
     "eslint-plugin-mdx": "catalog:",
     "jiti": "catalog:",
     "knip": "catalog:",
-    "npm-check-updates": "catalog:",
     "prettier": "catalog:",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "@types/node": "catalog:",
+    "@vitest/coverage-istanbul": "catalog:",
+    "vitest": "catalog:",
+    "@mdx-js/rollup": "catalog:",
+    "@vitejs/plugin-react": "catalog:",
+    "vite": "catalog:",
+    "@zyplux/mdx": "workspace:*",
+    "@zyplux/web": "workspace:*",
+    "remark-preset-lint-recommended": "catalog:",
+    "unified": "catalog:"
   },
-  "patchedDependencies": {
-    "miniflare@4.20260616.0": "patches/miniflare@4.20260616.0.patch"
+  "devEngines": {
+    "runtime": {
+      "name": "node",
+      "version": "26.13.0",
+      "onFail": "download"
+    }
   }
 }

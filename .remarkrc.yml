@@ -1,2 +1,0 @@
-plugins:
-  - ./packages/mdx/src/remark-preset.ts
