@@ -20,7 +20,7 @@ jobs:
         with:
           fetch-depth: 0
       - uses: zyplux/zyplux/apps/action-setup-pm@setup-pm-v1
-      - run: pnpm run build
+      - run: pnpm --filter @zyplux/web run deploy --dry-run
       - run: pnpm run knip
       - run: pnpm run knip --config knip.prod.json
       - run: pnpm run typecheck
