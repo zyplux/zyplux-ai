@@ -5,19 +5,19 @@
   "type": "module",
   "exports": {
     "./config": "./src/config.ts",
-    "./page-meta": "./src/page-meta.ts",
     "./seo": "./src/seo.ts",
     "./site": "./src/site.ts",
     "./route-tree": "./src/routeTree.gen.ts",
-    "./insights-frontmatter-plugin": "./og/insights-frontmatter-plugin.ts"
+    "./insights-frontmatter-plugin": "./og/insights-frontmatter-plugin.ts",
+    "./og-image-plugin": "./og/og-image-plugin.tsx"
   },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "deploy": "bun run build && wrangler deploy",
+    "deploy": "pnpm run build && wrangler deploy",
     "cf:dev": "wrangler dev",
-    "og": "bun scripts/render-og.ts"
+    "og": "tsx scripts/render-og.ts"
   },
   "dependencies": {
     "@tanstack/react-router": "catalog:",
@@ -28,14 +28,15 @@
     "lucide-react": "catalog:",
     "motion": "catalog:",
     "react": "catalog:",
-    "react-dom": "catalog:"
+    "react-dom": "catalog:",
+    "react-keyed-flatten-children": "catalog:"
   },
   "devDependencies": {
     "@cloudflare/vite-plugin": "catalog:",
     "@mdx-js/rollup": "catalog:",
     "@mdx-js/typescript-plugin": "catalog:",
     "@tailwindcss/vite": "catalog:",
-    "@types/bun": "catalog:",
+    "@types/node": "catalog:",
     "@types/mdx": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
@@ -44,6 +45,8 @@
     "tailwindcss": "catalog:",
     "vite": "catalog:",
     "wrangler": "catalog:",
-    "yaml": "catalog:"
+    "yaml": "catalog:",
+    "tsx": "catalog:",
+    "zod": "catalog:"
   }
 }

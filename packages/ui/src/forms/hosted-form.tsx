@@ -4,9 +4,8 @@ import { useState } from 'react';
 
 const HONEYPOT_FIELD = 'website';
 
-type SubmitStatus = 'error' | 'idle' | 'sending' | 'sent';
-
 export const useHostedForm = (endpoint: string) => {
+  type SubmitStatus = 'error' | 'idle' | 'sending' | 'sent';
   const [status, setStatus] = useState<SubmitStatus>('idle');
 
   const deliver = async (fields: FormData) => {

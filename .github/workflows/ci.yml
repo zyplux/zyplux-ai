@@ -7,31 +7,26 @@ on:
   push:
     branches: [main]
 
-concurrency:
-  group: ci-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
   ci:
     name: ci
+    if: github.event_name != 'pull_request' || !github.event.pull_request.draft
+    concurrency:
+      group: ci-${{ github.ref }}
+      cancel-in-progress: true
     runs-on: ubuntu-latest
-    container: ghcr.io/zyplux/ci:0.1.1
     steps:
-      - uses: actions/checkout@v6
-      - run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
-      - run: bun install --frozen-lockfile
-      - run: uv sync --locked --all-groups
-      - run: bun run build
-      - run: bun run knip
-      - run: uv run --no-sync vulture
-      - run: bun run typecheck
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - uses: zyplux/zyplux/apps/action-setup-pm@setup-pm-v1
+      - run: pnpm run build
+      - run: pnpm run knip
+      - run: pnpm run knip --config knip.prod.json
+      - run: pnpm run typecheck
       - run: uv run --no-sync rumdl check
       - run: uv run --no-sync rumdl fmt --check
-      - run: bun run lint
-      - run: bunx prettier --check .
-      - run: uv run --no-sync ruff check
-      - run: uv run --no-sync ruff format --check
-      - run: uv run --no-sync pyrefly check
-      - run: bun run test
-      - run: uv run --no-sync pytest || [ "$?" -eq 5 ]
+      - run: pnpm run lint
+      - run: pnpm exec prettier --check .
+      - run: pnpm run test
       - run: uv run --no-sync cerberus

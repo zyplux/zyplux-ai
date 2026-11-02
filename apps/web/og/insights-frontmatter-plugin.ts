@@ -2,14 +2,14 @@ import type { Plugin } from 'vite';
 
 import path from 'node:path';
 
-import { parseFrontmatter, POSTS_DIR, readInsightsFrontmatter } from './posts';
+import { parseFrontmatter, POSTS_DIR, readInsightsFrontmatter } from './posts.ts';
 
 const VIRTUAL_ID = 'virtual:insights-frontmatter';
 const RESOLVED_ID = `\0${VIRTUAL_ID}`;
 
 const isInsightsPost = (file: string) => file.startsWith(`${POSTS_DIR}/`) && file.endsWith('.mdx');
 
-export const insightsFrontmatterPlugin = (): Plugin => {
+export const insightsFrontmatterPlugin = () => {
   const frontmatterByPost = new Map<string, string>();
 
   return {
@@ -53,5 +53,5 @@ export const insightsFrontmatterPlugin = (): Plugin => {
     },
     name: 'insights-frontmatter',
     resolveId: id => (id === VIRTUAL_ID ? RESOLVED_ID : undefined),
-  };
+  } satisfies Plugin;
 };

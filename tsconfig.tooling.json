@@ -1,5 +1,5 @@
 {
-  "extends": "@zyplux/tsconfig/bun.json",
+  "extends": "@zyplux/tsconfig/node.json",
   "compilerOptions": {
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
@@ -8,7 +8,17 @@
     "noImplicitReturns": false,
     "noPropertyAccessFromIndexSignature": false,
     "noUnusedLocals": false,
-    "noUnusedParameters": false
+    "noUnusedParameters": false,
+    "allowJs": true,
+    "checkJs": true
   },
-  "include": ["eslint.config.ts", "prettier.config.ts"]
+  "include": ["eslint.config.ts", "prettier.config.ts", "vitest.config.ts", "scripts", ".remarkrc.mjs"],
+  "references": [
+    {
+      "path": "./packages/mdx/tsconfig.json"
+    },
+    {
+      "path": "./apps/web/tsconfig.node.json"
+    }
+  ]
 }

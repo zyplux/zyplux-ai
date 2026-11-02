@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-- [bun](https://bun.sh) 1.3+
+- [pnpm](https://pnpm.io) 12.x (installs the pinned Node.js runtime)
 - [just](https://just.systems)
 
 ## Install

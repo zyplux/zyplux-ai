@@ -1,0 +1,2 @@
+[knip.allowed_customizations]
+remark = [".remarkrc.mjs"]

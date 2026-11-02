@@ -2,33 +2,21 @@ import { readdir, readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parse } from 'yaml';
+import * as z from 'zod';
 
 export const POSTS_DIR = fileURLToPath(new URL('../content/insights', import.meta.url));
 
+const PostSchema = z.object({
+  date: z.string(),
+  description: z.string(),
+  draft: z.boolean().default(false),
+  title: z.string(),
+});
+
 export const parseFrontmatter = (source: string) => {
   const block = /^---\r?\n([\s\S]*?)\r?\n---/.exec(source);
-  if (!block?.[1]) {
-    throw new Error('expected a frontmatter block');
-  }
-  const meta: unknown = parse(block[1]);
-  if (
-    typeof meta !== 'object' ||
-    meta === null ||
-    !('date' in meta) ||
-    !('description' in meta) ||
-    !('title' in meta) ||
-    typeof meta.date !== 'string' ||
-    typeof meta.description !== 'string' ||
-    typeof meta.title !== 'string'
-  ) {
-    throw new Error('expected post frontmatter with a date, title, and description');
-  }
-  return {
-    date: meta.date,
-    description: meta.description,
-    draft: 'draft' in meta && meta.draft === true,
-    title: meta.title,
-  };
+  if (!block?.[1]) throw new Error('expected a frontmatter block');
+  return PostSchema.parse(parse(block[1]));
 };
 
 export const readInsightsFrontmatter = async () => {

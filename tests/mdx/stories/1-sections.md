@@ -15,3 +15,21 @@
 ### 1.2.1 reads an id and layout tokens from the heading suffix
 
 ### 1.2.2 rejects an unknown section attribute
+
+### 1.2.3 supports centered and slim section attributes
+
+### 1.2.4 rejects formatted section headings
+
+## 1.3 preserving section body content
+
+### 1.3.1 preserves lists and code after the introduction
+
+### 1.3.2 rejects module exports inside a section
+
+### 1.3.3 supports quotes and sections without introductions
+
+### 1.3.4 preserves multiple introductory paragraphs
+
+## 1.4 updating insight metadata
+
+### 1.4.1 reloads metadata changes while preserving body-only updates

@@ -1,6 +1,7 @@
 import { createMemoryHistory, createRouter, RouterProvider } from '@tanstack/react-router';
 import { act, cleanup, render } from '@testing-library/react';
 import { routeTree } from '@zyplux/web/route-tree';
+import { MotionConfig } from 'motion/react';
 
 import type { Harness } from '@/stories/harness';
 
@@ -14,7 +15,11 @@ export const routerHarness = (path: string): Harness => ({
     });
     await act(async () => {
       await router.load();
-      render(<RouterProvider router={router} />);
+      render(
+        <MotionConfig skipAnimations>
+          <RouterProvider router={router} />
+        </MotionConfig>,
+      );
     });
     return {
       assert: {

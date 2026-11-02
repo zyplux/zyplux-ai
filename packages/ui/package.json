@@ -20,7 +20,8 @@
   },
   "dependencies": {
     "cva": "catalog:",
-    "tailwind-merge": "catalog:"
+    "tailwind-merge": "catalog:",
+    "react-keyed-flatten-children": "catalog:"
   },
   "peerDependencies": {
     "lucide-react": "catalog:",

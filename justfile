@@ -16,65 +16,53 @@ alias pr := push-ready
 default:
     @just --list
 
-# Install both workspaces: bun + uv.
+# Install both workspaces: pnpm + uv.
 install:
-    bun install
+    pnpm install
     uv sync --all-packages --all-groups
 
-# Report unused files, deps, and exports: knip (JS workspace) + vulture (Python).
+# Report unused files, dependencies, and exports.
 knip:
-    bun run knip
-    uv run vulture
+    pnpm run knip
+    pnpm run knip --config knip.prod.json
 
-# Type-check both workspaces: tsc/bun for .ts, pyrefly for .py.
+# Type-check TypeScript.
 typecheck:
-    bun run typecheck
-    uv run pyrefly check
+    pnpm run typecheck
 
 # Lint and format both workspaces with autofix, then verify org invariants with cerberus.
 lint:
-    bun run lint:fix
-    bun run format
+    pnpm run lint:fix
+    pnpm run format
     uv run rumdl check --fix
     uv run rumdl fmt
-    uv run ruff check --fix
-    uv run ruff format
     uv run cerberus --fix
 
-# Run tests for both workspaces. Optional arg filters by test name; never fails when nothing matches.
+# Run tests; optionally filter by test name.
 test name='':
-    bun run test {{ if name == '' { '' } else { '-t ' + quote(name) + ' --passWithNoTests' } }}
-    uv run pytest {{ if name == '' { '' } else { '-k ' + quote(name) } }} || [ "$?" -eq 5 ]
+    pnpm run test {{ if name == '' { '' } else { '-t ' + quote(name) + ' --passWithNoTests' } }}
 
 # Full gate across both workspaces: install, knip, typecheck, lint, test — autofix throughout.
 check: install knip typecheck lint test
 
-# Upgrade deps across both workspaces: ncu bumps JS ranges; uv lock --upgrade + uv-bump raise Python >= floors. Forwards extra args to ncu.
+# Upgrade workspace dependencies and toolchains.
 upgrade *args='':
-    bun run upgrade -- {{ args }}
-    uv lock --upgrade
-    uvx uv-bump -v
-    uv sync --all-packages --all-groups
+    pnpm run cz upgrade {{ args }}
 
-# Interactively select JS upgrades, then non-interactively upgrade Python (uv has no interactive mode) and reinstall both.
+# Interactively select JavaScript and toolchain upgrades.
 upgrade-interactive:
-    bun run upgrade -- -i
-    bun install
-    uv lock --upgrade
-    uvx uv-bump -v
-    uv sync --all-packages --all-groups
+    pnpm run cz upgrade --interactive
 
 # Push the current branch and open a draft PR (-r/--ready marks it ready and enables auto-merge).
 push *flags:
-    bun run cz push-branch {{ flags }}
+    pnpm run cz push-branch {{ flags }}
 
 # Push the current branch and open a PR marked ready, enabling auto-merge.
 push-ready: (push "--ready")
 
-# Remove deps and caches from all workspaces.
-clean:
-    find . -type d \( -name node_modules -o -name .venv -o -name __pycache__ -o -name .tsbuild -o -name dist -o -name .ruff_cache -o -name .pytest_cache -o -name .rumdl_cache \) -prune -exec rm -rf {} +
-    find . -type f \( -name '*.tsbuildinfo' -o -name '.eslintcache' -o -name '*.py[cod]' \) -delete
+# Remove gitignored build artifacts and caches.
+clean *flags:
+    pnpm run cz clean {{ flags }}
 
 # CUSTOM
 
@@ -83,32 +71,21 @@ alias b := build
 
 # Serve the web app with the Vite dev server (HMR).
 dev *args:
-    bun run dev {{ args }}
+    pnpm run dev {{ args }}
 
 # Build the web app — produces apps/web/dist consumed by `wrangler deploy`.
 build:
-    bun run build
-
-# Reproduce the GitHub Actions CI run locally inside the org CI container.
-# Anonymous volumes mask node_modules and .venv so the host install is left untouched.
-ci:
-    podman run --rm \
-        -v {{ justfile_directory() }}:/work \
-        -v /work/node_modules \
-        -v /work/.venv \
-        -w /work \
-        ghcr.io/zyplux/ci:0.1.1 \
-        sh -euc 'bun install --frozen-lockfile && uv sync --locked --all-groups && bun run build && bun run knip && uv run --no-sync vulture && bun run typecheck && uv run --no-sync rumdl check && uv run --no-sync rumdl fmt --check && bun run lint && bunx prettier --check . && uv run --no-sync ruff check && uv run --no-sync ruff format --check && uv run --no-sync pyrefly check && bun run test && { uv run --no-sync pytest || [ "$?" -eq 5 ]; } && uv run --no-sync cerberus'
+    pnpm run build
 
 # Deploy the web app to Cloudflare (vite build + wrangler deploy).
 deploy:
-    bun --filter @zyplux/web deploy
+    pnpm --filter @zyplux/web deploy
 
 # Render the social share card to apps/web/og-preview.png for a quick visual check.
 # The deployed image (dist/og.png) is generated automatically by the Vite build.
 og:
-    bun --filter @zyplux/web og
+    pnpm --filter @zyplux/web og
 
 # Shallow-clone a reference repo into reference_clones/ (optional branch or tag).
 clone repo ref="":
-    bun run cz clone-reference-repo {{ repo }} {{ ref }}
+    pnpm run cz clone-reference-repo {{ repo }} {{ ref }}

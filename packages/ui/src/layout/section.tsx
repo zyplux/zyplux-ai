@@ -6,7 +6,7 @@ import { container, heading, prose } from '@zyplux/ui/recipes';
 
 type SectionHeadingProps = { children: ReactNode; className?: string };
 
-export const SectionHeading = ({ children, className }: SectionHeadingProps) => (
+const SectionHeading = ({ children, className }: SectionHeadingProps) => (
   <Reveal className={cx('text-center', className)}>
     <h2 className={heading()}>
       <span className='text-gradient'>{children}</span>
